@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+**Live:** frontend on [Vercel](https://skilldex-delta.vercel.app) · backend on [Railway](https://skilldex-api-production.up.railway.app/health)
+
 ## Getting Started
 
 First, run the development server:
