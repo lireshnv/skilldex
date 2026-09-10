@@ -29,6 +29,40 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Architecture: frontend (Vercel) + backend (Railway)
+
+This repo now ships as two deployable pieces:
+
+- **Frontend** (this Next.js app, repo root) → deploy to **Vercel**.
+- **Backend** (`backend/`, an Express/TypeScript API serving the platform's
+  student/company/college/job/assessment data) → deploy to **Railway**.
+
+The frontend generates its own local seed data by default (zero-config,
+works standalone). When `NEXT_PUBLIC_API_URL` is set, it also fetches the
+same data from the backend on load and swaps it in — see
+[`src/lib/data/hydrate.ts`](src/lib/data/hydrate.ts). See
+[`backend/README.md`](backend/README.md) for the API and Railway deploy
+steps.
+
+### Deploy steps
+
+1. **Backend → Railway**: follow [`backend/README.md`](backend/README.md).
+   Note the public URL Railway gives you (e.g.
+   `https://skilldex-api-production.up.railway.app`).
+2. **Frontend → Vercel**:
+   ```bash
+   npm i -g vercel
+   vercel login
+   vercel        # link/create the project (root directory = repo root)
+   vercel env add NEXT_PUBLIC_API_URL production   # paste the Railway URL
+   vercel --prod
+   ```
+   Or via the dashboard: [vercel.com/new](https://vercel.com/new) → import
+   this repo → add `NEXT_PUBLIC_API_URL` under Project Settings →
+   Environment Variables → deploy.
+3. Back on Railway, set `FRONTEND_ORIGIN` to your Vercel URL so CORS allows
+   it (see `backend/.env.example`).
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.

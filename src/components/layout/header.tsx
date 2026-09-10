@@ -1,0 +1,135 @@
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import {
+  Menu, Search, Bell, Sparkles, HelpCircle, ChevronDown, LogOut,
+  Settings, UserRound, ArrowLeftRight,
+} from "lucide-react";
+import { Avatar } from "@/components/ui/avatar";
+import { Drawer } from "@/components/ui/drawer";
+import { SidebarContent } from "./sidebar";
+import { PortalKey, portalMeta } from "@/lib/nav-config";
+import { useSkillDexStore, useUnreadCount } from "@/lib/store";
+
+const audienceMap: Record<PortalKey, "student" | "faculty" | "placement" | "recruiter" | "company"> = {
+  student: "student", faculty: "faculty", placement: "placement", recruiter: "recruiter", company: "company",
+};
+
+export function Header({
+  portal,
+  userName,
+  userColor,
+  userRole,
+}: {
+  portal: PortalKey;
+  userName: string;
+  userColor: string;
+  userRole: string;
+}) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const setAiCopilotOpen = useSkillDexStore((s) => s.setAiCopilotOpen);
+  const unread = useUnreadCount(audienceMap[portal]);
+  const meta = portalMeta[portal];
+  const notifHref = portal === "student"
+    ? "/institution/student/notifications"
+    : portal === "faculty" ? "/institution/faculty/notifications"
+    : portal === "placement" ? "/institution/placement/notifications"
+    : portal === "recruiter" ? "/industry/recruiter"
+    : "/industry/company";
+
+  return (
+    <header className="sticky top-0 z-40 flex h-16 items-center gap-3 border-b border-border bg-surface/90 px-4 backdrop-blur">
+      <button
+        onClick={() => setMobileOpen(true)}
+        className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] text-muted-foreground hover:bg-surface-muted lg:hidden cursor-pointer"
+        aria-label="Open navigation"
+      >
+        <Menu className="h-5 w-5" />
+      </button>
+
+      <div className="hidden items-center gap-2 text-xs text-muted-foreground md:flex">
+        <span className="rounded-full bg-surface-muted px-2.5 py-1 font-medium text-foreground">{meta.org}</span>
+      </div>
+
+      <div className="relative ml-auto max-w-sm flex-1 md:ml-0">
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <input
+          placeholder="Search students, companies, skills..."
+          className="h-9 w-full rounded-[var(--radius-md)] border border-border-strong bg-surface-muted/60 pl-9 pr-3 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue/40"
+        />
+      </div>
+
+      <div className="ml-auto flex items-center gap-1.5">
+        <button
+          onClick={() => setAiCopilotOpen(true)}
+          className="hidden items-center gap-1.5 rounded-full bg-navy px-3 py-1.5 text-xs font-medium text-white hover:bg-navy-2 sm:flex cursor-pointer"
+        >
+          <Sparkles className="h-3.5 w-3.5" />
+          Ask SkillDex AI
+        </button>
+        <button
+          onClick={() => setAiCopilotOpen(true)}
+          className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] text-muted-foreground hover:bg-surface-muted sm:hidden cursor-pointer"
+          aria-label="Ask SkillDex AI"
+        >
+          <Sparkles className="h-4.5 w-4.5" />
+        </button>
+        <button className="hidden h-9 w-9 items-center justify-center rounded-[var(--radius-md)] text-muted-foreground hover:bg-surface-muted sm:flex cursor-pointer" aria-label="Help">
+          <HelpCircle className="h-4.5 w-4.5" />
+        </button>
+        <Link
+          href={notifHref}
+          className="relative flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] text-muted-foreground hover:bg-surface-muted"
+          aria-label="Notifications"
+        >
+          <Bell className="h-4.5 w-4.5" />
+          {unread > 0 && (
+            <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-rose text-[9px] font-bold text-white">
+              {unread}
+            </span>
+          )}
+        </Link>
+
+        <div className="relative">
+          <button
+            onClick={() => setProfileOpen((v) => !v)}
+            onBlur={() => setTimeout(() => setProfileOpen(false), 150)}
+            className="flex items-center gap-2 rounded-[var(--radius-md)] py-1 pl-1 pr-2 hover:bg-surface-muted cursor-pointer"
+          >
+            <Avatar name={userName} color={userColor} size={32} />
+            <div className="hidden text-left leading-tight md:block">
+              <p className="text-xs font-semibold text-foreground">{userName}</p>
+              <p className="text-[10px] text-muted-foreground">{userRole}</p>
+            </div>
+            <ChevronDown className="hidden h-3.5 w-3.5 text-muted-foreground md:block" />
+          </button>
+          {profileOpen && (
+            <div className="absolute right-0 top-full z-50 mt-2 w-52 rounded-[var(--radius-md)] border border-border bg-surface py-1.5 shadow-[var(--shadow-lg)]">
+              <MenuLink icon={UserRound} label="Profile" />
+              <MenuLink icon={Settings} label="Preferences" />
+              <MenuLink icon={Bell} label="Notifications" href={notifHref} />
+              <MenuLink icon={HelpCircle} label="Help" />
+              <div className="my-1 border-t border-border" />
+              <MenuLink icon={ArrowLeftRight} label="Switch Portal" href="/" />
+              <MenuLink icon={LogOut} label="Sign Out" href="/" />
+            </div>
+          )}
+        </div>
+      </div>
+
+      <Drawer open={mobileOpen} onOpenChange={setMobileOpen} title="Navigation" side="left" width={280}>
+        <SidebarContent portal={portal} collapsed={false} onNavigate={() => setMobileOpen(false)} />
+      </Drawer>
+    </header>
+  );
+}
+
+function MenuLink({ icon: Icon, label, href = "#" }: { icon: typeof UserRound; label: string; href?: string }) {
+  return (
+    <Link href={href} className="flex items-center gap-2.5 px-3 py-2 text-sm text-foreground hover:bg-surface-muted">
+      <Icon className="h-4 w-4 text-muted-foreground" />
+      {label}
+    </Link>
+  );
+}
