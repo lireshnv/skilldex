@@ -35,11 +35,11 @@ export default function DailyPlanPage() {
       userName={currentStudent.name}
       userColor={currentStudent.avatarColor}
       userRole={`${currentStudent.department} · Year ${currentStudent.year}`}
-      breadcrumbs={[{ label: "Student", href: "/institution/student" }, { label: "Daily AI Plan" }]}
+      breadcrumbs={[{ label: "Student", href: "/institution/student" }, { label: "Daily Plan" }]}
     >
       <div className="mb-6 flex flex-col gap-1">
         <h1 className="text-2xl font-bold text-foreground">Your plan for today</h1>
-        <p className="text-sm text-muted-foreground">AI-generated based on your skill gaps and target role.</p>
+        <p className="text-sm text-muted-foreground">Based on your skill gaps and target role.</p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">

@@ -87,7 +87,7 @@ export default function NewJobPage() {
 
           {step === 1 && (
             <div className="space-y-4">
-              <AIInsight title="AI Suggested Skills">Based on the role of <strong>{role}</strong>, here are the recommended core skills.</AIInsight>
+              <AIInsight title="Suggested Skills">Based on the role of <strong>{role}</strong>, here are the recommended core skills.</AIInsight>
               <div className="flex flex-wrap gap-2">
                 {skills.slice(0, 24).map((s) => (
                   <button key={s.id} onClick={() => toggleSkill(s.id)} className="cursor-pointer">

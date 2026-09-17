@@ -11,7 +11,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "SkillDex — Connecting Talent. Empowering Futures.",
   description:
-    "SkillDex is an AI-powered Academia-Industry Skill Intelligence Platform connecting students, faculty, institutions and industry.",
+    "SkillDex is the skill intelligence layer connecting students, faculty, institutions and industry.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

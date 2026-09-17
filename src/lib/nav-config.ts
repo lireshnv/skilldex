@@ -18,7 +18,7 @@ export const studentNav: NavItem[] = [
   { label: "Skill Passport", href: "/institution/student/skill-passport", icon: IdCard },
   { label: "Skill Assessment", href: "/institution/student/assessment", icon: ClipboardCheck },
   { label: "Skill Graph", href: "/institution/student/skill-graph", icon: Share2 },
-  { label: "Daily AI Plan", href: "/institution/student/daily-plan", icon: CalendarClock },
+  { label: "Daily Plan", href: "/institution/student/daily-plan", icon: CalendarClock },
   { label: "Learning", href: "/institution/student/learning", icon: BookOpen },
   { label: "Projects", href: "/institution/student/projects", icon: FolderKanban },
   { label: "Internships", href: "/institution/student/internships", icon: Briefcase },

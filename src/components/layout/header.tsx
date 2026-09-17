@@ -66,12 +66,12 @@ export function Header({
           className="hidden items-center gap-1.5 rounded-full bg-navy px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-navy-2 active:scale-95 transition-all cursor-pointer group"
         >
           <Sparkles className="h-3.5 w-3.5 text-sky group-hover:rotate-12 transition-transform" />
-          Ask SkillDex AI
+          Ask SkillDex
         </button>
         <button
           onClick={() => setAiCopilotOpen(true)}
           className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] text-muted-foreground hover:bg-surface-muted active:scale-95 transition-transform sm:hidden cursor-pointer"
-          aria-label="Ask SkillDex AI"
+          aria-label="Ask SkillDex"
         >
           <Sparkles className="h-4.5 w-4.5" />
         </button>

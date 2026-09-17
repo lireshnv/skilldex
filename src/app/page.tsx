@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
 import { useSkillDexStore } from "@/lib/store";
 import { useRouter } from "next/navigation";
+import { fadeUp } from "@/lib/motion";
 
 const loopSteps = [
   { label: "Assess", icon: Target },
@@ -122,51 +123,36 @@ export default function LandingPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-dot-grid">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(219,234,254,0.7),transparent_65%)]" />
-        <div className="relative mx-auto max-w-5xl px-4 py-24 text-center sm:px-6 sm:py-32 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-blue/30 bg-surface/90 px-4 py-1.5 text-xs font-semibold text-blue-2 shadow-sm backdrop-blur"
-          >
+        <motion.div
+          initial="hidden"
+          animate="show"
+          variants={fadeUp}
+          className="relative mx-auto max-w-5xl px-4 py-24 text-center sm:px-6 sm:py-32 lg:px-8"
+        >
+          <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-blue/30 bg-surface/90 px-4 py-1.5 text-xs font-semibold text-blue-2 shadow-sm backdrop-blur">
             <span className="flex h-2 w-2 rounded-full bg-blue animate-pulse" />
             <Sparkles className="h-3.5 w-3.5 text-blue" />
-            Next-Gen AI Skill Intelligence & Placement Engine
-          </motion.div>
+            Skill Intelligence for Academia & Industry
+          </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.05 }}
-            className="text-4xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl leading-[1.1]"
-          >
+          <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl leading-[1.1]">
             Where Skills Meet <span className="text-gradient-accent">Opportunity.</span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.12 }}
-            className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-xl leading-relaxed"
-          >
+          <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-xl leading-relaxed">
             Assess verified competencies. Discover hidden potential. Connect academia, student capability, and corporate hiring through verified intelligence.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.18 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-4"
-          >
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <Button variant="primary" size="lg" onClick={() => document.getElementById("portals")?.scrollIntoView({ behavior: "smooth" })}>
               Enter SkillDex Workspace <ArrowRight className="h-4 w-4" />
             </Button>
             <Button variant="outline" size="lg" onClick={() => setDemoOpen(true)}>
               <PlayCircle className="h-4 w-4 text-blue-2" /> Interactive Demo
             </Button>
-          </motion.div>
+          </div>
           <p className="mt-4 text-xs font-medium text-muted-foreground/80">Skills Today. Brighter Tomorrow.</p>
-        </div>
+        </motion.div>
       </section>
 
       {/* Problem / About */}
@@ -232,7 +218,7 @@ export default function LandingPage() {
       <section id="features" className="border-y border-border/80 bg-surface-muted/40 py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 md:grid-cols-3">
-            <StakeholderCard id="students" icon={GraduationCap} title="For Students" question="What should I do next?" points={["Verified digital skill passport", "AI-generated daily career plan", "Company & career-path intelligence"]} />
+            <StakeholderCard id="students" icon={GraduationCap} title="For Students" question="What should I do next?" points={["Verified digital skill passport", "Personalized daily plan", "Company & career-path intelligence"]} />
             <StakeholderCard id="institutions" icon={School} title="For Institutions" question="How do I improve readiness?" points={["Placement command center", "Skill gap analytics", "Resource & company intelligence"]} />
             <StakeholderCard id="industry" icon={Building2} title="For Industry" question="Who should we collaborate with?" points={["Verified talent discovery", "College & startup discovery", "End-to-end hiring pipelines"]} />
           </div>
@@ -281,7 +267,7 @@ export default function LandingPage() {
                 <span className="text-base font-bold">SkillDex</span>
               </div>
               <p className="mt-3 max-w-sm text-sm text-white/60">
-                Connecting Talent. Empowering Futures. An AI-powered Academia-Industry Skill Intelligence Platform.
+                Connecting Talent. Empowering Futures. The skill intelligence layer for academia and industry.
               </p>
             </div>
             <div className="flex gap-12 text-sm text-white/70">
