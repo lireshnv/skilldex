@@ -27,6 +27,7 @@ export default function DailyPlanPage() {
   const completed = useSkillDexStore((s) => s.completedTasks);
   const toggleTaskComplete = useSkillDexStore((s) => s.toggleTaskComplete);
   const pushToast = useSkillDexStore((s) => s.pushToast);
+  const streak = useSkillDexStore((s) => s.streak);
   const doneCount = tasks.filter((t) => completed.includes(t.id)).length;
 
   return (
@@ -83,7 +84,11 @@ export default function DailyPlanPage() {
           </CardHeader>
           <CardContent>
             <TrendAreaChart data={weekly} dataKey="value" color="var(--brand-blue)" height={180} />
-            <p className="mt-2 text-xs text-muted-foreground">You&apos;re on a 4-day streak. Keep it going!</p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              {streak > 0
+                ? <>You&apos;re on a <strong className="text-foreground">{streak}-day streak</strong>. Keep it going!</>
+                : "Complete a task today to start your streak."}
+            </p>
           </CardContent>
         </Card>
       </div>

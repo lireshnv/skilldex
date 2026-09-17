@@ -8,6 +8,7 @@ import { PortalKey } from "@/lib/nav-config";
 import { Crumb, Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { hydrateFromApi } from "@/lib/data/hydrate";
 import { PageReveal } from "@/components/motion/page-reveal";
+import { useSkillDexStore } from "@/lib/store";
 
 export function PortalShell({
   portal,
@@ -27,9 +28,11 @@ export function PortalShell({
   // Pulls live data from the SkillDex API (Railway) when NEXT_PUBLIC_API_URL is
   // configured, swapping it into the local seed arrays in place. No-ops (and
   // keeps local seed data) if the env var is unset or the backend is unreachable.
+  const recordActivity = useSkillDexStore((s) => s.recordActivity);
   useEffect(() => {
     hydrateFromApi();
-  }, []);
+    if (portal === "student") recordActivity();
+  }, [portal, recordActivity]);
 
   return (
     <div className="flex h-dvh overflow-hidden bg-background">

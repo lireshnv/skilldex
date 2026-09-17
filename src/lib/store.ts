@@ -45,6 +45,11 @@ interface SkillDexState {
 
   completedTasks: string[];
   toggleTaskComplete: (id: string) => void;
+
+  streak: number;
+  longestStreak: number;
+  lastActiveDate: string | null;
+  recordActivity: () => void;
 }
 
 export const useSkillDexStore = create<SkillDexState>()(
@@ -120,6 +125,23 @@ export const useSkillDexStore = create<SkillDexState>()(
           completedTasks: c.includes(id) ? c.filter((x) => x !== id) : [...c, id],
         });
       },
+
+      streak: 0,
+      longestStreak: 0,
+      lastActiveDate: null,
+      recordActivity: () => {
+        const today = new Date().toISOString().slice(0, 10);
+        const { lastActiveDate, streak, longestStreak } = get();
+        if (lastActiveDate === today) return; // already counted today
+
+        const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+        const nextStreak = lastActiveDate === yesterday ? streak + 1 : 1;
+        set({
+          streak: nextStreak,
+          longestStreak: Math.max(longestStreak, nextStreak),
+          lastActiveDate: today,
+        });
+      },
     }),
     {
       name: "skilldex-store",
@@ -130,6 +152,9 @@ export const useSkillDexStore = create<SkillDexState>()(
         connections: state.connections,
         readNotifications: state.readNotifications,
         completedTasks: state.completedTasks,
+        streak: state.streak,
+        longestStreak: state.longestStreak,
+        lastActiveDate: state.lastActiveDate,
       }),
     }
   )

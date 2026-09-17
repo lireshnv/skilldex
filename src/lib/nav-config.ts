@@ -4,7 +4,7 @@ import {
   Video, Users, Route, Building2, Bell, Settings, Lightbulb, FlaskConical,
   HandCoins, Mic, HeartHandshake, Users2, TrendingUp, Network, Search,
   UserSearch, PlusCircle, KanbanSquare, CalendarCheck2, Rocket, Trophy,
-  BadgeCheck, LineChart, School, GitBranch,
+  BadgeCheck, LineChart, School, GitBranch, Flame,
 } from "lucide-react";
 
 export interface NavItem {
@@ -27,6 +27,7 @@ export const studentNav: NavItem[] = [
   { label: "Interview Prep", href: "/institution/student/interview-prep", icon: MessageSquareText },
   { label: "Mock Interview", href: "/institution/student/mock-interview", icon: Video },
   { label: "Alumni & Mentors", href: "/institution/student/alumni", icon: Users },
+  { label: "Leaderboard", href: "/institution/student/leaderboard", icon: Flame },
   { label: "Career Paths", href: "/institution/student/career-paths", icon: Route },
   { label: "Company Explorer", href: "/institution/student/companies", icon: Building2 },
   { label: "Eligibility", href: "/institution/student/eligibility", icon: BadgeCheck },

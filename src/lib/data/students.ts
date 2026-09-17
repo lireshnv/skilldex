@@ -85,3 +85,22 @@ export function readinessLabel(readiness: number): "Ready" | "Near Ready" | "Nee
 
 // The demo "logged in" student used across the Student Portal
 export const currentStudent = students[0];
+
+// Leaderboard score — derived from existing verified stats (not a separate
+// random field) so it always stays consistent with what the student's
+// profile actually shows.
+export function studentPoints(s: Student): number {
+  return Math.round(
+    s.readiness * 3 +
+      s.industryMatch * 2 +
+      s.profileStrength * 2 +
+      s.projects * 15 +
+      s.certifications * 10 +
+      s.internships * 20 +
+      s.offers * 40
+  );
+}
+
+export function leaderboard() {
+  return [...students].sort((a, b) => studentPoints(b) - studentPoints(a));
+}
