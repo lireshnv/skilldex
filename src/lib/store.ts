@@ -40,6 +40,9 @@ interface SkillDexState {
   aiCopilotOpen: boolean;
   setAiCopilotOpen: (v: boolean) => void;
 
+  commandPaletteOpen: boolean;
+  setCommandPaletteOpen: (v: boolean) => void;
+
   sidebarCollapsed: boolean;
   setSidebarCollapsed: (v: boolean) => void;
 
@@ -114,6 +117,9 @@ export const useSkillDexStore = create<SkillDexState>()(
 
       aiCopilotOpen: false,
       setAiCopilotOpen: (v) => set({ aiCopilotOpen: v }),
+
+      commandPaletteOpen: false,
+      setCommandPaletteOpen: (v) => set({ commandPaletteOpen: v }),
 
       sidebarCollapsed: false,
       setSidebarCollapsed: (v) => set({ sidebarCollapsed: v }),

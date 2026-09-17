@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { DesktopSidebar } from "./sidebar";
 import { Header } from "./header";
 import { AICopilot } from "./ai-copilot";
+import { CommandPalette } from "./command-palette";
 import { Toaster } from "@/components/ui/toaster";
 import { PortalKey } from "@/lib/nav-config";
 import { Crumb, Breadcrumbs } from "@/components/ui/breadcrumbs";
@@ -51,6 +52,7 @@ export function PortalShell({
         </main>
       </div>
       <AICopilot portal={portal} />
+      <CommandPalette portal={portal} />
       <Toaster />
     </div>
   );

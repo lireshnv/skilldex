@@ -29,6 +29,7 @@ export function Header({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const setAiCopilotOpen = useSkillDexStore((s) => s.setAiCopilotOpen);
+  const setCommandPaletteOpen = useSkillDexStore((s) => s.setCommandPaletteOpen);
   const unread = useUnreadCount(audienceMap[portal]);
   const meta = portalMeta[portal];
   const notifHref = portal === "student"
@@ -52,13 +53,14 @@ export function Header({
         <span className="rounded-full bg-surface-muted px-2.5 py-1 font-medium text-foreground">{meta.org}</span>
       </div>
 
-      <div className="relative ml-auto max-w-sm flex-1 md:ml-0">
+      <button
+        onClick={() => setCommandPaletteOpen(true)}
+        className="relative ml-auto flex h-9 w-full max-w-sm flex-1 items-center rounded-[var(--radius-md)] border border-border bg-surface-muted/60 pl-9 pr-2 text-left text-sm text-muted-foreground/70 hover:border-border-strong focus-visible:outline-none focus-visible:border-blue focus-visible:ring-3 focus-visible:ring-blue/15 transition-all cursor-pointer md:ml-0"
+      >
         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <input
-          placeholder="Search students, companies, skills..."
-          className="h-9 w-full rounded-[var(--radius-md)] border border-border bg-surface-muted/60 pl-9 pr-3 text-sm placeholder:text-muted-foreground/70 hover:border-border-strong focus-visible:outline-none focus-visible:border-blue focus-visible:ring-3 focus-visible:ring-blue/15 transition-all"
-        />
-      </div>
+        <span className="flex-1 truncate">Search students, companies, skills...</span>
+        <kbd className="hidden shrink-0 rounded border border-border-strong bg-surface px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground sm:block">⌘K</kbd>
+      </button>
 
       <div className="ml-auto flex items-center gap-2">
         <button
