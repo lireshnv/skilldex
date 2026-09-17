@@ -120,37 +120,57 @@ export default function LandingPage() {
       </header>
 
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--brand-blue-light),transparent_60%)]" />
-        <div className="relative mx-auto max-w-5xl px-4 py-20 text-center sm:px-6 sm:py-28 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-            className="mx-auto mb-5 inline-flex items-center gap-1.5 rounded-full border border-blue/20 bg-blue-light px-3 py-1 text-xs font-medium text-blue-2">
-            <Sparkles className="h-3.5 w-3.5" /> AI-Powered Skill Intelligence Platform
+      <section className="relative overflow-hidden bg-dot-grid">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(219,234,254,0.7),transparent_65%)]" />
+        <div className="relative mx-auto max-w-5xl px-4 py-24 text-center sm:px-6 sm:py-32 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-blue/30 bg-surface/90 px-4 py-1.5 text-xs font-semibold text-blue-2 shadow-sm backdrop-blur"
+          >
+            <span className="flex h-2 w-2 rounded-full bg-blue animate-pulse" />
+            <Sparkles className="h-3.5 w-3.5 text-blue" />
+            Next-Gen AI Skill Intelligence & Placement Engine
           </motion.div>
-          <motion.h1 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.05 }}
-            className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-            Where Skills Meet <span className="text-gradient">Opportunity.</span>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.05 }}
+            className="text-4xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl leading-[1.1]"
+          >
+            Where Skills Meet <span className="text-gradient-accent">Opportunity.</span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.12 }}
-            className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Assess skills. Discover potential. Build capability. Connect with academia and industry —
-            SkillDex is the intelligence layer connecting students, faculty, institutions and companies.
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.12 }}
+            className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-xl leading-relaxed"
+          >
+            Assess verified competencies. Discover hidden potential. Connect academia, student capability, and corporate hiring through verified intelligence.
           </motion.p>
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.18 }}
-            className="mt-8 flex flex-wrap items-center justify-center gap-3">
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.18 }}
+            className="mt-10 flex flex-wrap items-center justify-center gap-4"
+          >
             <Button variant="primary" size="lg" onClick={() => document.getElementById("portals")?.scrollIntoView({ behavior: "smooth" })}>
-              Enter SkillDex <ArrowRight className="h-4 w-4" />
+              Enter SkillDex Workspace <ArrowRight className="h-4 w-4" />
             </Button>
             <Button variant="outline" size="lg" onClick={() => setDemoOpen(true)}>
-              <PlayCircle className="h-4 w-4" /> Explore Demo
+              <PlayCircle className="h-4 w-4 text-blue-2" /> Interactive Demo
             </Button>
           </motion.div>
-          <p className="mt-3 text-xs text-muted-foreground">Skills Today. Brighter Tomorrow.</p>
+          <p className="mt-4 text-xs font-medium text-muted-foreground/80">Skills Today. Brighter Tomorrow.</p>
         </div>
       </section>
 
       {/* Problem / About */}
-      <section id="about" className="border-y border-border bg-surface-muted/40 py-16">
+      <section id="about" className="border-y border-border/80 bg-surface/50 py-16 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 md:grid-cols-3">
             {[
@@ -158,9 +178,9 @@ export default function LandingPage() {
               { stat: "3-6 mo", label: "average time institutions spend manually matching students with the right companies." },
               { stat: "1000s", label: "of hidden and transferable skills go undiscovered without evidence-based intelligence." },
             ].map((s) => (
-              <div key={s.label} className="text-center">
-                <p className="text-3xl font-bold text-navy">{s.stat}</p>
-                <p className="mt-2 text-sm text-muted-foreground">{s.label}</p>
+              <div key={s.label} className="text-center p-6 rounded-[var(--radius-lg)] bg-surface border border-border/60 shadow-sm">
+                <p className="text-4xl font-extrabold text-navy tracking-tight">{s.stat}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.label}</p>
               </div>
             ))}
           </div>
@@ -168,12 +188,13 @@ export default function LandingPage() {
       </section>
 
       {/* How it works - intelligence loop */}
-      <section id="how-it-works" className="py-20">
+      <section id="how-it-works" className="py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-2xl font-bold text-foreground sm:text-3xl">The SkillDex Intelligence Loop</h2>
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-2">Continuous Calibration</span>
+            <h2 className="mt-1 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">The SkillDex Intelligence Loop</h2>
             <p className="mt-3 text-sm text-muted-foreground">
-              A closed-loop system where every outcome continuously improves the next recommendation.
+              A closed-loop system where every real outcome continuously improves the next recommendation.
             </p>
           </div>
           <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-8">
@@ -182,14 +203,15 @@ export default function LandingPage() {
                 key={step.label}
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: i * 0.05 }}
-                className="flex flex-col items-center gap-2 rounded-[var(--radius-lg)] border border-border bg-surface p-4 text-center shadow-[var(--shadow-sm)]"
+                className="flex flex-col items-center gap-2.5 rounded-[var(--radius-lg)] border border-border/80 bg-surface p-4 text-center shadow-[var(--shadow-sm)] hover:border-blue/40 hover:shadow-md transition-all cursor-default"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-light text-blue-2">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-light text-blue-2 shadow-xs">
                   <step.icon className="h-5 w-5" />
                 </div>
-                <p className="text-xs font-semibold text-foreground">{step.label}</p>
+                <p className="text-xs font-bold text-foreground">{step.label}</p>
                 {i < loopSteps.length - 1 && <ArrowRight className="hidden h-3.5 w-3.5 text-border-strong lg:block" />}
               </motion.div>
             ))}
@@ -197,9 +219,9 @@ export default function LandingPage() {
 
           <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {innovations.map((item) => (
-              <div key={item.title} className="rounded-[var(--radius-lg)] border border-border bg-surface p-4">
-                <p className="text-sm font-semibold text-foreground">{item.title}</p>
-                <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{item.desc}</p>
+              <div key={item.title} className="rounded-[var(--radius-lg)] border border-border/70 bg-surface p-5 hover:border-blue/30 transition-colors shadow-xs">
+                <p className="text-sm font-bold text-foreground">{item.title}</p>
+                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -207,7 +229,7 @@ export default function LandingPage() {
       </section>
 
       {/* Feature sections for each stakeholder */}
-      <section id="features" className="border-y border-border bg-surface-muted/40 py-20">
+      <section id="features" className="border-y border-border/80 bg-surface-muted/40 py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 md:grid-cols-3">
             <StakeholderCard id="students" icon={GraduationCap} title="For Students" question="What should I do next?" points={["Verified digital skill passport", "AI-generated daily career plan", "Company & career-path intelligence"]} />
@@ -218,10 +240,11 @@ export default function LandingPage() {
       </section>
 
       {/* Portal selection */}
-      <section id="portals" className="py-20">
+      <section id="portals" className="py-24">
         <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-foreground sm:text-3xl">Choose Your Workspace</h2>
-          <p className="mt-3 text-sm text-muted-foreground">Two ecosystems, one connected intelligence platform.</p>
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-2">Workspaces</span>
+          <h2 className="mt-1 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Choose Your Workspace</h2>
+          <p className="mt-3 text-sm text-muted-foreground">Two connected ecosystems, one unified intelligence platform.</p>
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             <PortalCard
@@ -230,7 +253,7 @@ export default function LandingPage() {
               title="Institution"
               description="Manage students, faculty, placements, skill development and industry relationships."
               cta="Enter Institution"
-              gradient="from-blue-light to-surface"
+              gradient="from-blue-light/70 to-surface"
             />
             <PortalCard
               href="/industry"
@@ -238,11 +261,11 @@ export default function LandingPage() {
               title="Industry"
               description="Discover talent, connect with institutions and build hiring and collaboration pipelines."
               cta="Enter Industry"
-              gradient="from-violet-light to-surface"
+              gradient="from-violet-light/70 to-surface"
             />
           </div>
 
-          <button onClick={() => setDemoOpen(true)} className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-blue-2 hover:underline cursor-pointer">
+          <button onClick={() => setDemoOpen(true)} className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-blue-2 hover:underline cursor-pointer">
             <PlayCircle className="h-4 w-4" /> Or jump straight into a guided demo
           </button>
         </div>
@@ -289,39 +312,44 @@ export default function LandingPage() {
 
 function StakeholderCard({ id, icon: Icon, title, question, points }: { id: string; icon: typeof GraduationCap; title: string; question: string; points: string[] }) {
   return (
-    <div id={id} className="rounded-[var(--radius-lg)] border border-border bg-surface p-6 shadow-[var(--shadow-sm)]">
-      <div className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] bg-navy text-white">
-        <Icon className="h-5 w-5" />
+    <motion.div
+      id={id}
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.2 }}
+      className="rounded-[var(--radius-lg)] border border-border/80 bg-surface p-7 shadow-sm hover:border-blue/30 hover:shadow-md transition-all"
+    >
+      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white shadow-sm">
+        <Icon className="h-6 w-6" />
       </div>
-      <h3 className="mt-4 text-base font-bold text-foreground">{title}</h3>
-      <p className="mt-1 text-sm italic text-blue-2">&ldquo;{question}&rdquo;</p>
-      <ul className="mt-4 space-y-2">
+      <h3 className="mt-5 text-lg font-bold text-foreground">{title}</h3>
+      <p className="mt-1 text-sm font-medium italic text-blue-2">&ldquo;{question}&rdquo;</p>
+      <ul className="mt-5 space-y-2.5">
         {points.map((p) => (
-          <li key={p} className="flex items-start gap-2 text-sm text-muted-foreground">
-            <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald" /> {p}
+          <li key={p} className="flex items-start gap-2.5 text-sm text-muted-foreground">
+            <BadgeCheck className="mt-0.5 h-4.5 w-4.5 shrink-0 text-emerald" /> {p}
           </li>
         ))}
       </ul>
-    </div>
+    </motion.div>
   );
 }
 
 function PortalCard({ href, icon: Icon, title, description, cta, gradient }: { href: string; icon: typeof GraduationCap; title: string; description: string; cta: string; gradient: string }) {
   return (
-    <Link href={href} className="group">
+    <Link href={href} className="group block">
       <motion.div
-        whileHover={{ y: -4 }}
+        whileHover={{ y: -6, scale: 1.01 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className={`relative overflow-hidden rounded-[var(--radius-xl)] border border-border bg-gradient-to-br ${gradient} p-8 text-left shadow-[var(--shadow-sm)] group-hover:shadow-[var(--shadow-lg)] transition-shadow`}
+        className={`relative overflow-hidden rounded-[var(--radius-xl)] border border-border/90 bg-gradient-to-br ${gradient} p-8 text-left shadow-sm group-hover:border-blue/40 group-hover:shadow-[0_20px_40px_-15px_rgba(29,78,216,0.15)] transition-all`}
       >
-        <div className="flex h-14 w-14 items-center justify-center rounded-[var(--radius-lg)] bg-navy text-white transition-transform group-hover:scale-110">
+        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-navy text-white shadow-md transition-transform duration-300 group-hover:scale-110">
           <Icon className="h-7 w-7" />
         </div>
-        <h3 className="mt-6 text-xl font-bold text-foreground">{title} Portal</h3>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p>
-        <div className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-blue-2">
+        <h3 className="mt-6 text-2xl font-extrabold text-foreground">{title} Workspace</h3>
+        <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{description}</p>
+        <div className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-blue-2">
           {cta}
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1.5" />
         </div>
       </motion.div>
     </Link>

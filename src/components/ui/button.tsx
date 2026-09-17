@@ -4,22 +4,22 @@ import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-md)] text-sm font-medium transition-all duration-150 disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue/40 focus-visible:ring-offset-1 cursor-pointer",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[var(--radius-md)] text-sm font-medium transition-all duration-150 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue/40 focus-visible:ring-offset-1 cursor-pointer select-none",
   {
     variants: {
       variant: {
-        default: "bg-navy text-white hover:bg-navy-2 shadow-sm",
-        primary: "bg-blue text-white hover:bg-blue-2 shadow-sm",
-        outline: "border border-border-strong bg-surface text-foreground hover:bg-surface-muted",
+        default: "bg-navy text-white hover:bg-navy-2 shadow-sm hover:shadow",
+        primary: "bg-blue text-white hover:bg-blue-2 shadow-sm hover:shadow-[0_4px_14px_rgba(37,99,235,0.35)]",
+        outline: "border border-border-strong bg-surface text-foreground hover:bg-surface-muted hover:border-border-strong/80",
         ghost: "text-foreground hover:bg-surface-muted",
         subtle: "bg-surface-muted text-foreground hover:bg-border/60",
-        destructive: "bg-rose text-white hover:opacity-90",
-        link: "text-blue underline-offset-4 hover:underline p-0 h-auto",
+        destructive: "bg-rose text-white hover:opacity-90 shadow-sm",
+        link: "text-blue underline-offset-4 hover:underline p-0 h-auto active:scale-100",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-8 px-3 text-xs rounded-[var(--radius-sm)]",
-        lg: "h-12 px-6 text-base",
+        lg: "h-12 px-6 text-base font-semibold",
         icon: "h-9 w-9",
       },
     },

@@ -31,8 +31,13 @@ export function KpiCard({
   };
   const positive = (trend ?? 0) >= 0;
   return (
-    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
-      <Card className="p-5">
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -3, transition: { duration: 0.2 } }}
+      transition={{ duration: 0.35 }}
+    >
+      <Card className="p-5 glow-card border-border/80 hover:border-blue/30">
         <div className="flex items-start justify-between">
           <div>
             <p className="text-xs font-medium text-muted-foreground">{label}</p>
@@ -42,14 +47,14 @@ export function KpiCard({
             </p>
           </div>
           {Icon && (
-            <div className={cn("flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)]", accentMap[accent])}>
-              <Icon className="h-4.5 w-4.5" />
+            <div className={cn("flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] shadow-sm", accentMap[accent])}>
+              <Icon className="h-5 w-5" />
             </div>
           )}
         </div>
         {trend !== undefined && (
-          <div className="mt-3 flex items-center gap-1 text-xs">
-            <span className={cn("flex items-center gap-0.5 font-medium", positive ? "text-emerald" : "text-rose")}>
+          <div className="mt-3 flex items-center gap-1.5 text-xs">
+            <span className={cn("flex items-center gap-0.5 font-semibold", positive ? "text-emerald" : "text-rose")}>
               {positive ? <ArrowUpRight className="h-3.5 w-3.5" /> : <ArrowDownRight className="h-3.5 w-3.5" />}
               {Math.abs(trend)}%
             </span>

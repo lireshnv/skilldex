@@ -42,3 +42,8 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# local AI-tool scan/cache output (21st.dev, ui-ux-pro-max skill installer)
+.21st/
+.agent/
+.agents/

@@ -56,21 +56,21 @@ export function Header({
         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <input
           placeholder="Search students, companies, skills..."
-          className="h-9 w-full rounded-[var(--radius-md)] border border-border-strong bg-surface-muted/60 pl-9 pr-3 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue/40"
+          className="h-9 w-full rounded-[var(--radius-md)] border border-border bg-surface-muted/60 pl-9 pr-3 text-sm placeholder:text-muted-foreground/70 hover:border-border-strong focus-visible:outline-none focus-visible:border-blue focus-visible:ring-3 focus-visible:ring-blue/15 transition-all"
         />
       </div>
 
-      <div className="ml-auto flex items-center gap-1.5">
+      <div className="ml-auto flex items-center gap-2">
         <button
           onClick={() => setAiCopilotOpen(true)}
-          className="hidden items-center gap-1.5 rounded-full bg-navy px-3 py-1.5 text-xs font-medium text-white hover:bg-navy-2 sm:flex cursor-pointer"
+          className="hidden items-center gap-1.5 rounded-full bg-navy px-3.5 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-navy-2 active:scale-95 transition-all cursor-pointer group"
         >
-          <Sparkles className="h-3.5 w-3.5" />
+          <Sparkles className="h-3.5 w-3.5 text-sky group-hover:rotate-12 transition-transform" />
           Ask SkillDex AI
         </button>
         <button
           onClick={() => setAiCopilotOpen(true)}
-          className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] text-muted-foreground hover:bg-surface-muted sm:hidden cursor-pointer"
+          className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] text-muted-foreground hover:bg-surface-muted active:scale-95 transition-transform sm:hidden cursor-pointer"
           aria-label="Ask SkillDex AI"
         >
           <Sparkles className="h-4.5 w-4.5" />
