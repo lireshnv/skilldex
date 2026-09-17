@@ -37,7 +37,7 @@ export function KpiCard({
       whileHover={{ y: -3, transition: { duration: 0.2 } }}
       transition={{ duration: 0.35 }}
     >
-      <Card className="p-5 glow-card border-border/80 hover:border-blue/30">
+      <Card hover className="p-5">
         <div className="flex items-start justify-between">
           <div>
             <p className="text-xs font-medium text-muted-foreground">{label}</p>

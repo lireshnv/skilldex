@@ -4,6 +4,7 @@ import { PortalShell } from "@/components/layout/portal-shell";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { StaggerGrid, StaggerItem } from "@/components/motion/stagger-grid";
 import { jobs, skillName } from "@/lib/data";
 import { PlusCircle, Clock } from "lucide-react";
 import { formatDate } from "@/lib/utils";
@@ -22,17 +23,19 @@ export default function OpportunitiesPage() {
         <Link href="/industry/company/opportunities/new"><Button variant="primary"><PlusCircle className="h-4 w-4" /> Post Opportunity</Button></Link>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <StaggerGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {opportunities.map((j) => (
-          <Card key={j.id} className="p-4">
-            <Badge variant="blue">{j.type}</Badge>
-            <p className="mt-3 text-sm font-semibold text-foreground">{j.title}</p>
-            <p className="text-xs text-muted-foreground">{j.location}</p>
-            <div className="mt-2 flex flex-wrap gap-1">{j.requiredSkills.slice(0, 3).map((s) => <Badge key={s} variant="outline">{skillName(s)}</Badge>)}</div>
-            <p className="mt-3 flex items-center gap-1 text-xs text-muted-foreground"><Clock className="h-3.5 w-3.5" /> Closes {formatDate(j.deadline)}</p>
-          </Card>
+          <StaggerItem key={j.id}>
+            <Card hover className="p-4">
+              <Badge variant="blue">{j.type}</Badge>
+              <p className="mt-3 text-sm font-semibold text-foreground">{j.title}</p>
+              <p className="text-xs text-muted-foreground">{j.location}</p>
+              <div className="mt-2 flex flex-wrap gap-1">{j.requiredSkills.slice(0, 3).map((s) => <Badge key={s} variant="outline">{skillName(s)}</Badge>)}</div>
+              <p className="mt-3 flex items-center gap-1 text-xs text-muted-foreground"><Clock className="h-3.5 w-3.5" /> Closes {formatDate(j.deadline)}</p>
+            </Card>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerGrid>
     </PortalShell>
   );
 }

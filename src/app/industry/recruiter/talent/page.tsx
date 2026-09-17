@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input, Select } from "@/components/ui/input";
 import { Avatar } from "@/components/ui/avatar";
 import { RadialProgress } from "@/components/ui/progress";
+import { StaggerGrid, StaggerItem } from "@/components/motion/stagger-grid";
 import { students, colleges, readinessLabel } from "@/lib/data";
 
 function TalentDiscoveryInner() {
@@ -49,30 +50,32 @@ function TalentDiscoveryInner() {
         </Select>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <StaggerGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((s) => (
-          <Link key={s.id} href={`/industry/recruiter/candidates/${s.id}`}>
-            <Card className="h-full p-4 transition-shadow hover:shadow-[var(--shadow-md)] hover:border-blue/30">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <Avatar name={s.name} color={s.avatarColor} size={44} />
-                  <div>
-                    <p className="flex items-center gap-1 text-sm font-semibold text-foreground">{s.name} <ShieldCheck className="h-3.5 w-3.5 text-emerald" /></p>
-                    <p className="text-xs text-muted-foreground">{s.targetRole}</p>
+          <StaggerItem key={s.id}>
+            <Link href={`/industry/recruiter/candidates/${s.id}`}>
+              <Card hover className="h-full p-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-3">
+                    <Avatar name={s.name} color={s.avatarColor} size={44} />
+                    <div>
+                      <p className="flex items-center gap-1 text-sm font-semibold text-foreground">{s.name} <ShieldCheck className="h-3.5 w-3.5 text-emerald" /></p>
+                      <p className="text-xs text-muted-foreground">{s.targetRole}</p>
+                    </div>
                   </div>
+                  <RadialProgress value={s.readiness} size={44} strokeWidth={4} />
                 </div>
-                <RadialProgress value={s.readiness} size={44} strokeWidth={4} />
-              </div>
-              <p className="mt-3 flex items-center gap-1 text-xs text-muted-foreground"><GraduationCap className="h-3.5 w-3.5" /> {s.college}</p>
-              <p className="flex items-center gap-1 text-xs text-muted-foreground"><MapPin className="h-3.5 w-3.5" /> {s.location}</p>
-              <div className="mt-2 flex flex-wrap gap-1">
-                <Badge variant={readinessLabel(s.readiness) === "Ready" ? "emerald" : readinessLabel(s.readiness) === "Near Ready" ? "amber" : "outline"}>{readinessLabel(s.readiness)}</Badge>
-                <Badge variant="outline">{s.projects} projects</Badge>
-              </div>
-            </Card>
-          </Link>
+                <p className="mt-3 flex items-center gap-1 text-xs text-muted-foreground"><GraduationCap className="h-3.5 w-3.5" /> {s.college}</p>
+                <p className="flex items-center gap-1 text-xs text-muted-foreground"><MapPin className="h-3.5 w-3.5" /> {s.location}</p>
+                <div className="mt-2 flex flex-wrap gap-1">
+                  <Badge variant={readinessLabel(s.readiness) === "Ready" ? "emerald" : readinessLabel(s.readiness) === "Near Ready" ? "amber" : "outline"}>{readinessLabel(s.readiness)}</Badge>
+                  <Badge variant="outline">{s.projects} projects</Badge>
+                </div>
+              </Card>
+            </Link>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerGrid>
     </PortalShell>
   );
 }

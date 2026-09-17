@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { PortalKey } from "@/lib/nav-config";
 import { Crumb, Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { hydrateFromApi } from "@/lib/data/hydrate";
+import { PageReveal } from "@/components/motion/page-reveal";
 
 export function PortalShell({
   portal,
@@ -42,7 +43,7 @@ export function PortalShell({
                 <Breadcrumbs items={breadcrumbs} />
               </div>
             )}
-            {children}
+            <PageReveal>{children}</PageReveal>
           </div>
         </main>
       </div>

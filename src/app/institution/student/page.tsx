@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { AIInsight } from "@/components/ui/ai-insight";
 import { RadialProgress } from "@/components/ui/progress";
 import { SkillBar } from "@/components/skill-bar";
+import { StaggerGrid, StaggerItem } from "@/components/motion/stagger-grid";
 import { currentStudent, jobs, skillName, companyById } from "@/lib/data";
 import { useSkillDexStore } from "@/lib/store";
 import { formatDate } from "@/lib/utils";
@@ -70,12 +71,12 @@ export default function StudentDashboard() {
         <p className="text-sm text-muted-foreground">Your career journey, powered by SkillDex.</p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KpiCard label="Skill Readiness" value={`${currentStudent.readiness}`} suffix="%" icon={Target} accent="blue" trend={4} />
-        <KpiCard label="Industry Match" value={`${currentStudent.industryMatch}`} suffix="%" icon={TrendingUp} accent="emerald" trend={6} />
-        <KpiCard label="Profile Strength" value={`${currentStudent.profileStrength}`} suffix="%" icon={IdCard} accent="violet" trend={2} />
-        <KpiCard label="Applications" value={myApplications.length} icon={FileStack} accent="amber" trendLabel="active pipeline" />
-      </div>
+      <StaggerGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <StaggerItem><KpiCard label="Skill Readiness" value={`${currentStudent.readiness}`} suffix="%" icon={Target} accent="blue" trend={4} /></StaggerItem>
+        <StaggerItem><KpiCard label="Industry Match" value={`${currentStudent.industryMatch}`} suffix="%" icon={TrendingUp} accent="emerald" trend={6} /></StaggerItem>
+        <StaggerItem><KpiCard label="Profile Strength" value={`${currentStudent.profileStrength}`} suffix="%" icon={IdCard} accent="violet" trend={2} /></StaggerItem>
+        <StaggerItem><KpiCard label="Applications" value={myApplications.length} icon={FileStack} accent="amber" trendLabel="active pipeline" /></StaggerItem>
+      </StaggerGrid>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
         {/* Target role */}
@@ -128,19 +129,21 @@ export default function StudentDashboard() {
           <CardHeader>
             <CardTitle>Upcoming</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
-            {upcoming.map((u) => (
-              <div key={u.title} className="flex items-start gap-3">
-                <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius-sm)] ${colorClassMap[u.color]}`}>
-                  <u.icon className="h-4 w-4" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-medium text-muted-foreground">{u.type}</p>
-                  <p className="truncate text-sm font-medium text-foreground">{u.title}</p>
-                  <p className="text-[11px] text-muted-foreground">{formatDate(u.date)}</p>
-                </div>
-              </div>
-            ))}
+          <CardContent>
+            <StaggerGrid className="space-y-3">
+              {upcoming.map((u) => (
+                <StaggerItem key={u.title} className="flex items-start gap-3">
+                  <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius-sm)] ${colorClassMap[u.color]}`}>
+                    <u.icon className="h-4 w-4" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-medium text-muted-foreground">{u.type}</p>
+                    <p className="truncate text-sm font-medium text-foreground">{u.title}</p>
+                    <p className="text-[11px] text-muted-foreground">{formatDate(u.date)}</p>
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerGrid>
           </CardContent>
         </Card>
 
@@ -150,39 +153,41 @@ export default function StudentDashboard() {
             <CardTitle>Recommended Opportunities</CardTitle>
             <Link href="/institution/student/jobs" className="text-xs font-medium text-blue-2 hover:underline">View all</Link>
           </CardHeader>
-          <CardContent className="space-y-3">
-            {recommended.map(({ job, match }) => {
-              const company = companyById(job.companyId);
-              const applied = myApplications.some((a) => a.jobId === job.id);
-              return (
-                <div key={job.id} className="flex flex-col gap-3 rounded-[var(--radius-md)] border border-border p-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex items-start gap-3">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-sm)] text-white" style={{ background: company?.logoColor }}>
-                      <Building2 className="h-4.5 w-4.5" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{job.title}</p>
-                      <p className="text-xs text-muted-foreground">{company?.name} · <MapPin className="inline h-3 w-3" /> {job.location}</p>
-                      <div className="mt-1.5 flex flex-wrap gap-1">
-                        <Badge variant="emerald">{match}% match</Badge>
-                        <Badge variant="outline"><Clock className="mr-1 h-3 w-3 inline" />Due {formatDate(job.deadline)}</Badge>
+          <CardContent>
+            <StaggerGrid className="space-y-3">
+              {recommended.map(({ job, match }) => {
+                const company = companyById(job.companyId);
+                const applied = myApplications.some((a) => a.jobId === job.id);
+                return (
+                  <StaggerItem key={job.id} className="flex flex-col gap-3 rounded-[var(--radius-md)] border border-border p-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-start gap-3">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-sm)] text-white" style={{ background: company?.logoColor }}>
+                        <Building2 className="h-4.5 w-4.5" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">{job.title}</p>
+                        <p className="text-xs text-muted-foreground">{company?.name} · <MapPin className="inline h-3 w-3" /> {job.location}</p>
+                        <div className="mt-1.5 flex flex-wrap gap-1">
+                          <Badge variant="emerald">{match}% match</Badge>
+                          <Badge variant="outline"><Clock className="mr-1 h-3 w-3 inline" />Due {formatDate(job.deadline)}</Badge>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <Button
-                    variant={applied ? "subtle" : "primary"}
-                    size="sm"
-                    disabled={applied}
-                    onClick={() => {
-                      applyToJob(job.id, currentStudent.id);
-                      pushToast({ title: "Application submitted", description: `Applied to ${job.title} at ${company?.name}`, variant: "success" });
-                    }}
-                  >
-                    {applied ? "Applied" : "Apply"}
-                  </Button>
-                </div>
-              );
-            })}
+                    <Button
+                      variant={applied ? "subtle" : "primary"}
+                      size="sm"
+                      disabled={applied}
+                      onClick={() => {
+                        applyToJob(job.id, currentStudent.id);
+                        pushToast({ title: "Application submitted", description: `Applied to ${job.title} at ${company?.name}`, variant: "success" });
+                      }}
+                    >
+                      {applied ? "Applied" : "Apply"}
+                    </Button>
+                  </StaggerItem>
+                );
+              })}
+            </StaggerGrid>
           </CardContent>
         </Card>
       </div>

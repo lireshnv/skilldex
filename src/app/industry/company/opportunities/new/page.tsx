@@ -37,7 +37,7 @@ export default function NewOpportunityPage() {
         <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {opportunityTypes.map((t) => (
             <button key={t.id} onClick={() => setType(t.id)} className="cursor-pointer">
-              <Card className="flex flex-col items-center gap-2 p-5 text-center hover:border-blue/30 hover:shadow-[var(--shadow-md)]">
+              <Card hover className="flex flex-col items-center gap-2 p-5 text-center">
                 <div className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] bg-blue-light text-blue-2"><t.icon className="h-5 w-5" /></div>
                 <p className="text-sm font-medium text-foreground">{t.label}</p>
               </Card>

@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AIInsight } from "@/components/ui/ai-insight";
+import { StaggerGrid, StaggerItem } from "@/components/motion/stagger-grid";
 import { jobs, students, applications } from "@/lib/data";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -24,12 +25,12 @@ export default function RecruiterDashboard() {
         <p className="text-sm text-muted-foreground">Discover, assess and hire verified talent across partner institutions.</p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KpiCard label="Open Jobs" value={openJobs} icon={UserSearch} accent="blue" />
-        <KpiCard label="Applicants" value={totalApplicants} icon={Users} accent="violet" trend={12} />
-        <KpiCard label="Shortlisted" value={Math.round(totalApplicants * 0.3)} icon={Award} accent="amber" />
-        <KpiCard label="Avg. Time to Hire" value="18" suffix=" days" icon={Clock} accent="emerald" trend={-8} />
-      </div>
+      <StaggerGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <StaggerItem><KpiCard label="Open Jobs" value={openJobs} icon={UserSearch} accent="blue" /></StaggerItem>
+        <StaggerItem><KpiCard label="Applicants" value={totalApplicants} icon={Users} accent="violet" trend={12} /></StaggerItem>
+        <StaggerItem><KpiCard label="Shortlisted" value={Math.round(totalApplicants * 0.3)} icon={Award} accent="amber" /></StaggerItem>
+        <StaggerItem><KpiCard label="Avg. Time to Hire" value="18" suffix=" days" icon={Clock} accent="emerald" trend={-8} /></StaggerItem>
+      </StaggerGrid>
 
       <Card className="mt-6">
         <CardHeader><CardTitle>Find your next candidate</CardTitle></CardHeader>
@@ -55,16 +56,20 @@ export default function RecruiterDashboard() {
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardHeader><CardTitle>Top Matching Candidates</CardTitle></CardHeader>
-          <CardContent className="space-y-3">
-            {[...students].sort((a, b) => b.readiness - a.readiness).slice(0, 4).map((s) => (
-              <Link key={s.id} href={`/industry/recruiter/candidates/${s.id}`} className="flex items-center justify-between rounded-[var(--radius-md)] border border-border p-3 hover:border-blue/30 hover:bg-blue-light/20">
-                <div>
-                  <p className="text-sm font-semibold text-foreground">{s.name}</p>
-                  <p className="text-xs text-muted-foreground">{s.targetRole} · {s.college}</p>
-                </div>
-                <span className="text-sm font-semibold text-emerald">{s.readiness}% ready</span>
-              </Link>
-            ))}
+          <CardContent>
+            <StaggerGrid className="space-y-3">
+              {[...students].sort((a, b) => b.readiness - a.readiness).slice(0, 4).map((s) => (
+                <StaggerItem key={s.id}>
+                  <Link href={`/industry/recruiter/candidates/${s.id}`} className="flex items-center justify-between rounded-[var(--radius-md)] border border-border p-3 hover:border-blue/30 hover:bg-blue-light/20">
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">{s.name}</p>
+                      <p className="text-xs text-muted-foreground">{s.targetRole} · {s.college}</p>
+                    </div>
+                    <span className="text-sm font-semibold text-emerald">{s.readiness}% ready</span>
+                  </Link>
+                </StaggerItem>
+              ))}
+            </StaggerGrid>
           </CardContent>
         </Card>
         <div className="space-y-4">

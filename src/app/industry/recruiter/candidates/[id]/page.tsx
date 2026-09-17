@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar } from "@/components/ui/avatar";
 import { RadialProgress } from "@/components/ui/progress";
 import { SkillBar } from "@/components/skill-bar";
+import { RevealOnView } from "@/components/motion/reveal-on-view";
 import { studentById, skillName, projectsByStudent, resultsByStudent, assessmentById, readinessLabel } from "@/lib/data";
 import { useSkillDexStore } from "@/lib/store";
 
@@ -53,49 +54,57 @@ export default function CandidateProfilePage({ params }: { params: Promise<{ id:
       </Card>
 
       <div className="grid gap-6 lg:grid-cols-3">
-        <Card className="lg:col-span-2">
-          <CardHeader><CardTitle>Verified Skill Evidence</CardTitle></CardHeader>
-          <CardContent className="space-y-4">
-            {student.skills.slice(0, 8).map((s) => (
-              <SkillBar key={s.skillId} label={skillName(s.skillId)} value={s.confidence} />
-            ))}
-          </CardContent>
-        </Card>
+        <RevealOnView className="lg:col-span-2">
+          <Card>
+            <CardHeader><CardTitle>Verified Skill Evidence</CardTitle></CardHeader>
+            <CardContent className="space-y-4">
+              {student.skills.slice(0, 8).map((s) => (
+                <SkillBar key={s.skillId} label={skillName(s.skillId)} value={s.confidence} />
+              ))}
+            </CardContent>
+          </Card>
+        </RevealOnView>
 
-        <Card>
-          <CardHeader><CardTitle className="flex items-center gap-1.5"><Award className="h-4 w-4 text-amber" /> Assessments</CardTitle></CardHeader>
-          <CardContent className="space-y-2.5">
-            {results.length > 0 ? results.map((r) => (
-              <div key={r.id} className="rounded-[var(--radius-sm)] border border-border p-2.5 text-xs">
-                <p className="font-medium text-foreground">{assessmentById(r.assessmentId)?.title}</p>
-                <p className="text-muted-foreground">Score: {r.score}% · Accuracy: {r.accuracy}%</p>
-              </div>
-            )) : <p className="text-xs text-muted-foreground">No assessments on record.</p>}
-          </CardContent>
-        </Card>
+        <RevealOnView>
+          <Card>
+            <CardHeader><CardTitle className="flex items-center gap-1.5"><Award className="h-4 w-4 text-amber" /> Assessments</CardTitle></CardHeader>
+            <CardContent className="space-y-2.5">
+              {results.length > 0 ? results.map((r) => (
+                <div key={r.id} className="rounded-[var(--radius-sm)] border border-border p-2.5 text-xs">
+                  <p className="font-medium text-foreground">{assessmentById(r.assessmentId)?.title}</p>
+                  <p className="text-muted-foreground">Score: {r.score}% · Accuracy: {r.accuracy}%</p>
+                </div>
+              )) : <p className="text-xs text-muted-foreground">No assessments on record.</p>}
+            </CardContent>
+          </Card>
+        </RevealOnView>
 
-        <Card className="lg:col-span-2">
-          <CardHeader><CardTitle className="flex items-center gap-1.5"><Briefcase className="h-4 w-4 text-blue-2" /> Projects</CardTitle></CardHeader>
-          <CardContent className="grid gap-3 sm:grid-cols-2">
-            {projects.map((p) => (
-              <div key={p.id} className="rounded-[var(--radius-md)] border border-border p-3">
-                <p className="text-sm font-semibold text-foreground">{p.title}</p>
-                <p className="mt-1 text-xs text-muted-foreground">{p.description}</p>
-                <div className="mt-2 flex flex-wrap gap-1">{p.skills.map((s) => <Badge key={s} variant="outline">{skillName(s)}</Badge>)}</div>
-              </div>
-            ))}
-            {projects.length === 0 && <p className="text-xs text-muted-foreground">No projects on record.</p>}
-          </CardContent>
-        </Card>
+        <RevealOnView className="lg:col-span-2">
+          <Card>
+            <CardHeader><CardTitle className="flex items-center gap-1.5"><Briefcase className="h-4 w-4 text-blue-2" /> Projects</CardTitle></CardHeader>
+            <CardContent className="grid gap-3 sm:grid-cols-2">
+              {projects.map((p) => (
+                <div key={p.id} className="rounded-[var(--radius-md)] border border-border p-3">
+                  <p className="text-sm font-semibold text-foreground">{p.title}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">{p.description}</p>
+                  <div className="mt-2 flex flex-wrap gap-1">{p.skills.map((s) => <Badge key={s} variant="outline">{skillName(s)}</Badge>)}</div>
+                </div>
+              ))}
+              {projects.length === 0 && <p className="text-xs text-muted-foreground">No projects on record.</p>}
+            </CardContent>
+          </Card>
+        </RevealOnView>
 
-        <Card>
-          <CardHeader><CardTitle>Relevant Roles</CardTitle></CardHeader>
-          <CardContent className="space-y-2">
-            {["Software Engineer", "Backend Developer", "Full Stack Developer"].map((r) => (
-              <div key={r} className="rounded-[var(--radius-sm)] border border-border p-2.5 text-sm text-foreground">{r}</div>
-            ))}
-          </CardContent>
-        </Card>
+        <RevealOnView>
+          <Card>
+            <CardHeader><CardTitle>Relevant Roles</CardTitle></CardHeader>
+            <CardContent className="space-y-2">
+              {["Software Engineer", "Backend Developer", "Full Stack Developer"].map((r) => (
+                <div key={r} className="rounded-[var(--radius-sm)] border border-border p-2.5 text-sm text-foreground">{r}</div>
+              ))}
+            </CardContent>
+          </Card>
+        </RevealOnView>
       </div>
     </PortalShell>
   );
