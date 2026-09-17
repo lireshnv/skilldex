@@ -4,6 +4,7 @@ import Link from "next/link";
 import { PortalShell } from "@/components/layout/portal-shell";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { MatchBadge } from "@/components/ui/match-badge";
 import { Avatar } from "@/components/ui/avatar";
 import { students, jobs } from "@/lib/data";
 import { useSkillDexStore } from "@/lib/store";
@@ -73,7 +74,7 @@ export default function PipelinePage() {
                             <p className="truncate text-[10px] text-muted-foreground">{job?.title}</p>
                           </div>
                         </Link>
-                        <Badge variant="emerald" className="mt-2">{app.matchScore}% match</Badge>
+                        <MatchBadge score={app.matchScore} className="mt-2" />
                       </Card>
                     </div>
                   );

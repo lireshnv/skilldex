@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { AIInsight } from "@/components/ui/ai-insight";
+import { MatchBadge } from "@/components/ui/match-badge";
 import { RadialProgress } from "@/components/ui/progress";
 import { SkillBar } from "@/components/skill-bar";
 import { StaggerGrid, StaggerItem } from "@/components/motion/stagger-grid";
@@ -160,7 +161,7 @@ export default function StudentDashboard() {
         <Card className="lg:col-span-2">
           <CardHeader className="flex-row items-center justify-between">
             <CardTitle>Recommended Opportunities</CardTitle>
-            <Link href="/institution/student/jobs" className="text-xs font-medium text-blue-2 hover:underline">View all</Link>
+            <Link href="/institution/student/opportunities" className="text-xs font-medium text-blue-2 hover:underline">View all</Link>
           </CardHeader>
           <CardContent>
             <StaggerGrid className="space-y-3">
@@ -177,7 +178,7 @@ export default function StudentDashboard() {
                         <p className="text-sm font-semibold text-foreground">{job.title}</p>
                         <p className="text-xs text-muted-foreground">{company?.name} · <MapPin className="inline h-3 w-3" /> {job.location}</p>
                         <div className="mt-1.5 flex flex-wrap gap-1">
-                          <Badge variant="emerald">{match}% match</Badge>
+                          <MatchBadge score={match} />
                           <Badge variant="outline"><Clock className="mr-1 h-3 w-3 inline" />Due {formatDate(job.deadline)}</Badge>
                         </div>
                       </div>

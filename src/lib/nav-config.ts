@@ -2,8 +2,8 @@ import {
   LayoutDashboard, IdCard, ClipboardCheck, Share2, BookOpen, CalendarClock,
   FolderKanban, Briefcase, FileStack, MessageSquareText,
   Video, Users, Route, Building2, Bell, Settings, Lightbulb, FlaskConical,
-  HandCoins, Mic, HeartHandshake, Users2, TrendingUp, Network, Search,
-  UserSearch, PlusCircle, KanbanSquare, CalendarCheck2, Rocket, Trophy,
+  HeartHandshake, Users2, TrendingUp, Network,
+  UserSearch, PlusCircle, KanbanSquare, CalendarCheck2, Rocket,
   BadgeCheck, LineChart, School, GitBranch, Flame,
 } from "lucide-react";
 
@@ -38,8 +38,7 @@ export const studentNav: NavGroup[] = [
     { label: "Eligibility", href: "/institution/student/eligibility", icon: BadgeCheck },
   ] },
   { label: "Opportunities", items: [
-    { label: "Internships", href: "/institution/student/internships", icon: Briefcase },
-    { label: "Jobs", href: "/institution/student/jobs", icon: FileStack },
+    { label: "Opportunities", href: "/institution/student/opportunities", icon: Briefcase },
     { label: "Applications", href: "/institution/student/applications", icon: ClipboardCheck },
   ] },
   { label: "Learn & Build", items: [
@@ -69,10 +68,7 @@ export const facultyNav: NavGroup[] = [
     { label: "Expertise Graph", href: "/institution/faculty/expertise", icon: Network },
   ] },
   { label: "Industry", items: [
-    { label: "FDP Opportunities", href: "/institution/faculty/fdp", icon: Lightbulb },
-    { label: "Industrial Training", href: "/institution/faculty/industrial-training", icon: FlaskConical },
-    { label: "Consultancy", href: "/institution/faculty/consultancy", icon: HandCoins },
-    { label: "Guest Lectures", href: "/institution/faculty/guest-lectures", icon: Mic },
+    { label: "Industry Engagement", href: "/institution/faculty/industry", icon: Lightbulb },
   ] },
   { label: "Research", items: [
     { label: "Research", href: "/institution/faculty/research", icon: FlaskConical },
@@ -93,8 +89,7 @@ export const placementNav: NavGroup[] = [
     { label: "Skill Gap Analytics", href: "/institution/placement/skill-gaps", icon: TrendingUp },
   ] },
   { label: "Industry Relations", items: [
-    { label: "Company Relations", href: "/institution/placement/companies", icon: Building2 },
-    { label: "Company Discovery", href: "/institution/placement/company-discovery", icon: Search },
+    { label: "Industry Relations", href: "/institution/placement/industry-relations", icon: Building2 },
   ] },
   { label: "Resources & Analytics", items: [
     { label: "Resource Intelligence", href: "/institution/placement/resources", icon: FolderKanban },
@@ -137,7 +132,6 @@ export const companyNav: NavGroup[] = [
   ] },
   { label: "Collaborations", items: [
     { label: "Collaborations", href: "/industry/company/collaborations", icon: GitBranch },
-    { label: "Hackathons", href: "/industry/company/hackathons", icon: Trophy },
   ] },
   { label: "", items: [
     { label: "Analytics", href: "/industry/company/analytics", icon: LineChart },

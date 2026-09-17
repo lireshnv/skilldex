@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Users, Lightbulb, FlaskConical, HandCoins, Mic } from "lucide-react";
+import { Users, Lightbulb, FlaskConical, HandCoins } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,10 +10,8 @@ import { AIInsight } from "@/components/ui/ai-insight";
 import { currentFaculty, jobs, companyById } from "@/lib/data";
 
 const opportunityTypes = [
-  { label: "FDP", href: "/institution/faculty/fdp", icon: Lightbulb, count: jobs.filter((j) => j.type === "Workshop").length },
+  { label: "Industry Engagement", href: "/institution/faculty/industry", icon: Lightbulb, count: jobs.filter((j) => ["Workshop", "Consultancy"].includes(j.type)).length },
   { label: "Research", href: "/institution/faculty/research", icon: FlaskConical, count: jobs.filter((j) => j.type === "Research").length },
-  { label: "Consultancy", href: "/institution/faculty/consultancy", icon: HandCoins, count: jobs.filter((j) => j.type === "Consultancy").length },
-  { label: "Guest Lectures", href: "/institution/faculty/guest-lectures", icon: Mic, count: jobs.filter((j) => j.type === "Workshop").length },
 ];
 
 export default function FacultyDashboard() {

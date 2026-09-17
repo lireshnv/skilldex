@@ -5,6 +5,7 @@ import { Search, MapPin, Briefcase } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { MatchBadge } from "@/components/ui/match-badge";
 import { Input, Select } from "@/components/ui/input";
 import { companies, currentStudent, skillName } from "@/lib/data";
 
@@ -72,7 +73,7 @@ export default function CompanyExplorerPage() {
               <p className="text-xs text-muted-foreground">{c.industry} · <MapPin className="inline h-3 w-3" /> {c.location}</p>
               <div className="mt-3 flex items-center justify-between text-xs">
                 <span className="flex items-center gap-1 text-muted-foreground"><Briefcase className="h-3.5 w-3.5" /> {c.openRoles} open roles</span>
-                <span className="font-semibold text-emerald">{c.match}% match</span>
+                <MatchBadge score={c.match} />
               </div>
               <div className="mt-3 flex flex-wrap gap-1">
                 {c.requiredSkills.slice(0, 3).map((s) => <Badge key={s} variant="outline">{skillName(s)}</Badge>)}

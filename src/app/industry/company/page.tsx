@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { School, FileStack, Rocket, GitBranch, Trophy, Users2 } from "lucide-react";
+import { School, FileStack, Rocket, GitBranch, Users2 } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,7 +15,6 @@ const hubLinks = [
   { label: "Opportunities", href: "/industry/company/opportunities", icon: FileStack },
   { label: "Startup Assistant", href: "/industry/company/startup-assistant", icon: Rocket },
   { label: "Collaborations", href: "/industry/company/collaborations", icon: GitBranch },
-  { label: "Hackathons", href: "/industry/company/hackathons", icon: Trophy },
   { label: "Faculty Network", href: "/industry/company/faculty", icon: Users2 },
 ];
 

@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { PortalShell } from "@/components/layout/portal-shell";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { MatchBadge } from "@/components/ui/match-badge";
 import { EmptyState } from "@/components/ui/empty-state";
 import { currentStudent, jobs, companyById } from "@/lib/data";
 import { useSkillDexStore } from "@/lib/store";
@@ -40,7 +41,7 @@ export default function ApplicationsPage() {
           title="No applications yet"
           description="Explore opportunities matched to your skill profile."
           actionLabel="Explore Jobs"
-          onAction={() => router.push("/institution/student/jobs")}
+          onAction={() => router.push("/institution/student/opportunities")}
         />
       ) : (
         <div className="space-y-4">
@@ -56,7 +57,7 @@ export default function ApplicationsPage() {
                     <p className="text-xs text-muted-foreground">{company?.name} · Applied {formatDate(app.appliedOn)}</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Badge variant="emerald">{app.matchScore}% match</Badge>
+                    <MatchBadge score={app.matchScore} />
                     <Badge variant={stageBadge[app.stage] ?? "default"}>{app.stage}</Badge>
                   </div>
                 </div>

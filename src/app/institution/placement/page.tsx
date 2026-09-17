@@ -109,8 +109,8 @@ export default function PlacementDashboard() {
             <Link href="/institution/placement/skill-gaps">
               <Card className="p-4 hover:border-blue/30"><p className="text-sm font-semibold text-foreground">Skill Gap Analytics</p><p className="text-xs text-muted-foreground">Identify institutional gaps</p></Card>
             </Link>
-            <Link href="/institution/placement/companies">
-              <Card className="p-4 hover:border-blue/30"><p className="text-sm font-semibold text-foreground">Company Relations</p><p className="text-xs text-muted-foreground">Manage partnerships</p></Card>
+            <Link href="/institution/placement/industry-relations">
+              <Card className="p-4 hover:border-blue/30"><p className="text-sm font-semibold text-foreground">Industry Relations</p><p className="text-xs text-muted-foreground">Manage partnerships</p></Card>
             </Link>
           </div>
         </div>

@@ -11,7 +11,17 @@ import { Job } from "@/lib/types";
 import { useSkillDexStore } from "@/lib/store";
 import { formatDate } from "@/lib/utils";
 
-export function OpportunityBoard({ types, title, subtitle }: { types: Job["type"][]; title: string; subtitle: string }) {
+export function OpportunityBoard({
+  types,
+  title,
+  subtitle,
+  showHeader = true,
+}: {
+  types: Job["type"][];
+  title: string;
+  subtitle: string;
+  showHeader?: boolean;
+}) {
   const [query, setQuery] = useState("");
   const [location, setLocation] = useState("All Locations");
   const applications = useSkillDexStore((s) => s.applications);
@@ -31,10 +41,12 @@ export function OpportunityBoard({ types, title, subtitle }: { types: Job["type"
 
   return (
     <div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-foreground">{title}</h1>
-        <p className="text-sm text-muted-foreground">{subtitle}</p>
-      </div>
+      {showHeader && (
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-foreground">{title}</h1>
+          <p className="text-sm text-muted-foreground">{subtitle}</p>
+        </div>
+      )}
 
       <div className="mb-5 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
