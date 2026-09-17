@@ -141,6 +141,20 @@ export const colleges: College[] = [
     industryEngagementScore: 87,
     logoColor: "#059669",
   },
+  {
+    id: "col-11",
+    name: "Rajalakshmi Engineering College",
+    city: "Chennai",
+    state: "Tamil Nadu",
+    departments: ["CSE", "IT", "AI & DS", "ECE", "Mechanical"],
+    totalStudents: 4800,
+    placementRate: 84,
+    topSkills: ["Python", "Machine Learning", "Data Structures", "SQL"],
+    hackathons: 8,
+    startupParticipation: 30,
+    industryEngagementScore: 85,
+    logoColor: "#1d4ed8",
+  },
 ];
 
 export function collegeById(id: string) {

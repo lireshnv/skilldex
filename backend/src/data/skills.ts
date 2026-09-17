@@ -29,6 +29,7 @@ export const skills: Skill[] = [
   { id: "sk-uiux", name: "UI/UX Design", category: "Technical", demand: 69 },
   { id: "sk-testing", name: "Software Testing", category: "Technical", demand: 61 },
   { id: "sk-dbms", name: "DBMS", category: "Technical", demand: 72 },
+  { id: "sk-mongodb", name: "MongoDB", category: "Technical", demand: 64 },
   { id: "sk-os", name: "Operating Systems", category: "Technical", demand: 60 },
   { id: "sk-cn", name: "Computer Networks", category: "Technical", demand: 57 },
   { id: "sk-oop", name: "OOP Design", category: "Technical", demand: 65 },

@@ -30,6 +30,17 @@ export const projects: Project[] = titles.map((title, i) => {
   };
 });
 
+// Liresh's (stu-01) signature project — matches his Python/ML/CV skills and
+// ML Engineer target role, per the coherent demo story.
+projects.push({
+  id: "prj-21",
+  studentId: "stu-01",
+  title: "Smart Crop Disease Detection",
+  skills: ["sk-python", "sk-ml", "sk-cv"],
+  description: "A computer vision model that identifies crop diseases from leaf images to help farmers act early, trained on an open agricultural image dataset.",
+  verified: true,
+});
+
 export function projectsByStudent(studentId: string) {
   return projects.filter((p) => p.studentId === studentId);
 }

@@ -73,6 +73,43 @@ function genStudent(i: number): Student {
 
 export const students: Student[] = Array.from({ length: 30 }, (_, i) => genStudent(i));
 
+// The primary demo identity: a coherent, realistic 2nd-year AI & ML student
+// aiming for an ML Engineer role. Every field here is deliberately
+// consistent with the others (skills match the target role, the project
+// matches the skills, readiness/internships/certs fit a 2nd-year profile) —
+// see studentById("stu-01") usage across the Student Portal.
+const rajalakshmi = colleges.find((c) => c.id === "col-11")!;
+students[0] = {
+  ...students[0],
+  name: "Liresh N.V.",
+  department: "AI & DS",
+  college: rajalakshmi.name,
+  collegeId: rajalakshmi.id,
+  year: 2,
+  cgpa: 8.4,
+  backlogs: 0,
+  targetRole: "ML Engineer",
+  location: `${rajalakshmi.city}, ${rajalakshmi.state}`,
+  skills: [
+    { skillId: "sk-python", level: "Advanced", confidence: 82, evidenceCount: 3, lastVerified: "2026-08-14" },
+    { skillId: "sk-dsa", level: "Intermediate", confidence: 58, evidenceCount: 1, lastVerified: "2026-08-02" },
+    { skillId: "sk-sql", level: "Intermediate", confidence: 71, evidenceCount: 2, lastVerified: "2026-07-28" },
+    { skillId: "sk-ml", level: "Intermediate", confidence: 68, evidenceCount: 2, lastVerified: "2026-08-10" },
+    { skillId: "sk-java", level: "Intermediate", confidence: 60, evidenceCount: 1, lastVerified: "2026-07-15" },
+    { skillId: "sk-mongodb", level: "Beginner", confidence: 52, evidenceCount: 1, lastVerified: "2026-08-05" },
+    { skillId: "sk-cv", level: "Beginner", confidence: 45, evidenceCount: 1, lastVerified: "2026-08-12" },
+    { skillId: "sk-communication", level: "Intermediate", confidence: 66, evidenceCount: 0, lastVerified: "2026-06-30" },
+  ],
+  readiness: 54,
+  industryMatch: 58,
+  profileStrength: 70,
+  projects: 2,
+  certifications: 1,
+  internships: 0,
+  offers: 0,
+  bio: "Aspiring ML Engineer building computer vision and NLP projects, currently deepening Python and Data Structures fundamentals.",
+};
+
 export function studentById(id: string) {
   return students.find((s) => s.id === id);
 }
@@ -85,3 +122,22 @@ export function readinessLabel(readiness: number): "Ready" | "Near Ready" | "Nee
 
 // The demo "logged in" student used across the Student Portal
 export const currentStudent = students[0];
+
+// Leaderboard score — derived from existing verified stats (not a separate
+// random field) so it always stays consistent with what the student's
+// profile actually shows.
+export function studentPoints(s: Student): number {
+  return Math.round(
+    s.readiness * 3 +
+      s.industryMatch * 2 +
+      s.profileStrength * 2 +
+      s.projects * 15 +
+      s.certifications * 10 +
+      s.internships * 20 +
+      s.offers * 40
+  );
+}
+
+export function leaderboard() {
+  return [...students].sort((a, b) => studentPoints(b) - studentPoints(a));
+}

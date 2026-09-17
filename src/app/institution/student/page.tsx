@@ -19,7 +19,7 @@ import { currentStudent, jobs, skillName, companyById } from "@/lib/data";
 import { useSkillDexStore } from "@/lib/store";
 import { formatDate } from "@/lib/utils";
 
-const roleRequiredSkills = ["sk-python", "sk-dsa", "sk-sql", "sk-system-design"];
+const roleRequiredSkills = ["sk-python", "sk-ml", "sk-dsa", "sk-sql"];
 
 const colorClassMap: Record<string, string> = {
   blue: "bg-blue-light text-blue-2",
@@ -94,16 +94,16 @@ export default function StudentDashboard() {
             <div>
               <CardTitle>Target Role</CardTitle>
               <p className="mt-1 text-lg font-bold text-foreground">{currentStudent.targetRole}</p>
-              <p className="text-xs text-muted-foreground">Target companies: Google, Microsoft, Zoho, TCS, Infosys</p>
+              <p className="text-xs text-muted-foreground">Target companies: Google, Microsoft, Innovate Labs, HealthBridge AI</p>
             </div>
-            <RadialProgress value={78} label="78%" sublabel="Readiness" color="var(--brand-blue)" />
+            <RadialProgress value={currentStudent.readiness} label={`${currentStudent.readiness}%`} sublabel="Readiness" color="var(--brand-blue)" />
           </CardHeader>
           <CardContent className="space-y-4">
             {roleRequiredSkills.map((sid) => (
               <SkillBar key={sid} label={skillName(sid)} value={skillMap.get(sid) ?? 30} />
             ))}
             <div className="rounded-[var(--radius-md)] bg-amber-light px-3 py-2.5 text-xs text-amber">
-              Improve System Design and DSA to become interview ready for your target companies.
+              Improve Data Structures &amp; Algorithms to become interview ready for your target companies.
             </div>
           </CardContent>
         </Card>

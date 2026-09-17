@@ -81,7 +81,7 @@ export const companyNav: NavItem[] = [
 export type PortalKey = "student" | "faculty" | "placement" | "recruiter" | "company";
 
 export const portalMeta: Record<PortalKey, { title: string; nav: NavItem[]; org: string; switchHref: string }> = {
-  student: { title: "Student Portal", nav: studentNav, org: "Vishwakarma Institute of Technology", switchHref: "/institution" },
+  student: { title: "Student Portal", nav: studentNav, org: "Rajalakshmi Engineering College", switchHref: "/institution" },
   faculty: { title: "Faculty Portal", nav: facultyNav, org: "Vishwakarma Institute of Technology", switchHref: "/institution" },
   placement: { title: "Placement Cell", nav: placementNav, org: "Vishwakarma Institute of Technology", switchHref: "/institution" },
   recruiter: { title: "Recruiter Portal", nav: recruiterNav, org: "Talent Acquisition", switchHref: "/industry" },
