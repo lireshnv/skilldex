@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronsLeft, ChevronsRight, Compass, ArrowLeftRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { NavItem, PortalKey, portalMeta } from "@/lib/nav-config";
+import { NavItem, NavGroup, PortalKey, portalMeta } from "@/lib/nav-config";
 import { useSkillDexStore } from "@/lib/store";
 import Link2 from "next/link";
 
@@ -33,6 +33,21 @@ function NavLink({ item, collapsed, onNavigate }: { item: NavItem; collapsed: bo
   );
 }
 
+function NavSection({ group, collapsed, onNavigate }: { group: NavGroup; collapsed: boolean; onNavigate?: () => void }) {
+  return (
+    <div>
+      {group.label && !collapsed && (
+        <p className="px-3 pb-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/60">{group.label}</p>
+      )}
+      <div className="space-y-0.5">
+        {group.items.map((item) => (
+          <NavLink key={item.href} item={item} collapsed={collapsed} onNavigate={onNavigate} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function SidebarContent({ portal, collapsed, onNavigate }: { portal: PortalKey; collapsed: boolean; onNavigate?: () => void }) {
   const meta = portalMeta[portal];
   return (
@@ -49,9 +64,9 @@ export function SidebarContent({ portal, collapsed, onNavigate }: { portal: Port
         )}
       </div>
 
-      <nav className="flex-1 space-y-0.5 overflow-y-auto px-2 pb-4">
-        {meta.nav.map((item) => (
-          <NavLink key={item.href} item={item} collapsed={collapsed} onNavigate={onNavigate} />
+      <nav className="flex-1 space-y-3 overflow-y-auto px-2 pb-4">
+        {meta.nav.map((group) => (
+          <NavSection key={group.label || group.items[0].href} group={group} collapsed={collapsed} onNavigate={onNavigate} />
         ))}
       </nav>
 

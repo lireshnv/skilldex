@@ -19,12 +19,14 @@ interface PaletteItem {
 }
 
 function buildQuickActions(portal: PortalKey): PaletteItem[] {
-  return portalMeta[portal].nav.map((n) => ({
-    id: `nav-${n.href}`,
-    label: n.label,
-    section: "Quick actions",
-    href: n.href,
-  }));
+  return portalMeta[portal].nav.flatMap((group) =>
+    group.items.map((n) => ({
+      id: `nav-${n.href}`,
+      label: n.label,
+      section: "Quick actions",
+      href: n.href,
+    }))
+  );
 }
 
 function search(query: string): PaletteItem[] {
