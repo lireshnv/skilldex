@@ -1,35 +1,36 @@
 "use client";
+import "../styles/landing.css";
 import Link from "next/link";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { motion } from "framer-motion";
 import {
-  ArrowRight, GraduationCap, Building2, Sparkles, Target, TrendingUp,
-  Users, Network, BadgeCheck, Rocket, PlayCircle, Menu, X, School,
-  UserSearch, Briefcase,
+  ArrowRight, GraduationCap, Building2, Users, TrendingUp, UserSearch,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
 import { useSkillDexStore } from "@/lib/store";
 import { useRouter } from "next/navigation";
-import { fadeUp } from "@/lib/motion";
+import { LandingNav } from "@/components/landing/landing-nav";
+import { HeroNetwork } from "@/components/landing/hero-network";
+import { IntelligenceLoop } from "@/components/landing/intelligence-loop";
+import { SkillGraphMini } from "@/components/landing/skill-graph-mini";
+import { Ecosystems } from "@/components/landing/ecosystems";
+import { MagneticButton } from "@/components/landing/magnetic-button";
+import { Reveal, RevealGroup, RevealItem } from "@/components/landing/reveal";
+import { revealUp } from "@/lib/landing-motion";
 
-const loopSteps = [
-  { label: "Assess", icon: Target },
-  { label: "Identify Gap", icon: TrendingUp },
-  { label: "Learn", icon: BadgeCheck },
-  { label: "Build Evidence", icon: Sparkles },
-  { label: "Connect", icon: Network },
-  { label: "Opportunity", icon: Briefcase },
-  { label: "Outcome", icon: Rocket },
-  { label: "Skill Update", icon: Users },
+const problems = [
+  "Students don't know what they are capable of.",
+  "Institutions don't have a live view of skill readiness.",
+  "Industry struggles to discover capability beyond resumes.",
 ];
 
-const innovations = [
-  { title: "Closed-Loop Skill Evolution", desc: "Every outcome feeds back into the skill model, so recommendations keep getting sharper over time." },
-  { title: "Evidence-to-Opportunity Intelligence", desc: "Skills are matched to real opportunities using verified evidence, not self-reported claims." },
-  { title: "Hidden & Transferable Skill Discovery", desc: "Surfaces skills students don't know they have, mapped to unconventional career paths." },
-  { title: "Activity-Based College Discovery", desc: "Industry finds colleges based on real hackathon, project and placement activity — not just rankings." },
-  { title: "Outcome-Calibrated Intelligence", desc: "Recommendations are continuously calibrated against real hiring and academic outcomes." },
+const hiddenChain = ["Hackathon", "Team Leadership", "Problem Solving", "Product Thinking", "Communication"];
+
+const howItWorks = [
+  { n: "01", label: "Understand", desc: "Map what a person actually knows, verified against real work." },
+  { n: "02", label: "Identify", desc: "Surface gaps and transferable skills, not just resume keywords." },
+  { n: "03", label: "Develop", desc: "A personalized path toward the role someone is aiming for." },
+  { n: "04", label: "Connect", desc: "Capability matched to real opportunities, evidence-first." },
 ];
 
 function DemoDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
@@ -71,273 +72,243 @@ function DemoDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (v: b
 
 export default function LandingPage() {
   const [demoOpen, setDemoOpen] = useState(false);
-  const [mobileNav, setMobileNav] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-border bg-surface/85 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] bg-navy text-sm font-bold text-white">SD</div>
-            <span className="text-base font-bold text-foreground">SkillDex</span>
-          </div>
-          <nav className="hidden items-center gap-7 text-sm font-medium text-muted-foreground md:flex">
-            <a href="#about" className="hover:text-foreground">About</a>
-            <a href="#how-it-works" className="hover:text-foreground">How It Works</a>
-            <a href="#features" className="hover:text-foreground">Features</a>
-            <a href="#students" className="hover:text-foreground">For Students</a>
-            <a href="#institutions" className="hover:text-foreground">For Institutions</a>
-            <a href="#industry" className="hover:text-foreground">For Industry</a>
-            <a href="#contact" className="hover:text-foreground">Contact</a>
-          </nav>
-          <div className="hidden items-center gap-2 md:flex">
-            <Button variant="ghost" size="sm" onClick={() => setDemoOpen(true)}>
-              <PlayCircle className="h-4 w-4" /> Explore Demo
-            </Button>
-            <Button variant="primary" size="sm" onClick={() => document.getElementById("portals")?.scrollIntoView({ behavior: "smooth" })}>
-              Get Started <ArrowRight className="h-4 w-4" />
-            </Button>
-          </div>
-          <button className="md:hidden" onClick={() => setMobileNav((v) => !v)} aria-label="Toggle menu">
-            {mobileNav ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+    <div className="sd-landing relative min-h-screen">
+      <LandingNav onExplore={() => setDemoOpen(true)} />
+
+      {/* ============ HERO ============ */}
+      <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4">
+        <div className="sd-grid pointer-events-none absolute inset-0" />
+        <div className="sd-grain" />
+        <div className="sd-network-mask pointer-events-none absolute inset-0 opacity-60">
+          <HeroNetwork />
         </div>
-        {mobileNav && (
-          <div className="border-t border-border bg-surface px-4 py-3 md:hidden">
-            <div className="flex flex-col gap-3 text-sm font-medium text-muted-foreground">
-              <a href="#about" onClick={() => setMobileNav(false)}>About</a>
-              <a href="#how-it-works" onClick={() => setMobileNav(false)}>How It Works</a>
-              <a href="#features" onClick={() => setMobileNav(false)}>Features</a>
-              <a href="#students" onClick={() => setMobileNav(false)}>For Students</a>
-              <a href="#institutions" onClick={() => setMobileNav(false)}>For Institutions</a>
-              <a href="#industry" onClick={() => setMobileNav(false)}>For Industry</a>
-              <Button variant="primary" size="sm" onClick={() => { setMobileNav(false); setDemoOpen(true); }}>
-                Explore Demo
-              </Button>
-            </div>
-          </div>
-        )}
-      </header>
 
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-dot-grid">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(219,234,254,0.7),transparent_65%)]" />
-        <motion.div
-          initial="hidden"
-          animate="show"
-          variants={fadeUp}
-          className="relative mx-auto max-w-5xl px-4 py-24 text-center sm:px-6 sm:py-32 lg:px-8"
-        >
-          <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-blue/30 bg-surface/90 px-4 py-1.5 text-xs font-semibold text-blue-2 shadow-sm backdrop-blur">
-            <span className="flex h-2 w-2 rounded-full bg-blue animate-pulse" />
-            <Sparkles className="h-3.5 w-3.5 text-blue" />
-            Skill Intelligence for Academia & Industry
-          </div>
-
-          <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl leading-[1.1]">
-            Where Skills Meet <span className="text-blue-2">Opportunity.</span>
-          </h1>
-
-          <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-xl leading-relaxed">
-            Assess verified competencies. Discover hidden potential. Connect academia, student capability, and corporate hiring through verified intelligence.
+        <motion.div initial="hidden" animate="show" variants={revealUp} className="relative z-10 flex flex-col items-center text-center">
+          <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--sd-text-faint)]">
+            Skill Intelligence Platform
           </p>
-
+          <h1 className="max-w-4xl text-[clamp(2.75rem,9vw,6rem)] font-semibold leading-[0.98] tracking-tight text-[var(--sd-text)]">
+            Where Skills
+            <br />
+            Become Opportunity.
+          </h1>
+          <p className="mt-7 max-w-lg text-base leading-relaxed text-[var(--sd-text-muted)] sm:text-lg">
+            Understand capability. Discover potential. Connect talent with the opportunities that matter.
+          </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Button variant="primary" size="lg" onClick={() => document.getElementById("portals")?.scrollIntoView({ behavior: "smooth" })}>
-              Enter SkillDex Workspace <ArrowRight className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="lg" onClick={() => setDemoOpen(true)}>
-              <PlayCircle className="h-4 w-4 text-blue-2" /> Interactive Demo
-            </Button>
+            <MagneticButton
+              onClick={() => setDemoOpen(true)}
+              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition-transform active:scale-95"
+            >
+              Explore SkillDex <ArrowRight className="h-4 w-4" />
+            </MagneticButton>
+            <MagneticButton
+              onClick={() => document.getElementById("loop")?.scrollIntoView({ behavior: "smooth" })}
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--sd-border-strong)] px-6 py-3 text-sm font-medium text-[var(--sd-text)] transition-colors hover:border-white/30"
+            >
+              See how it works
+            </MagneticButton>
           </div>
-          <p className="mt-4 text-xs font-medium text-muted-foreground/80">Skills Today. Brighter Tomorrow.</p>
         </motion.div>
+
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-8 h-8 w-px bg-gradient-to-b from-transparent via-[var(--sd-border-strong)] to-transparent"
+        />
       </section>
 
-      {/* Problem / About */}
-      <section id="about" className="border-y border-border/80 bg-surface/50 py-16 backdrop-blur">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 md:grid-cols-3">
-            {[
-              { stat: "60%+", label: "of graduates report a mismatch between college learning and industry-required skills." },
-              { stat: "3-6 mo", label: "average time institutions spend manually matching students with the right companies." },
-              { stat: "1000s", label: "of hidden and transferable skills go undiscovered without evidence-based intelligence." },
-            ].map((s) => (
-              <div key={s.label} className="text-center p-6 rounded-[var(--radius-lg)] bg-surface border border-border/60 shadow-sm">
-                <p className="text-4xl font-extrabold text-navy tracking-tight">{s.stat}</p>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How it works - intelligence loop */}
-      <section id="how-it-works" className="py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-2">Continuous Calibration</span>
-            <h2 className="mt-1 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">The SkillDex Intelligence Loop</h2>
-            <p className="mt-3 text-sm text-muted-foreground">
-              A closed-loop system where every real outcome continuously improves the next recommendation.
+      {/* ============ PROBLEM ============ */}
+      <section className="relative border-t sd-divider px-4 py-32 sm:py-44">
+        <div className="mx-auto max-w-3xl text-center">
+          <Reveal>
+            <p className="text-[clamp(1.75rem,4.5vw,3rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
+              The problem isn&apos;t a lack of talent.
             </p>
-          </div>
-          <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-8">
-            {loopSteps.map((step, i) => (
-              <motion.div
-                key={step.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: i * 0.05 }}
-                className="flex flex-col items-center gap-2.5 rounded-[var(--radius-lg)] border border-border/80 bg-surface p-4 text-center shadow-[var(--shadow-sm)] hover:border-blue/40 hover:shadow-md transition-all cursor-default"
-              >
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-light text-blue-2 shadow-xs">
-                  <step.icon className="h-5 w-5" />
-                </div>
-                <p className="text-xs font-bold text-foreground">{step.label}</p>
-                {i < loopSteps.length - 1 && <ArrowRight className="hidden h-3.5 w-3.5 text-border-strong lg:block" />}
-              </motion.div>
+            <p className="mt-1 text-[clamp(1.75rem,4.5vw,3rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text-muted)]">
+              It&apos;s a lack of visibility.
+            </p>
+          </Reveal>
+
+          <RevealGroup className="mx-auto mt-20 flex max-w-xl flex-col gap-8" stagger={0.15}>
+            {problems.map((p) => (
+              <RevealItem key={p}>
+                <p className="text-lg leading-relaxed text-[var(--sd-text-muted)] sm:text-xl">{p}</p>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
+        </div>
+      </section>
 
-          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {innovations.map((item) => (
-              <div key={item.title} className="rounded-[var(--radius-lg)] border border-border/70 bg-surface p-5 hover:border-blue/30 transition-colors shadow-xs">
-                <p className="text-sm font-bold text-foreground">{item.title}</p>
-                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{item.desc}</p>
-              </div>
+      {/* ============ INTELLIGENCE LOOP ============ */}
+      <div id="loop">
+        <IntelligenceLoop />
+      </div>
+
+      {/* ============ SKILL GRAPH ============ */}
+      <section className="border-t sd-divider px-4 py-28 sm:py-36">
+        <div className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-2">
+          <Reveal>
+            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-[var(--sd-text-faint)]">03 — Knowledge Graph</p>
+            <h2 className="text-[clamp(2rem,4.5vw,3.25rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
+              Skills are connected.
+            </h2>
+            <p className="mt-5 max-w-md text-base leading-relaxed text-[var(--sd-text-muted)]">
+              SkillDex maps the relationships between skills, roles, projects and opportunities — hover a node to see what it connects to.
+            </p>
+          </Reveal>
+          <Reveal delay={0.15}>
+            <div className="sd-glass rounded-2xl p-6">
+              <SkillGraphMini />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ============ EVIDENCE -> OPPORTUNITY ============ */}
+      <section className="border-t sd-divider px-4 py-28 sm:py-36">
+        <div className="mx-auto max-w-3xl text-center">
+          <Reveal>
+            <p className="text-[clamp(1.75rem,4.5vw,3rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
+              Don&apos;t just say you have a skill.
+            </p>
+            <p className="mt-1 text-[clamp(1.75rem,4.5vw,3rem)] font-semibold leading-tight tracking-tight text-[var(--sd-accent)]">
+              Show it.
+            </p>
+          </Reveal>
+        </div>
+
+        <RevealGroup className="mx-auto mt-16 flex max-w-3xl flex-col items-stretch gap-4 sm:flex-row sm:items-center" stagger={0.12}>
+          <RevealItem className="sd-glass flex-1 rounded-2xl p-6 text-left">
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-[var(--sd-text-faint)]">Evidence</p>
+            <p className="mt-2 text-base font-semibold text-[var(--sd-text)]">Computer Vision Pipeline</p>
+            <p className="mt-1 text-xs text-[var(--sd-text-muted)]">Python · OpenCV · PyTorch</p>
+            <p className="mt-3 text-[11px] text-[var(--sd-text-faint)]">GitHub · Assessment · Project</p>
+          </RevealItem>
+          <RevealItem className="flex shrink-0 justify-center text-[var(--sd-text-faint)]">
+            <ArrowRight className="h-5 w-5 rotate-90 sm:rotate-0" />
+          </RevealItem>
+          <RevealItem className="sd-glass-strong flex-1 rounded-2xl p-6 text-left">
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-[var(--sd-accent)]">Opportunity</p>
+            <p className="mt-2 text-base font-semibold text-[var(--sd-text)]">ML Engineer Internship</p>
+            <p className="mt-1 text-xs text-[var(--sd-text-muted)]">Evidence-based alignment</p>
+            <p className="mt-3 text-2xl font-bold text-[var(--sd-text)]">92<span className="text-sm font-medium text-[var(--sd-text-muted)]">%</span></p>
+          </RevealItem>
+        </RevealGroup>
+      </section>
+
+      {/* ============ THREE ECOSYSTEMS ============ */}
+      <Ecosystems />
+
+      {/* ============ AUDIENCE ============ */}
+      <section className="border-t sd-divider px-4 py-28 sm:py-36">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-[var(--sd-text-faint)]">Built for the whole ecosystem</p>
+          <h2 className="text-[clamp(2rem,4.5vw,3.25rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
+            One platform, three vantage points.
+          </h2>
+        </Reveal>
+
+        <RevealGroup className="mx-auto mt-16 grid max-w-5xl gap-4 sm:grid-cols-3" stagger={0.12}>
+          <RevealItem id="student" className="sd-glass rounded-2xl p-7">
+            <GraduationCap className="h-5 w-5 text-[var(--sd-text-muted)]" />
+            <p className="mt-5 text-lg font-semibold text-[var(--sd-text)]">Students</p>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--sd-text-muted)]">Know what you&apos;re capable of, and what to build next.</p>
+          </RevealItem>
+          <RevealItem id="institution" className="sd-glass rounded-2xl p-7">
+            <Building2 className="h-5 w-5 text-[var(--sd-text-muted)]" />
+            <p className="mt-5 text-lg font-semibold text-[var(--sd-text)]">Institutions</p>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--sd-text-muted)]">See your institution through its skills, not just its rankings.</p>
+          </RevealItem>
+          <RevealItem id="industry" className="sd-glass rounded-2xl p-7">
+            <UserSearch className="h-5 w-5 text-[var(--sd-text-muted)]" />
+            <p className="mt-5 text-lg font-semibold text-[var(--sd-text)]">Industry</p>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--sd-text-muted)]">Find capability. Not just resumes.</p>
+          </RevealItem>
+        </RevealGroup>
+      </section>
+
+      {/* ============ HIDDEN SKILLS ============ */}
+      <section className="border-t sd-divider px-4 py-28 sm:py-36">
+        <div className="mx-auto max-w-3xl text-center">
+          <Reveal>
+            <p className="text-[clamp(1.75rem,4.5vw,3rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
+              You may know more
+            </p>
+            <p className="mt-1 text-[clamp(1.75rem,4.5vw,3rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text-muted)]">
+              than your resume shows.
+            </p>
+          </Reveal>
+
+          <RevealGroup className="mx-auto mt-16 flex max-w-2xl flex-wrap items-center justify-center gap-3" stagger={0.1}>
+            {hiddenChain.map((step, i) => (
+              <Fragment key={step}>
+                <RevealItem className="sd-glass rounded-full px-4 py-2 text-sm font-medium text-[var(--sd-text)]">{step}</RevealItem>
+                {i < hiddenChain.length - 1 && <RevealItem className="text-[var(--sd-text-faint)]"><ArrowRight className="h-4 w-4" /></RevealItem>}
+              </Fragment>
             ))}
-          </div>
+          </RevealGroup>
         </div>
       </section>
 
-      {/* Feature sections for each stakeholder */}
-      <section id="features" className="border-y border-border/80 bg-surface-muted/40 py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-6 md:grid-cols-3">
-            <StakeholderCard id="students" icon={GraduationCap} title="For Students" question="What should I do next?" points={["Verified digital skill passport", "Personalized daily plan", "Company & career-path intelligence"]} />
-            <StakeholderCard id="institutions" icon={School} title="For Institutions" question="How do I improve readiness?" points={["Placement command center", "Skill gap analytics", "Resource & company intelligence"]} />
-            <StakeholderCard id="industry" icon={Building2} title="For Industry" question="Who should we collaborate with?" points={["Verified talent discovery", "College & startup discovery", "End-to-end hiring pipelines"]} />
-          </div>
-        </div>
+      {/* ============ HOW IT WORKS ============ */}
+      <section className="border-t sd-divider px-4 py-28 sm:py-36">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-[var(--sd-text-faint)]">How it works</p>
+          <h2 className="text-[clamp(2rem,4.5vw,3.25rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
+            From capability to outcome.
+          </h2>
+        </Reveal>
+
+        <RevealGroup className="mx-auto mt-16 grid max-w-5xl gap-px overflow-hidden rounded-2xl sd-glass sm:grid-cols-4" stagger={0.1}>
+          {howItWorks.map((s) => (
+            <RevealItem key={s.n} className="group bg-[var(--sd-bg-raised)] p-7 transition-colors hover:bg-white/[0.03]">
+              <p className="text-xs font-mono text-[var(--sd-text-faint)]">{s.n}</p>
+              <p className="mt-4 text-lg font-semibold text-[var(--sd-text)]">{s.label}</p>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--sd-text-muted)]">{s.desc}</p>
+            </RevealItem>
+          ))}
+        </RevealGroup>
       </section>
 
-      {/* Portal selection */}
-      <section id="portals" className="py-24">
-        <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
-          <span className="text-xs font-bold uppercase tracking-wider text-blue-2">Workspaces</span>
-          <h2 className="mt-1 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Choose Your Workspace</h2>
-          <p className="mt-3 text-sm text-muted-foreground">Two connected ecosystems, one unified intelligence platform.</p>
-
-          <div className="mt-12 grid gap-6 sm:grid-cols-2">
-            <PortalCard
-              href="/institution"
-              icon={GraduationCap}
-              title="Institution"
-              description="Manage students, faculty, placements, skill development and industry relationships."
-              cta="Enter Institution"
-              gradient="from-blue-light/70 to-surface"
-            />
-            <PortalCard
-              href="/industry"
-              icon={Building2}
-              title="Industry"
-              description="Discover talent, connect with institutions and build hiring and collaboration pipelines."
-              cta="Enter Industry"
-              gradient="from-violet-light/70 to-surface"
-            />
-          </div>
-
-          <button onClick={() => setDemoOpen(true)} className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-blue-2 hover:underline cursor-pointer">
-            <PlayCircle className="h-4 w-4" /> Or jump straight into a guided demo
-          </button>
-        </div>
+      {/* ============ FINAL CTA ============ */}
+      <section className="border-t sd-divider px-4 py-36 sm:py-48">
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <p className="text-[clamp(2rem,5vw,3.75rem)] font-semibold leading-[1.05] tracking-tight text-[var(--sd-text)]">
+            The future of opportunity starts with understanding skills.
+          </p>
+          <p className="mt-6 text-base text-[var(--sd-text-muted)]">SkillDex connects capability with possibility.</p>
+          <MagneticButton
+            onClick={() => setDemoOpen(true)}
+            className="mt-10 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-black transition-transform active:scale-95"
+          >
+            Explore SkillDex <ArrowRight className="h-4 w-4" />
+          </MagneticButton>
+        </Reveal>
       </section>
 
-      {/* Contact / CTA footer */}
-      <footer id="contact" className="border-t border-border bg-navy py-14 text-white">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-start justify-between gap-8 md:flex-row">
-            <div>
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-sm)] bg-white/10 text-sm font-bold">SD</div>
-                <span className="text-base font-bold">SkillDex</span>
-              </div>
-              <p className="mt-3 max-w-sm text-sm text-white/60">
-                Connecting Talent. Empowering Futures. The skill intelligence layer for academia and industry.
-              </p>
+      {/* ============ FOOTER ============ */}
+      <footer className="border-t sd-divider px-4 py-14">
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
+          <div>
+            <div className="flex items-center justify-center gap-2 sm:justify-start">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[10px] font-bold text-black">SD</div>
+              <span className="text-sm font-semibold text-[var(--sd-text)]">SkillDex</span>
             </div>
-            <div className="flex gap-12 text-sm text-white/70">
-              <div className="space-y-2">
-                <p className="font-semibold text-white">Platform</p>
-                <p>How It Works</p>
-                <p>Features</p>
-                <p>Demo</p>
-              </div>
-              <div className="space-y-2">
-                <p className="font-semibold text-white">Stakeholders</p>
-                <p>Students</p>
-                <p>Institutions</p>
-                <p>Industry</p>
-              </div>
-            </div>
+            <p className="mt-2 text-xs text-[var(--sd-text-faint)]">Skill Intelligence for Academia &amp; Industry</p>
           </div>
-          <div className="mt-10 border-t border-white/10 pt-6 text-xs text-white/40">
-            © 2026 SkillDex. Built for the modern academia-industry ecosystem.
-          </div>
+          <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[var(--sd-text-muted)]">
+            <Link href="/institution" className="hover:text-[var(--sd-text)]">Institutions</Link>
+            <Link href="/industry" className="hover:text-[var(--sd-text)]">Industry</Link>
+            <a href="#loop" className="hover:text-[var(--sd-text)]">How It Works</a>
+          </nav>
+          <p className="text-xs text-[var(--sd-text-faint)]">© 2026 SkillDex</p>
         </div>
       </footer>
 
       <DemoDialog open={demoOpen} onOpenChange={setDemoOpen} />
     </div>
-  );
-}
-
-function StakeholderCard({ id, icon: Icon, title, question, points }: { id: string; icon: typeof GraduationCap; title: string; question: string; points: string[] }) {
-  return (
-    <motion.div
-      id={id}
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.2 }}
-      className="rounded-[var(--radius-lg)] border border-border/80 bg-surface p-7 shadow-sm hover:border-blue/30 hover:shadow-md transition-all"
-    >
-      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white shadow-sm">
-        <Icon className="h-6 w-6" />
-      </div>
-      <h3 className="mt-5 text-lg font-bold text-foreground">{title}</h3>
-      <p className="mt-1 text-sm font-medium italic text-blue-2">&ldquo;{question}&rdquo;</p>
-      <ul className="mt-5 space-y-2.5">
-        {points.map((p) => (
-          <li key={p} className="flex items-start gap-2.5 text-sm text-muted-foreground">
-            <BadgeCheck className="mt-0.5 h-4.5 w-4.5 shrink-0 text-emerald" /> {p}
-          </li>
-        ))}
-      </ul>
-    </motion.div>
-  );
-}
-
-function PortalCard({ href, icon: Icon, title, description, cta, gradient }: { href: string; icon: typeof GraduationCap; title: string; description: string; cta: string; gradient: string }) {
-  return (
-    <Link href={href} className="group block">
-      <motion.div
-        whileHover={{ y: -6, scale: 1.01 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className={`relative overflow-hidden rounded-[var(--radius-xl)] border border-border/90 bg-gradient-to-br ${gradient} p-8 text-left shadow-sm group-hover:border-blue/40 group-hover:shadow-[0_20px_40px_-15px_rgba(29,78,216,0.15)] transition-all`}
-      >
-        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-navy text-white shadow-md transition-transform duration-300 group-hover:scale-110">
-          <Icon className="h-7 w-7" />
-        </div>
-        <h3 className="mt-6 text-2xl font-extrabold text-foreground">{title} Workspace</h3>
-        <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{description}</p>
-        <div className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-blue-2">
-          {cta}
-          <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1.5" />
-        </div>
-      </motion.div>
-    </Link>
   );
 }

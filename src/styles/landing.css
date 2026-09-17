@@ -1,0 +1,79 @@
+/* Landing page dark theme — entirely scoped under .sd-landing so it never
+   touches the light-theme tokens the rest of the app (portals) relies on.
+   Deliberately not merged into globals.css to keep that boundary obvious. */
+
+.sd-landing {
+  --sd-bg: #050505;
+  --sd-bg-raised: #0a0a0a;
+  --sd-surface: rgba(255, 255, 255, 0.04);
+  --sd-surface-strong: rgba(255, 255, 255, 0.06);
+  --sd-border: rgba(255, 255, 255, 0.1);
+  --sd-border-strong: rgba(255, 255, 255, 0.16);
+  --sd-text: #f5f5f5;
+  --sd-text-muted: #8a8a8f;
+  --sd-text-faint: #55555a;
+  --sd-accent: #6ea8ff;
+  --sd-accent-dim: rgba(110, 168, 255, 0.35);
+
+  background: var(--sd-bg);
+  color: var(--sd-text);
+  font-feature-settings: "ss01" 1;
+}
+
+.sd-landing ::selection {
+  background: var(--sd-accent-dim);
+  color: #fff;
+}
+
+/* Faint animated grid, used behind the hero only — not a page-wide texture. */
+/* Fades the hero network to nothing in the middle third of the screen —
+   where the headline sits — so it reads as peripheral atmosphere instead
+   of competing with the text. */
+.sd-network-mask {
+  mask-image: radial-gradient(ellipse 42% 55% at 50% 50%, transparent 0%, transparent 60%, black 100%);
+  -webkit-mask-image: radial-gradient(ellipse 42% 55% at 50% 50%, transparent 0%, transparent 60%, black 100%);
+}
+
+.sd-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 60% 50% at 50% 30%, black 40%, transparent 100%);
+}
+
+/* Subtle film grain so large flat-black areas don't read as digitally flat. */
+.sd-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
+}
+
+.sd-glass {
+  background: var(--sd-surface);
+  border: 1px solid var(--sd-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.sd-glass-strong {
+  background: var(--sd-surface-strong);
+  border: 1px solid var(--sd-border-strong);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.sd-divider {
+  border-color: var(--sd-border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sd-landing * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
