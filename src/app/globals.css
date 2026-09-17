@@ -105,21 +105,7 @@ body {
   animation: pulse-soft 2.2s ease-in-out infinite;
 }
 
-.text-gradient {
-  background: linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-sky) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.text-gradient-accent {
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #06b6d4 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* UI/UX Pro Max Glass & Glow Utilities */
+/* Glass & Glow Utilities — used sparingly (card hover depth, chrome surfaces), not as a whole-page look */
 .glass-panel {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);

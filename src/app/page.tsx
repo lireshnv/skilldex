@@ -136,7 +136,7 @@ export default function LandingPage() {
           </div>
 
           <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl leading-[1.1]">
-            Where Skills Meet <span className="text-gradient-accent">Opportunity.</span>
+            Where Skills Meet <span className="text-blue-2">Opportunity.</span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-xl leading-relaxed">
