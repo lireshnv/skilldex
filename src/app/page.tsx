@@ -14,24 +14,43 @@ import { HeroNetwork } from "@/components/landing/hero-network";
 import { IntelligenceLoop } from "@/components/landing/intelligence-loop";
 import { SkillGraphMini } from "@/components/landing/skill-graph-mini";
 import { Ecosystems } from "@/components/landing/ecosystems";
+import { FlowChain } from "@/components/landing/flow-chain";
 import { MagneticButton } from "@/components/landing/magnetic-button";
 import { Reveal, RevealGroup, RevealItem } from "@/components/landing/reveal";
 import { revealUp } from "@/lib/landing-motion";
 
-const problems = [
-  "Students don't know what they are capable of.",
-  "Institutions don't have a live view of skill readiness.",
-  "Industry struggles to discover capability beyond resumes.",
+const questions = [
+  { who: "Student", q: "What skills do I have — and what am I missing?" },
+  { who: "Institution", q: "Are our students developing the skills industry actually needs?" },
+  { who: "Industry", q: "Where can we find people with the capabilities we need?" },
 ];
 
-const hiddenChain = ["Hackathon", "Team Leadership", "Problem Solving", "Product Thinking", "Communication"];
+const missingLinks = ["STUDENT", "SKILLS", "EVIDENCE", "INSTITUTION", "INDUSTRY REQUIREMENTS", "OPPORTUNITY", "OUTCOME"];
 
-const howItWorks = [
-  { n: "01", label: "Understand", desc: "Map what a person actually knows, verified against real work." },
-  { n: "02", label: "Identify", desc: "Surface gaps and transferable skills, not just resume keywords." },
-  { n: "03", label: "Develop", desc: "A personalized path toward the role someone is aiming for." },
-  { n: "04", label: "Connect", desc: "Capability matched to real opportunities, evidence-first." },
+const evolveSteps = [
+  "Current Skills", "Skill Assessment", "Skill Gap", "Learning Path",
+  "Project / Experience", "Verified Evidence", "Opportunity", "Career Outcome",
 ];
+
+const audiences = [
+  {
+    id: "student", icon: GraduationCap, title: "Students", tag: "Know where you stand.",
+    desc: "Understand your current capabilities, discover hidden skills, identify gaps and see what to build next.",
+    caps: ["Skill Passport", "Skill Gap Analysis", "Personalized Development Path", "Career & Company Intelligence", "Opportunity Matching"],
+  },
+  {
+    id: "institution", icon: Building2, title: "Institutions", tag: "Know where your talent stands.",
+    desc: "Understand student readiness, identify curriculum and skill gaps, track development and strengthen industry connections.",
+    caps: ["Skill Readiness", "Department Analytics", "Placement Intelligence", "Industry Requirements", "Resource & Company Intelligence"],
+  },
+  {
+    id: "industry", icon: UserSearch, title: "Industry", tag: "Find capability beyond resumes.",
+    desc: "Discover relevant talent and institutions through verified skills, projects, activity and evidence.",
+    caps: ["Talent Discovery", "Skill-Based Matching", "College Discovery", "Project & Internship Pipelines", "Hiring & Collaboration"],
+  },
+];
+
+const hiddenChain = ["Hackathon", "Problem Solving", "Team Leadership", "Product Thinking", "Communication"];
 
 function DemoDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
   const router = useRouter();
@@ -89,13 +108,15 @@ export default function LandingPage() {
           <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--sd-text-faint)]">
             Skill Intelligence Platform
           </p>
-          <h1 className="max-w-4xl text-[clamp(2.75rem,9vw,6rem)] font-semibold leading-[0.98] tracking-tight text-[var(--sd-text)]">
-            Where Skills
+          <h1 className="max-w-3xl text-[clamp(2.5rem,8vw,5.5rem)] font-semibold leading-[1.02] tracking-tight text-[var(--sd-text)]">
+            Three ecosystems.
             <br />
-            Become Opportunity.
+            One connected skill network.
           </h1>
-          <p className="mt-7 max-w-lg text-base leading-relaxed text-[var(--sd-text-muted)] sm:text-lg">
-            Understand capability. Discover potential. Connect talent with the opportunities that matter.
+          <p className="mt-7 max-w-xl text-base leading-relaxed text-[var(--sd-text-muted)] sm:text-lg">
+            Students build skills. Institutions develop talent. Industry needs capability.
+            <br className="hidden sm:block" />
+            SkillDex brings people, skills, evidence and opportunity into one connected layer.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
             <MagneticButton
@@ -105,10 +126,10 @@ export default function LandingPage() {
               Explore SkillDex <ArrowRight className="h-4 w-4" />
             </MagneticButton>
             <MagneticButton
-              onClick={() => document.getElementById("loop")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => document.getElementById("connects")?.scrollIntoView({ behavior: "smooth" })}
               className="inline-flex items-center gap-2 rounded-full border border-[var(--sd-border-strong)] px-6 py-3 text-sm font-medium text-[var(--sd-text)] transition-colors hover:border-white/30"
             >
-              See how it works
+              See how it connects
             </MagneticButton>
           </div>
         </motion.div>
@@ -120,49 +141,109 @@ export default function LandingPage() {
         />
       </section>
 
-      {/* ============ PROBLEM ============ */}
-      <section className="relative border-t sd-divider px-4 py-32 sm:py-44">
-        <div className="mx-auto max-w-3xl text-center">
-          <Reveal>
-            <p className="text-[clamp(1.75rem,4.5vw,3rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
-              The problem isn&apos;t a lack of talent.
-            </p>
-            <p className="mt-1 text-[clamp(1.75rem,4.5vw,3rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text-muted)]">
-              It&apos;s a lack of visibility.
-            </p>
-          </Reveal>
+      {/* ============ THE DISCONNECTED ECOSYSTEM ============ */}
+      <section className="border-t sd-divider px-4 py-28 sm:py-36">
+        <Reveal className="mx-auto max-w-3xl text-center">
+          <p className="text-[clamp(1.75rem,4.5vw,3rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
+            The talent ecosystem is disconnected.
+          </p>
+          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-[var(--sd-text-muted)]">
+            Students learn without a clear view of what industry needs. Institutions manage skills, training and
+            placements across disconnected systems. Industry searches for talent through resumes that rarely show
+            the full picture.
+          </p>
+        </Reveal>
 
-          <RevealGroup className="mx-auto mt-20 flex max-w-xl flex-col gap-8" stagger={0.15}>
-            {problems.map((p) => (
-              <RevealItem key={p}>
-                <p className="text-lg leading-relaxed text-[var(--sd-text-muted)] sm:text-xl">{p}</p>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
+        <RevealGroup className="mx-auto mt-20 grid max-w-4xl gap-4 sm:grid-cols-3" stagger={0.12}>
+          {questions.map((q) => (
+            <RevealItem key={q.who} className="sd-glass rounded-2xl p-6">
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-[var(--sd-text-faint)]">{q.who}</p>
+              <p className="mt-3 text-sm italic leading-relaxed text-[var(--sd-text)]">&ldquo;{q.q}&rdquo;</p>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+
+        <Reveal delay={0.1} className="mx-auto mt-16 max-w-md text-center">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--sd-text-faint)]">The result</p>
+          <p className="mt-3 text-lg font-medium leading-relaxed text-[var(--sd-text-muted)] sm:text-xl">
+            Skills stay hidden. Gaps stay unnoticed. Opportunities stay disconnected.
+          </p>
+        </Reveal>
       </section>
 
-      {/* ============ INTELLIGENCE LOOP ============ */}
-      <div id="loop">
-        <IntelligenceLoop />
-      </div>
+      {/* ============ CONNECTS THE MISSING LINKS ============ */}
+      <section id="connects" className="border-t sd-divider px-4 py-28 sm:py-36">
+        <Reveal className="mx-auto mb-16 max-w-2xl text-center">
+          <h2 className="text-[clamp(2rem,4.5vw,3.25rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
+            SkillDex connects the missing links.
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-[var(--sd-text-muted)]">
+            SkillDex continuously connects these signals to create a live view of capability and demand.
+          </p>
+        </Reveal>
+        <FlowChain steps={missingLinks} loop />
+      </section>
 
       {/* ============ SKILL GRAPH ============ */}
       <section className="border-t sd-divider px-4 py-28 sm:py-36">
         <div className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-2">
           <Reveal>
-            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-[var(--sd-text-faint)]">03 — Knowledge Graph</p>
+            <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-[var(--sd-text-faint)]">The Skill Intelligence Graph</p>
             <h2 className="text-[clamp(2rem,4.5vw,3.25rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
-              Skills are connected.
+              One skill. Multiple connections.
             </h2>
             <p className="mt-5 max-w-md text-base leading-relaxed text-[var(--sd-text-muted)]">
-              SkillDex maps the relationships between skills, roles, projects and opportunities — hover a node to see what it connects to.
+              A skill doesn&apos;t exist in isolation. SkillDex maps these relationships across skills, roles, projects,
+              courses, certifications, companies and opportunities — hover Python to see where it leads.
             </p>
           </Reveal>
           <Reveal delay={0.15}>
             <div className="sd-glass rounded-2xl p-6">
               <SkillGraphMini />
             </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ============ BEFORE / AFTER ============ */}
+      <section className="border-t sd-divider px-4 py-28 sm:py-36">
+        <Reveal className="mx-auto mb-16 max-w-2xl text-center">
+          <h2 className="text-[clamp(2rem,4.5vw,3.25rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
+            From disconnected data to connected intelligence.
+          </h2>
+        </Reveal>
+
+        <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-2">
+          <Reveal>
+            <p className="mb-4 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--sd-text-faint)]">Before</p>
+            <RevealGroup className="flex flex-col gap-3" stagger={0.1}>
+              {[
+                { title: "Student Profile", items: "Skills · Projects · Certificates" },
+                { title: "College System", items: "Courses · Departments · Placements" },
+                { title: "Industry", items: "Job Descriptions · Required Skills · Hiring Needs" },
+              ].map((b) => (
+                <RevealItem key={b.title} className="rounded-xl border border-[var(--sd-border)] p-5 opacity-70">
+                  <p className="text-sm font-semibold text-[var(--sd-text)]">{b.title}</p>
+                  <p className="mt-1 text-xs text-[var(--sd-text-faint)]">{b.items}</p>
+                </RevealItem>
+              ))}
+            </RevealGroup>
+            <p className="mt-4 text-center text-xs font-medium text-[var(--sd-text-faint)]">Disconnected.</p>
+          </Reveal>
+
+          <Reveal delay={0.15}>
+            <p className="mb-4 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--sd-accent)]">After — SkillDex</p>
+            <div className="sd-glass-strong flex flex-col items-center rounded-2xl p-8 text-center">
+              <p className="text-sm font-semibold text-[var(--sd-text)]">Student → Skills</p>
+              <div className="my-3 h-6 w-px bg-[var(--sd-border-strong)]" />
+              <p className="rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-black">SkillDex — Skill Intelligence</p>
+              <div className="my-3 flex gap-4 text-xs text-[var(--sd-text-muted)]">
+                <span>Evidence</span><span>Role</span><span>Gap</span>
+              </div>
+              <div className="h-6 w-px bg-[var(--sd-border-strong)]" />
+              <p className="mt-3 text-sm font-semibold text-[var(--sd-text)]">Opportunity → Outcome</p>
+            </div>
+            <p className="mt-4 text-center text-xs font-medium text-[var(--sd-accent)]">One connected view of the ecosystem.</p>
           </Reveal>
         </div>
       </section>
@@ -177,6 +258,10 @@ export default function LandingPage() {
             <p className="mt-1 text-[clamp(1.75rem,4.5vw,3rem)] font-semibold leading-tight tracking-tight text-[var(--sd-accent)]">
               Show it.
             </p>
+            <p className="mx-auto mt-5 max-w-md text-base text-[var(--sd-text-muted)]">
+              SkillDex connects claims with evidence. The system matches opportunities using skills and evidence, not
+              just resume keywords.
+            </p>
           </Reveal>
         </div>
 
@@ -185,48 +270,61 @@ export default function LandingPage() {
             <p className="text-[11px] font-semibold uppercase tracking-wider text-[var(--sd-text-faint)]">Evidence</p>
             <p className="mt-2 text-base font-semibold text-[var(--sd-text)]">Computer Vision Pipeline</p>
             <p className="mt-1 text-xs text-[var(--sd-text-muted)]">Python · OpenCV · PyTorch</p>
-            <p className="mt-3 text-[11px] text-[var(--sd-text-faint)]">GitHub · Assessment · Project</p>
+            <p className="mt-3 text-[11px] text-[var(--sd-text-faint)]">GitHub · Assessment · Project · Certification</p>
           </RevealItem>
           <RevealItem className="flex shrink-0 justify-center text-[var(--sd-text-faint)]">
             <ArrowRight className="h-5 w-5 rotate-90 sm:rotate-0" />
           </RevealItem>
           <RevealItem className="sd-glass-strong flex-1 rounded-2xl p-6 text-left">
-            <p className="text-[11px] font-semibold uppercase tracking-wider text-[var(--sd-accent)]">Opportunity</p>
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-[var(--sd-accent)]">Verified Capability → Opportunity</p>
             <p className="mt-2 text-base font-semibold text-[var(--sd-text)]">ML Engineer Internship</p>
-            <p className="mt-1 text-xs text-[var(--sd-text-muted)]">Evidence-based alignment</p>
-            <p className="mt-3 text-2xl font-bold text-[var(--sd-text)]">92<span className="text-sm font-medium text-[var(--sd-text-muted)]">%</span></p>
+            <p className="mt-1 text-xs text-[var(--sd-text-muted)]">Matched on skills and evidence</p>
           </RevealItem>
         </RevealGroup>
       </section>
 
-      {/* ============ THREE ECOSYSTEMS ============ */}
+      {/* ============ EVOLVING PROFILE ============ */}
+      <section className="border-t sd-divider px-4 py-28 sm:py-36">
+        <Reveal className="mx-auto mb-16 max-w-2xl text-center">
+          <p className="text-[clamp(1.75rem,4.5vw,3rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
+            Skills shouldn&apos;t end at a profile.
+          </p>
+          <p className="mt-1 text-[clamp(1.5rem,3.5vw,2.25rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text-muted)]">
+            They should lead somewhere.
+          </p>
+        </Reveal>
+        <FlowChain steps={evolveSteps} dense />
+        <Reveal delay={0.1} className="mx-auto mt-10 max-w-sm text-center">
+          <p className="text-sm text-[var(--sd-text-muted)]">Every outcome can feed back into the skill model.</p>
+          <p className="mt-1 text-sm font-medium text-[var(--sd-accent)]">The profile evolves as capability evolves.</p>
+        </Reveal>
+      </section>
+
+      {/* ============ THREE ECOSYSTEMS CONVERGE ============ */}
       <Ecosystems />
 
       {/* ============ AUDIENCE ============ */}
       <section className="border-t sd-divider px-4 py-28 sm:py-36">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-[var(--sd-text-faint)]">Built for the whole ecosystem</p>
           <h2 className="text-[clamp(2rem,4.5vw,3.25rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
-            One platform, three vantage points.
+            Built for three connected ecosystems.
           </h2>
         </Reveal>
 
-        <RevealGroup className="mx-auto mt-16 grid max-w-5xl gap-4 sm:grid-cols-3" stagger={0.12}>
-          <RevealItem id="student" className="sd-glass rounded-2xl p-7">
-            <GraduationCap className="h-5 w-5 text-[var(--sd-text-muted)]" />
-            <p className="mt-5 text-lg font-semibold text-[var(--sd-text)]">Students</p>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--sd-text-muted)]">Know what you&apos;re capable of, and what to build next.</p>
-          </RevealItem>
-          <RevealItem id="institution" className="sd-glass rounded-2xl p-7">
-            <Building2 className="h-5 w-5 text-[var(--sd-text-muted)]" />
-            <p className="mt-5 text-lg font-semibold text-[var(--sd-text)]">Institutions</p>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--sd-text-muted)]">See your institution through its skills, not just its rankings.</p>
-          </RevealItem>
-          <RevealItem id="industry" className="sd-glass rounded-2xl p-7">
-            <UserSearch className="h-5 w-5 text-[var(--sd-text-muted)]" />
-            <p className="mt-5 text-lg font-semibold text-[var(--sd-text)]">Industry</p>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--sd-text-muted)]">Find capability. Not just resumes.</p>
-          </RevealItem>
+        <RevealGroup className="mx-auto mt-16 grid max-w-5xl gap-4 lg:grid-cols-3" stagger={0.12}>
+          {audiences.map((a) => (
+            <RevealItem key={a.id} id={a.id} className="sd-glass rounded-2xl p-7">
+              <a.icon className="h-5 w-5 text-[var(--sd-text-muted)]" />
+              <p className="mt-5 text-lg font-semibold text-[var(--sd-text)]">{a.title}</p>
+              <p className="mt-1 text-sm font-medium text-[var(--sd-accent)]">{a.tag}</p>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--sd-text-muted)]">{a.desc}</p>
+              <ul className="mt-5 space-y-2 border-t sd-divider pt-5">
+                {a.caps.map((c) => (
+                  <li key={c} className="text-xs text-[var(--sd-text-muted)]">{c}</li>
+                ))}
+              </ul>
+            </RevealItem>
+          ))}
         </RevealGroup>
       </section>
 
@@ -240,6 +338,9 @@ export default function LandingPage() {
             <p className="mt-1 text-[clamp(1.75rem,4.5vw,3rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text-muted)]">
               than your resume shows.
             </p>
+            <p className="mx-auto mt-5 max-w-md text-base text-[var(--sd-text-muted)]">
+              A student&apos;s activity can reveal capabilities that never appear under a formal job title.
+            </p>
           </Reveal>
 
           <RevealGroup className="mx-auto mt-16 flex max-w-2xl flex-wrap items-center justify-center gap-3" stagger={0.1}>
@@ -250,26 +351,33 @@ export default function LandingPage() {
               </Fragment>
             ))}
           </RevealGroup>
+          <Reveal delay={0.1} className="mt-8">
+            <p className="text-sm text-[var(--sd-text-muted)]">
+              SkillDex connects activities and evidence to uncover hidden and transferable skills.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      {/* ============ HOW IT WORKS ============ */}
-      <section className="border-t sd-divider px-4 py-28 sm:py-36">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-[var(--sd-text-faint)]">How it works</p>
-          <h2 className="text-[clamp(2rem,4.5vw,3.25rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
-            From capability to outcome.
-          </h2>
-        </Reveal>
+      {/* ============ HOW SKILLDEX CONNECTS IT ALL (orbital) ============ */}
+      <div id="loop">
+        <IntelligenceLoop eyebrow="How SkillDex connects it all" />
+      </div>
 
-        <RevealGroup className="mx-auto mt-16 grid max-w-5xl gap-px overflow-hidden rounded-2xl sd-glass sm:grid-cols-4" stagger={0.1}>
-          {howItWorks.map((s) => (
-            <RevealItem key={s.n} className="group bg-[var(--sd-bg-raised)] p-7 transition-colors hover:bg-white/[0.03]">
-              <p className="text-xs font-mono text-[var(--sd-text-faint)]">{s.n}</p>
-              <p className="mt-4 text-lg font-semibold text-[var(--sd-text)]">{s.label}</p>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--sd-text-muted)]">{s.desc}</p>
-            </RevealItem>
-          ))}
+      {/* ============ CLOSING STATEMENT ============ */}
+      <section className="border-t sd-divider px-4 py-28 text-center sm:py-36">
+        <Reveal className="mx-auto max-w-2xl">
+          <p className="text-[clamp(1.75rem,4vw,2.75rem)] font-semibold leading-tight tracking-tight text-[var(--sd-text)]">
+            One ecosystem. One skill language.
+            <br />
+            One connected intelligence layer.
+          </p>
+        </Reveal>
+        <RevealGroup className="mx-auto mt-10 flex max-w-lg flex-col gap-2" stagger={0.08}>
+          <RevealItem><p className="text-sm text-[var(--sd-text-muted)]">Students discover capability.</p></RevealItem>
+          <RevealItem><p className="text-sm text-[var(--sd-text-muted)]">Institutions understand readiness.</p></RevealItem>
+          <RevealItem><p className="text-sm text-[var(--sd-text-muted)]">Industry discovers talent.</p></RevealItem>
+          <RevealItem><p className="text-sm font-semibold text-[var(--sd-text)]">SkillDex connects them.</p></RevealItem>
         </RevealGroup>
       </section>
 
@@ -277,9 +385,9 @@ export default function LandingPage() {
       <section className="border-t sd-divider px-4 py-36 sm:py-48">
         <Reveal className="mx-auto max-w-3xl text-center">
           <p className="text-[clamp(2rem,5vw,3.75rem)] font-semibold leading-[1.05] tracking-tight text-[var(--sd-text)]">
-            The future of opportunity starts with understanding skills.
+            The future of opportunity starts with connected skills.
           </p>
-          <p className="mt-6 text-base text-[var(--sd-text-muted)]">SkillDex connects capability with possibility.</p>
+          <p className="mt-6 text-base text-[var(--sd-text-muted)]">Understand capability. Build evidence. Find opportunity.</p>
           <MagneticButton
             onClick={() => setDemoOpen(true)}
             className="mt-10 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-black transition-transform active:scale-95"
@@ -300,9 +408,10 @@ export default function LandingPage() {
             <p className="mt-2 text-xs text-[var(--sd-text-faint)]">Skill Intelligence for Academia &amp; Industry</p>
           </div>
           <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[var(--sd-text-muted)]">
+            <a href="#loop" className="hover:text-[var(--sd-text)]">Intelligence</a>
+            <a href="#connects" className="hover:text-[var(--sd-text)]">How It Works</a>
             <Link href="/institution" className="hover:text-[var(--sd-text)]">Institutions</Link>
             <Link href="/industry" className="hover:text-[var(--sd-text)]">Industry</Link>
-            <a href="#loop" className="hover:text-[var(--sd-text)]">How It Works</a>
           </nav>
           <p className="text-xs text-[var(--sd-text-faint)]">© 2026 SkillDex</p>
         </div>

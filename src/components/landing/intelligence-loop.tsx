@@ -4,15 +4,14 @@ import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-mot
 import { cn } from "@/lib/utils";
 
 const stages = [
-  { label: "Assess", desc: "Understand what a person actually knows." },
-  { label: "Identify", desc: "Find missing and transferable capabilities." },
-  { label: "Develop", desc: "Create a personalized growth path." },
-  { label: "Evidence", desc: "Validate skills through projects, assessments and outcomes." },
-  { label: "Match", desc: "Connect capability with opportunities." },
-  { label: "Outcome", desc: "Feed real-world results back into the intelligence layer." },
+  { label: "Understand", desc: "Build a structured view of skills from assessments, projects, certifications, activities and experience." },
+  { label: "Identify", desc: "Compare current capability with target roles and industry requirements to reveal skill gaps and transferable skills." },
+  { label: "Develop", desc: "Turn those gaps into personalized learning, project and experience pathways." },
+  { label: "Connect", desc: "Match verified capability with relevant internships, jobs, projects, companies and institutions." },
+  { label: "Learn", desc: "Use real outcomes to continuously improve future recommendations." },
 ];
 
-export function IntelligenceLoop() {
+export function IntelligenceLoop({ eyebrow = "How SkillDex connects it all" }: { eyebrow?: string }) {
   const trackRef = React.useRef<HTMLDivElement>(null);
   const [active, setActive] = React.useState(0);
   const { scrollYProgress } = useScroll({ target: trackRef, offset: ["start start", "end end"] });
@@ -26,7 +25,7 @@ export function IntelligenceLoop() {
     <div ref={trackRef} style={{ height: `${stages.length * 60}vh` }} className="relative">
       <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-4">
         <p className="mb-10 text-center text-[11px] font-semibold uppercase tracking-[0.25em] text-[var(--sd-text-faint)]">
-          02 — The Intelligence Loop
+          {eyebrow}
         </p>
 
         <div className="relative flex h-[420px] w-[420px] items-center justify-center sm:h-[520px] sm:w-[520px]">
