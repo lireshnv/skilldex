@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Users, Lightbulb, FlaskConical, HandCoins } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
 import { PortalHero } from "@/components/portal-hero";
+import { SectionLabel } from "@/components/ui/section-label";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -42,7 +43,7 @@ export default function FacultyDashboard() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">
-          <CardHeader><CardTitle>My Expertise</CardTitle></CardHeader>
+          <CardHeader><SectionLabel>Profile</SectionLabel><CardTitle>My Expertise</CardTitle></CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-2">
               {currentFaculty.expertise.map((e) => <Badge key={e} variant="blue">{e}</Badge>)}
@@ -55,7 +56,7 @@ export default function FacultyDashboard() {
         </Card>
 
         <Card>
-          <CardHeader><CardTitle>Explore Opportunities</CardTitle></CardHeader>
+          <CardHeader><SectionLabel>Shortcuts</SectionLabel><CardTitle>Explore Opportunities</CardTitle></CardHeader>
           <CardContent className="space-y-2">
             {opportunityTypes.map((o) => (
               <Link key={o.href} href={o.href} className="flex items-center justify-between rounded-[var(--radius-md)] border border-border p-3 hover:border-blue/30 hover:bg-blue-light/20">

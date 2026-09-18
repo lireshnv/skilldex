@@ -23,7 +23,7 @@ export interface NavGroup {
 }
 
 export const studentNav: NavGroup[] = [
-  { label: "", items: [
+  { label: "Workspace", items: [
     { label: "Overview", href: "/institution/student", icon: LayoutDashboard },
     { label: "Skills", href: "/institution/student/skills", icon: IdCard },
     { label: "Career", href: "/institution/student/career", icon: Route },

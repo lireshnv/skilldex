@@ -4,11 +4,13 @@ import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import {
   Target, TrendingUp, IdCard, ClipboardCheck, ArrowRight, CalendarClock,
-  Video, FileStack, Users, Sparkles, Building2, MapPin, Clock, Flame,
+  Video, FileStack, Users, Sparkles, MapPin, Clock, Flame,
   GraduationCap,
 } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
 import { PortalHero } from "@/components/portal-hero";
+import { CompanyLogo } from "@/components/company-logo";
+import { SectionLabel } from "@/components/ui/section-label";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -97,6 +99,7 @@ export default function StudentDashboard() {
         <Card className="lg:col-span-2">
           <CardHeader className="flex-row items-center justify-between">
             <div>
+              <SectionLabel>Focus</SectionLabel>
               <CardTitle>Target Role</CardTitle>
               <p className="mt-1 text-lg font-bold text-foreground">{currentStudent.targetRole}</p>
               <p className="text-xs text-muted-foreground">Target companies: Google, Microsoft, Innovate Labs, HealthBridge AI</p>
@@ -116,6 +119,7 @@ export default function StudentDashboard() {
         {/* Next best action */}
         <Card className="flex flex-col">
           <CardHeader>
+            <SectionLabel>Guidance</SectionLabel>
             <CardTitle className="flex items-center gap-1.5"><Sparkles className="h-4 w-4 text-blue-2" /> Next Best Action</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-1 flex-col justify-between">
@@ -141,6 +145,7 @@ export default function StudentDashboard() {
         {/* Upcoming */}
         <Card>
           <CardHeader>
+            <SectionLabel>Schedule</SectionLabel>
             <CardTitle>Upcoming</CardTitle>
           </CardHeader>
           <CardContent>
@@ -163,8 +168,11 @@ export default function StudentDashboard() {
 
         {/* Recommended opportunities */}
         <Card className="lg:col-span-2">
-          <CardHeader className="flex-row items-center justify-between">
-            <CardTitle>Recommended Opportunities</CardTitle>
+          <CardHeader className="flex-row items-end justify-between">
+            <div>
+              <SectionLabel>Matched for you</SectionLabel>
+              <CardTitle>Recommended Opportunities</CardTitle>
+            </div>
             <Link href="/institution/student/opportunities" className="text-xs font-medium text-blue-2 hover:underline">View all</Link>
           </CardHeader>
           <CardContent>
@@ -175,9 +183,7 @@ export default function StudentDashboard() {
                 return (
                   <StaggerItem key={job.id} className="flex flex-col gap-3 rounded-[var(--radius-md)] border border-border p-3 sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex items-start gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-sm)] text-white" style={{ background: company?.logoColor }}>
-                        <Building2 className="h-4.5 w-4.5" />
-                      </div>
+                      <CompanyLogo name={company?.name ?? "?"} color={company?.logoColor} size={40} />
                       <div>
                         <p className="text-sm font-semibold text-foreground">{job.title}</p>
                         <p className="text-xs text-muted-foreground">{company?.name} · <MapPin className="inline h-3 w-3" /> {job.location}</p>

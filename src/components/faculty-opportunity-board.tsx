@@ -1,9 +1,10 @@
 "use client";
-import { Building2, Clock, MapPin } from "lucide-react";
+import { Clock, MapPin } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
+import { CompanyLogo } from "@/components/company-logo";
 import { jobs, companyById, skillName } from "@/lib/data";
 import { Job } from "@/lib/types";
 import { useSkillDexStore } from "@/lib/store";
@@ -40,9 +41,7 @@ export function FacultyOpportunityBoard({
             const company = companyById(j.companyId);
             return (
               <Card key={j.id} className="flex flex-col p-4">
-                <div className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-sm)] text-white font-bold" style={{ background: company?.logoColor }}>
-                  <Building2 className="h-4.5 w-4.5" />
-                </div>
+                <CompanyLogo name={company?.name ?? "?"} color={company?.logoColor} />
                 <p className="mt-3 text-sm font-semibold text-foreground">{j.title}</p>
                 <p className="text-xs text-muted-foreground">{company?.name}</p>
                 <div className="mt-2 flex flex-wrap gap-2 text-[11px] text-muted-foreground">

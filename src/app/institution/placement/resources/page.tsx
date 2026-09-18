@@ -4,7 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { faculty, alumni, companies } from "@/lib/data";
-import { ArrowRight, Users, GraduationCap, Building2, Wrench } from "lucide-react";
+import { ArrowRight, Users, GraduationCap, Wrench } from "lucide-react";
+import { CompanyLogo } from "@/components/company-logo";
 
 const labs = [
   { name: "AI & Machine Learning Lab", capacity: 40, equipped: true },
@@ -76,7 +77,7 @@ export default function ResourcesPage() {
         <TabsContent value="partners" className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {companies.slice(0, 9).map((c) => (
             <Card key={c.id} className="p-4">
-              <div className="flex items-center gap-2"><Building2 className="h-4 w-4 text-blue-2" /><p className="text-sm font-semibold text-foreground">{c.name}</p></div>
+              <div className="flex items-center gap-2"><CompanyLogo name={c.name} color={c.logoColor} size={28} /><p className="text-sm font-semibold text-foreground">{c.name}</p></div>
               <p className="mt-1 text-xs text-muted-foreground">{c.industry} · Relationship: {c.relationshipScore}/100</p>
             </Card>
           ))}

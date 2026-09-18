@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { School, FileStack, Rocket, GitBranch, Users2 } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
 import { PortalHero } from "@/components/portal-hero";
+import { SectionLabel } from "@/components/ui/section-label";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -40,7 +41,8 @@ export default function CompanyDashboard() {
         <StaggerItem><KpiCard label="Faculty Connections" value={22} icon={Users2} accent="amber" /></StaggerItem>
       </StaggerGrid>
 
-      <StaggerGrid className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <SectionLabel className="mt-6">Quick Access</SectionLabel>
+      <StaggerGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {hubLinks.map((h) => (
           <StaggerItem key={h.href}>
             <Link href={h.href}>
@@ -55,7 +57,7 @@ export default function CompanyDashboard() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">
-          <CardHeader><CardTitle>Top Matching Colleges</CardTitle></CardHeader>
+          <CardHeader><SectionLabel>Ranked by engagement</SectionLabel><CardTitle>Top Matching Colleges</CardTitle></CardHeader>
           <CardContent className="space-y-3">
             {[...colleges].sort((a, b) => b.industryEngagementScore - a.industryEngagementScore).slice(0, 4).map((c) => (
               <div key={c.id} className="flex items-center justify-between rounded-[var(--radius-md)] border border-border p-3">

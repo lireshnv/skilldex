@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input, Select } from "@/components/ui/input";
 import { EmptyState } from "@/components/ui/empty-state";
+import { CompanyLogo } from "@/components/company-logo";
 import { jobs, companyById, skillName, currentStudent } from "@/lib/data";
 import { Job } from "@/lib/types";
 import { useSkillDexStore } from "@/lib/store";
@@ -69,9 +70,7 @@ export function OpportunityBoard({
             return (
               <Card key={j.id} className="flex flex-col p-4">
                 <div className="flex items-start justify-between">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-sm)] text-white font-bold" style={{ background: company?.logoColor }}>
-                    {company?.name[0]}
-                  </div>
+                  <CompanyLogo name={company?.name ?? "?"} color={company?.logoColor} />
                   <button onClick={() => toggleSavedJob(j.id)} className="text-xs font-medium text-muted-foreground hover:text-blue-2 cursor-pointer">
                     {saved ? "★ Saved" : "☆ Save"}
                   </button>

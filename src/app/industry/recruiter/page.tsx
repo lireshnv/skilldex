@@ -3,6 +3,7 @@ import Link from "next/link";
 import { UserSearch, Users, Clock, Award } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
 import { PortalHero } from "@/components/portal-hero";
+import { SectionLabel } from "@/components/ui/section-label";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -37,7 +38,7 @@ export default function RecruiterDashboard() {
       </StaggerGrid>
 
       <Card className="mt-6">
-        <CardHeader><CardTitle>Find your next candidate</CardTitle></CardHeader>
+        <CardHeader><SectionLabel>Discovery</SectionLabel><CardTitle>Find your next candidate</CardTitle></CardHeader>
         <CardContent>
           <form
             className="flex flex-col gap-3 sm:flex-row"
@@ -59,7 +60,7 @@ export default function RecruiterDashboard() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">
-          <CardHeader><CardTitle>Top Matching Candidates</CardTitle></CardHeader>
+          <CardHeader><SectionLabel>Ranked by readiness</SectionLabel><CardTitle>Top Matching Candidates</CardTitle></CardHeader>
           <CardContent>
             <StaggerGrid className="space-y-3">
               {[...students].sort((a, b) => b.readiness - a.readiness).slice(0, 4).map((s) => (

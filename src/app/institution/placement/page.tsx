@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Users, TrendingUp, Briefcase, Award, CheckCircle2 } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
 import { PortalHero } from "@/components/portal-hero";
+import { SectionLabel } from "@/components/ui/section-label";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ComparisonBarChart, MultiLineChart } from "@/components/charts/charts";
@@ -66,7 +67,7 @@ export default function PlacementDashboard() {
 
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">
-          <CardHeader><CardTitle>Placement Funnel</CardTitle></CardHeader>
+          <CardHeader><SectionLabel>Pipeline</SectionLabel><CardTitle>Placement Funnel</CardTitle></CardHeader>
           <CardContent>
             <div className="space-y-2">
               {funnelCounts.map((f) => (
@@ -86,7 +87,7 @@ export default function PlacementDashboard() {
         </Card>
 
         <Card>
-          <CardHeader><CardTitle>Department Readiness</CardTitle></CardHeader>
+          <CardHeader><SectionLabel>Breakdown</SectionLabel><CardTitle>Department Readiness</CardTitle></CardHeader>
           <CardContent>
             <ComparisonBarChart data={deptReadiness} bars={[{ key: "readiness", color: "var(--brand-blue)", name: "Readiness %" }]} height={220} />
           </CardContent>
