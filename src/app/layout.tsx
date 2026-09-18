@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "SkillDex — Connecting Talent. Empowering Futures.",
+  title: "SkillDex — The Skill Intelligence Layer",
   description:
     "SkillDex is the skill intelligence layer connecting students, faculty, institutions and industry.",
 };
