@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowRight, GraduationCap, Building2, ShieldCheck, Eye, EyeOff, Loader2 } from "lucide-react";
-import { HeroNetwork } from "@/components/landing/hero-network";
+import { AuthBackground } from "@/components/landing/auth-background";
 import { Avatar } from "@/components/ui/avatar";
 import { signIn, AuthApiError } from "@/lib/auth-api";
 import { useSkillDexStore } from "@/lib/store";
@@ -55,9 +55,7 @@ export default function LoginPage() {
 
   return (
     <div className="sd-landing relative min-h-screen overflow-hidden">
-      <div className="sd-grid sd-network-mask pointer-events-none absolute inset-0 opacity-50">
-        <HeroNetwork />
-      </div>
+      <AuthBackground />
       <div className="sd-grain" />
 
       <div className="relative mx-auto flex min-h-screen max-w-md flex-col items-center justify-center px-4 py-16 sm:px-6 lg:px-8">

@@ -8,7 +8,7 @@ import {
   ArrowLeft, ArrowRight, Check, GraduationCap, Users, Landmark, Factory,
   UserSearch, Eye, EyeOff, Loader2, ShieldCheck,
 } from "lucide-react";
-import { HeroNetwork } from "@/components/landing/hero-network";
+import { AuthBackground } from "@/components/landing/auth-background";
 import { register, fetchRoleOptions, AuthApiError, RoleOptionsResponse } from "@/lib/auth-api";
 import { useSkillDexStore } from "@/lib/store";
 
@@ -113,7 +113,7 @@ export default function RegisterPage() {
   if (success) {
     return (
       <div className="sd-landing relative flex min-h-screen items-center justify-center overflow-hidden px-4">
-        <div className="sd-grid sd-network-mask pointer-events-none absolute inset-0 opacity-40"><HeroNetwork /></div>
+        <AuthBackground />
         <div className="sd-grain" />
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -143,7 +143,7 @@ export default function RegisterPage() {
 
   return (
     <div className="sd-landing relative min-h-screen overflow-hidden">
-      <div className="sd-grid sd-network-mask pointer-events-none absolute inset-0 opacity-30"><HeroNetwork /></div>
+      <AuthBackground />
       <div className="sd-grain" />
 
       <div className="relative mx-auto flex min-h-screen max-w-xl flex-col items-center justify-center px-4 py-16">
