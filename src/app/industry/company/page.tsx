@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { School, FileStack, Rocket, GitBranch, Users2 } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
+import { PortalHero } from "@/components/portal-hero";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -24,10 +25,13 @@ export default function CompanyDashboard() {
 
   return (
     <PortalShell portal="company" userName="Innovate Labs" userColor="#059669" userRole="Industry Partnerships">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-foreground">Industry Collaboration Hub</h1>
-        <p className="text-sm text-muted-foreground">Discover talent ecosystems and build lasting academia partnerships.</p>
-      </div>
+      <PortalHero
+        icon={Rocket}
+        eyebrow="Industry Workspace"
+        title="Industry Collaboration Hub"
+        subtitle="Discover talent ecosystems and build lasting academia partnerships."
+        accent="#fbbf24"
+      />
 
       <StaggerGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StaggerItem><KpiCard label="Partner Colleges" value={colleges.length} icon={School} accent="blue" /></StaggerItem>

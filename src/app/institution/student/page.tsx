@@ -5,8 +5,10 @@ import { useMemo } from "react";
 import {
   Target, TrendingUp, IdCard, ClipboardCheck, ArrowRight, CalendarClock,
   Video, FileStack, Users, Sparkles, Building2, MapPin, Clock, Flame,
+  GraduationCap,
 } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
+import { PortalHero } from "@/components/portal-hero";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -68,18 +70,20 @@ export default function StudentDashboard() {
 
   return (
     <PortalShell portal="student" userName={currentStudent.name} userColor={currentStudent.avatarColor} userRole={`${currentStudent.department} · Year ${currentStudent.year}`}>
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-bold text-foreground">Good morning, {firstName} 👋</h1>
-          <p className="text-sm text-muted-foreground">Your career journey, powered by SkillDex.</p>
-        </div>
+      <PortalHero
+        icon={GraduationCap}
+        eyebrow="Student Workspace"
+        title={`Good morning, ${firstName} 👋`}
+        subtitle="Your career journey, powered by SkillDex."
+        accent="#5b8def"
+      >
         <Link
           href="/institution/student/community"
           className="flex items-center gap-1.5 rounded-full border border-amber/30 bg-amber-light px-3.5 py-1.5 text-xs font-semibold text-amber hover:border-amber/50 transition-colors"
         >
           <Flame className="h-3.5 w-3.5" /> {streak > 0 ? `${streak}-day streak` : "Start your streak"}
         </Link>
-      </div>
+      </PortalHero>
 
       <StaggerGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StaggerItem><KpiCard label="Skill Readiness" value={`${currentStudent.readiness}`} suffix="%" icon={Target} accent="blue" trend={4} /></StaggerItem>

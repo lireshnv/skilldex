@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Users, TrendingUp, Briefcase, Award, CheckCircle2 } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
+import { PortalHero } from "@/components/portal-hero";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ComparisonBarChart, MultiLineChart } from "@/components/charts/charts";
@@ -42,10 +43,13 @@ export default function PlacementDashboard() {
 
   return (
     <PortalShell portal="placement" userName={facultyName} userColor="#0b1e3f" userRole="Placement Cell">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-foreground">Placement Intelligence Command Center</h1>
-        <p className="text-sm text-muted-foreground">A real-time view of institutional placement readiness and outcomes.</p>
-      </div>
+      <PortalHero
+        icon={TrendingUp}
+        eyebrow="Placement Cell"
+        title="Placement Intelligence Command Center"
+        subtitle="A real-time view of institutional placement readiness and outcomes."
+        accent="#34d399"
+      />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <KpiCard label="Total Students" value={students.length} icon={Users} accent="blue" />

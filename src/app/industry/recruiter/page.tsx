@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { UserSearch, Users, Clock, Award } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
+import { PortalHero } from "@/components/portal-hero";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -20,10 +21,13 @@ export default function RecruiterDashboard() {
 
   return (
     <PortalShell portal="recruiter" userName="Meera Kapoor" userColor="#0b1e3f" userRole="Senior Talent Acquisition">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-foreground">Talent Intelligence</h1>
-        <p className="text-sm text-muted-foreground">Discover, assess and hire verified talent across partner institutions.</p>
-      </div>
+      <PortalHero
+        icon={UserSearch}
+        eyebrow="Recruiter Workspace"
+        title="Talent Intelligence"
+        subtitle="Discover, assess and hire verified talent across partner institutions."
+        accent="#38bdf8"
+      />
 
       <StaggerGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StaggerItem><KpiCard label="Open Jobs" value={openJobs} icon={UserSearch} accent="blue" /></StaggerItem>

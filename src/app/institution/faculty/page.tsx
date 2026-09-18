@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Users, Lightbulb, FlaskConical, HandCoins } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
+import { PortalHero } from "@/components/portal-hero";
 import { KpiCard } from "@/components/ui/kpi-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -24,10 +25,13 @@ export default function FacultyDashboard() {
       userColor={currentFaculty.avatarColor}
       userRole={`${currentFaculty.title} · ${currentFaculty.department}`}
     >
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-foreground">Faculty Intelligence Dashboard</h1>
-        <p className="text-sm text-muted-foreground">Welcome back, {currentFaculty.name.replace("Dr. ", "")}.</p>
-      </div>
+      <PortalHero
+        icon={Users}
+        eyebrow="Faculty Workspace"
+        title="Faculty Intelligence Dashboard"
+        subtitle={`Welcome back, ${currentFaculty.name.replace("Dr. ", "")}.`}
+        accent="#a78bfa"
+      />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <KpiCard label="Students Mentored" value={currentFaculty.studentsMentored} icon={Users} accent="blue" />
