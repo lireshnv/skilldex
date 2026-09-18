@@ -20,6 +20,8 @@ import {
 import { applications, applicationsByStudent, applicationsByJob, pipelineStages } from "./data/applications";
 import { notificationsSeed, notificationsFor } from "./data/notifications";
 import { skills, skillById, skillName } from "./data/skills";
+import { runMigrations } from "./db";
+import { authRouter } from "./auth/routes";
 
 const app = express();
 const PORT = Number(process.env.PORT) || 4000;
@@ -51,6 +53,9 @@ app.use((req, _res, next) => {
 // --- health check (Railway uses this) ---
 app.get("/health", (_req, res) => res.json({ status: "ok", timestamp: new Date().toISOString() }));
 app.get("/", (_req, res) => res.json({ name: "SkillDex API", status: "ok" }));
+
+// --- auth: real database-backed registration/login (see src/auth/) ---
+app.use("/api/auth", authRouter);
 
 // --- one-shot bootstrap payload: everything the frontend needs, in a single round trip ---
 app.get("/api/bootstrap", (_req, res) => {
@@ -166,7 +171,11 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   res.status(500).json({ error: err.message });
 });
 
-app.listen(PORT, () => {
-  console.log(`SkillDex API listening on port ${PORT}`);
-  console.log(`Allowed origins: ${allowedOrigins.join(", ")}`);
-});
+runMigrations()
+  .catch((err) => console.error("Migration failed:", err))
+  .finally(() => {
+    app.listen(PORT, () => {
+      console.log(`SkillDex API listening on port ${PORT}`);
+      console.log(`Allowed origins: ${allowedOrigins.join(", ")}`);
+    });
+  });

@@ -15,9 +15,26 @@ interface Toast {
   variant?: "default" | "success" | "warning" | "error";
 }
 
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  role: "student" | "faculty" | "institution_admin" | "industry" | "recruiter";
+  createdAt: string;
+  lastLogin: string | null;
+}
+
 interface SkillDexState {
   demoRole: DemoRole;
   setDemoRole: (r: DemoRole) => void;
+
+  // Real backend-authenticated session (JWT + user record from Postgres via
+  // the Railway API) — separate from demoRole, which just lets someone
+  // preview a portal without an account.
+  authToken: string | null;
+  authUser: AuthUser | null;
+  setAuth: (token: string, user: AuthUser) => void;
+  clearAuth: () => void;
 
   applications: ApplicationRecord[];
   applyToJob: (jobId: string, studentId: string) => void;
@@ -60,6 +77,11 @@ export const useSkillDexStore = create<SkillDexState>()(
     (set, get) => ({
       demoRole: null,
       setDemoRole: (r) => set({ demoRole: r }),
+
+      authToken: null,
+      authUser: null,
+      setAuth: (token, user) => set({ authToken: token, authUser: user }),
+      clearAuth: () => set({ authToken: null, authUser: null }),
 
       applications: seedApplications,
       applyToJob: (jobId, studentId) => {
@@ -153,6 +175,8 @@ export const useSkillDexStore = create<SkillDexState>()(
       name: "skilldex-store",
       partialize: (state) => ({
         demoRole: state.demoRole,
+        authToken: state.authToken,
+        authUser: state.authUser,
         applications: state.applications,
         savedJobs: state.savedJobs,
         connections: state.connections,
