@@ -25,10 +25,16 @@ export interface NavGroup {
 export const studentNav: NavGroup[] = [
   { label: "Workspace", items: [
     { label: "Overview", href: "/institution/student", icon: LayoutDashboard },
+  ] },
+  { label: "Learn & Build", items: [
     { label: "Skills", href: "/institution/student/skills", icon: IdCard },
     { label: "Career", href: "/institution/student/career", icon: Route },
+  ] },
+  { label: "Explore", items: [
     { label: "Opportunities", href: "/institution/student/opportunities", icon: Briefcase },
     { label: "Growth", href: "/institution/student/growth", icon: TrendingUp },
+  ] },
+  { label: "Connect", items: [
     { label: "Community", href: "/institution/student/community", icon: Users },
   ] },
 ];

@@ -37,7 +37,7 @@ export function PortalShell({
 
   return (
     <div data-theme="dark" className="flex h-dvh overflow-hidden bg-background">
-      <DesktopSidebar portal={portal} />
+      <DesktopSidebar portal={portal} userName={userName} userColor={userColor} userRole={userRole} />
       <div className="flex min-w-0 flex-1 flex-col">
         <Header portal={portal} userName={userName} userColor={userColor} userRole={userRole} />
         <main className="bg-dot-grid relative flex-1 overflow-y-auto">

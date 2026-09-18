@@ -57,7 +57,7 @@ function buildJobs(): Job[] {
       companyId: company.id,
       title,
       type: "Full-time",
-      requiredSkills: rng.pickMany(company.requiredSkills.concat(["sk-communication", "sk-problem-solving"]), 4),
+      requiredSkills: rng.pickMany(Array.from(new Set(company.requiredSkills.concat(["sk-communication", "sk-problem-solving"]))), 4),
       location: rng.pick(locations),
       package: `${company.avgPackage} LPA`,
       deadline: `2026-${String(rng.int(9, 12)).padStart(2, "0")}-${String(rng.int(5, 27)).padStart(2, "0")}`,

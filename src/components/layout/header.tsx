@@ -109,7 +109,7 @@ export function Header({
       </div>
 
       <Drawer open={mobileOpen} onOpenChange={setMobileOpen} title="Navigation" side="left" width={280}>
-        <SidebarContent portal={portal} collapsed={false} onNavigate={() => setMobileOpen(false)} />
+        <SidebarContent portal={portal} collapsed={false} userName={userName} userColor={userColor} userRole={userRole} onNavigate={() => setMobileOpen(false)} />
       </Drawer>
     </header>
   );
