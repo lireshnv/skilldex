@@ -97,7 +97,7 @@ export default function LandingPage() {
       <LandingNav onExplore={() => setDemoOpen(true)} />
 
       {/* ============ HERO ============ */}
-      <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4">
+      <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pt-28 pb-16">
         <div className="sd-grid pointer-events-none absolute inset-0" />
         <div className="sd-grain" />
         <div className="sd-network-mask pointer-events-none absolute inset-0 opacity-60">
