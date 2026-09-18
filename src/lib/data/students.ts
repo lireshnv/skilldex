@@ -1,6 +1,6 @@
 import { Student, StudentSkill } from "../types";
 import { makeRng } from "./seed";
-import { skills } from "./skills";
+import { skills, verificationFor } from "./skills";
 import { colleges } from "./colleges";
 
 const firstNames = [
@@ -39,13 +39,18 @@ function genStudent(i: number): Student {
   const college = rng.pick(colleges);
   const skillCount = rng.int(6, 11);
   const chosenSkills = rng.pickMany(coreSkillPool, skillCount);
-  const studentSkills: StudentSkill[] = chosenSkills.map((skillId) => ({
-    skillId,
-    level: rng.pick(levels),
-    confidence: rng.int(45, 97),
-    evidenceCount: rng.int(0, 6),
-    lastVerified: `2026-0${rng.int(1, 8)}-${String(rng.int(1, 27)).padStart(2, "0")}`,
-  }));
+  const studentSkills: StudentSkill[] = chosenSkills.map((skillId) => {
+    const confidence = rng.int(45, 97);
+    const evidenceCount = rng.int(0, 6);
+    return {
+      skillId,
+      level: rng.pick(levels),
+      confidence,
+      evidenceCount,
+      lastVerified: `2026-0${rng.int(1, 8)}-${String(rng.int(1, 27)).padStart(2, "0")}`,
+      verification: verificationFor(evidenceCount, confidence),
+    };
+  });
   const readiness = rng.int(38, 96);
   return {
     id: `stu-${String(i + 1).padStart(2, "0")}`,
@@ -91,14 +96,14 @@ students[0] = {
   targetRole: "ML Engineer",
   location: `${rajalakshmi.city}, ${rajalakshmi.state}`,
   skills: [
-    { skillId: "sk-python", level: "Advanced", confidence: 82, evidenceCount: 3, lastVerified: "2026-08-14" },
-    { skillId: "sk-dsa", level: "Intermediate", confidence: 58, evidenceCount: 1, lastVerified: "2026-08-02" },
-    { skillId: "sk-sql", level: "Intermediate", confidence: 71, evidenceCount: 2, lastVerified: "2026-07-28" },
-    { skillId: "sk-ml", level: "Intermediate", confidence: 68, evidenceCount: 2, lastVerified: "2026-08-10" },
-    { skillId: "sk-java", level: "Intermediate", confidence: 60, evidenceCount: 1, lastVerified: "2026-07-15" },
-    { skillId: "sk-mongodb", level: "Beginner", confidence: 52, evidenceCount: 1, lastVerified: "2026-08-05" },
-    { skillId: "sk-cv", level: "Beginner", confidence: 45, evidenceCount: 1, lastVerified: "2026-08-12" },
-    { skillId: "sk-communication", level: "Intermediate", confidence: 66, evidenceCount: 0, lastVerified: "2026-06-30" },
+    { skillId: "sk-python", level: "Advanced", confidence: 82, evidenceCount: 3, lastVerified: "2026-08-14", verification: verificationFor(3, 82) },
+    { skillId: "sk-dsa", level: "Intermediate", confidence: 58, evidenceCount: 1, lastVerified: "2026-08-02", verification: verificationFor(1, 58) },
+    { skillId: "sk-sql", level: "Intermediate", confidence: 71, evidenceCount: 2, lastVerified: "2026-07-28", verification: verificationFor(2, 71) },
+    { skillId: "sk-ml", level: "Intermediate", confidence: 68, evidenceCount: 2, lastVerified: "2026-08-10", verification: verificationFor(2, 68) },
+    { skillId: "sk-java", level: "Intermediate", confidence: 60, evidenceCount: 1, lastVerified: "2026-07-15", verification: verificationFor(1, 60) },
+    { skillId: "sk-mongodb", level: "Beginner", confidence: 52, evidenceCount: 1, lastVerified: "2026-08-05", verification: verificationFor(1, 52) },
+    { skillId: "sk-cv", level: "Beginner", confidence: 45, evidenceCount: 1, lastVerified: "2026-08-12", verification: verificationFor(1, 45) },
+    { skillId: "sk-communication", level: "Intermediate", confidence: 66, evidenceCount: 0, lastVerified: "2026-06-30", verification: verificationFor(0, 66) },
   ],
   readiness: 54,
   industryMatch: 58,

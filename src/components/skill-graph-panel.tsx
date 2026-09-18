@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ZoomIn, ZoomOut, Maximize2, Sparkles, TrendingUp, ShieldCheck, Briefcase } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { VerificationBadge } from "@/components/ui/verification-badge";
 import { fadeUp } from "@/lib/motion";
 import { currentStudent, skillName, skillById, jobs, companyById, projectsByStudent } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -271,6 +272,12 @@ export function SkillGraphPanel() {
                         <p className="mt-0.5 text-sm font-bold text-foreground">{relatedRoleCount}</p>
                       </div>
                     </div>
+                    {studentSkillRecord && (
+                      <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <span>Verification:</span>
+                        <VerificationBadge level={studentSkillRecord.verification} />
+                      </div>
+                    )}
                     <div className="rounded-[var(--radius-md)] bg-blue-light px-3 py-2.5 text-xs text-blue-2">
                       Recommended action: {(studentSkillRecord?.confidence ?? 0) < 65 ? `Practice more ${selectedSkillDef.name} problems to raise your confidence.` : `Add a project using ${selectedSkillDef.name} as verified evidence.`}
                     </div>

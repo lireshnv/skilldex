@@ -1,4 +1,5 @@
 export type SkillLevel = "Beginner" | "Intermediate" | "Advanced" | "Expert";
+export type VerificationLevel = "Self Declared" | "Assessed" | "Project Verified" | "Faculty Verified" | "Industry Verified";
 
 export interface Skill {
   id: string;
@@ -13,6 +14,7 @@ export interface StudentSkill {
   confidence: number; // 0-100
   evidenceCount: number;
   lastVerified: string;
+  verification: VerificationLevel;
 }
 
 export interface Student {

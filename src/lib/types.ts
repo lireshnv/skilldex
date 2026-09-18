@@ -1,5 +1,11 @@
 export type SkillLevel = "Beginner" | "Intermediate" | "Advanced" | "Expert";
 
+// How a skill's confidence score was substantiated — separate from
+// SkillLevel (which is a proficiency estimate). A student can be "Advanced"
+// at a skill that's still only Self Declared; verification is about
+// evidence, not raw ability.
+export type VerificationLevel = "Self Declared" | "Assessed" | "Project Verified" | "Faculty Verified" | "Industry Verified";
+
 export interface Skill {
   id: string;
   name: string;
@@ -13,6 +19,7 @@ export interface StudentSkill {
   confidence: number; // 0-100
   evidenceCount: number;
   lastVerified: string;
+  verification: VerificationLevel;
 }
 
 export interface Student {

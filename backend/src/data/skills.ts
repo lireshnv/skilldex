@@ -1,4 +1,4 @@
-import { Skill } from "../types";
+import { Skill, VerificationLevel } from "../types";
 
 export const skills: Skill[] = [
   // Technical
@@ -65,4 +65,11 @@ export function skillById(id: string) {
 
 export function skillName(id: string) {
   return skillById(id)?.name ?? id;
+}
+
+export function verificationFor(evidenceCount: number, confidence: number): VerificationLevel {
+  if (evidenceCount <= 0) return "Self Declared";
+  if (evidenceCount <= 2) return "Assessed";
+  if (evidenceCount <= 4) return confidence >= 80 ? "Faculty Verified" : "Project Verified";
+  return confidence >= 80 ? "Industry Verified" : "Faculty Verified";
 }

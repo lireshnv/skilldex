@@ -4,6 +4,7 @@ import { Award, FolderKanban, Briefcase, ClipboardCheck, Sparkles, ShieldCheck, 
 import { PortalShell } from "@/components/layout/portal-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { VerificationBadge } from "@/components/ui/verification-badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar } from "@/components/ui/avatar";
@@ -123,7 +124,10 @@ function StudentSkillsPageInner() {
                       <div className="flex items-start justify-between">
                         <div>
                           <p className="text-sm font-semibold text-foreground">{skillName(s.skillId)}</p>
-                          <Badge variant="blue" className="mt-1.5">{s.level}</Badge>
+                          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                            <Badge variant="blue">{s.level}</Badge>
+                            <VerificationBadge level={s.verification} />
+                          </div>
                         </div>
                         <RadialProgress value={s.confidence} size={54} strokeWidth={5} />
                       </div>
