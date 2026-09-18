@@ -2,18 +2,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  Menu, Search, Bell, Sparkles, HelpCircle, ChevronDown, LogOut,
-  Settings, UserRound, ArrowLeftRight,
+  Menu, Search, Sparkles, HelpCircle, ChevronDown, LogOut,
+  Settings, UserRound, ArrowLeftRight, Bell,
 } from "lucide-react";
 import { Avatar } from "@/components/ui/avatar";
 import { Drawer } from "@/components/ui/drawer";
 import { SidebarContent } from "./sidebar";
+import { NotificationTray } from "./notification-tray";
 import { PortalKey, portalMeta } from "@/lib/nav-config";
-import { useSkillDexStore, useUnreadCount } from "@/lib/store";
-
-const audienceMap: Record<PortalKey, "student" | "faculty" | "placement" | "recruiter" | "company"> = {
-  student: "student", faculty: "faculty", placement: "placement", recruiter: "recruiter", company: "company",
-};
+import { useSkillDexStore } from "@/lib/store";
 
 export function Header({
   portal,
@@ -30,14 +27,13 @@ export function Header({
   const [profileOpen, setProfileOpen] = useState(false);
   const setAiCopilotOpen = useSkillDexStore((s) => s.setAiCopilotOpen);
   const setCommandPaletteOpen = useSkillDexStore((s) => s.setCommandPaletteOpen);
-  const unread = useUnreadCount(audienceMap[portal]);
   const meta = portalMeta[portal];
   const notifHref = portal === "student"
     ? "/institution/student/notifications"
     : portal === "faculty" ? "/institution/faculty/notifications"
     : portal === "placement" ? "/institution/placement/notifications"
-    : portal === "recruiter" ? "/industry/recruiter"
-    : "/industry/company";
+    : portal === "recruiter" ? "/industry/recruiter/notifications"
+    : "/industry/company/notifications";
 
   return (
     <header className="sticky top-0 z-40 flex h-16 items-center gap-3 border-b border-border bg-surface/90 px-4 backdrop-blur">
@@ -83,18 +79,7 @@ export function Header({
         <button className="hidden h-9 w-9 items-center justify-center rounded-[var(--radius-md)] text-muted-foreground hover:bg-surface-muted sm:flex cursor-pointer" aria-label="Help">
           <HelpCircle className="h-4.5 w-4.5" />
         </button>
-        <Link
-          href={notifHref}
-          className="relative flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] text-muted-foreground hover:bg-surface-muted"
-          aria-label="Notifications"
-        >
-          <Bell className="h-4.5 w-4.5" />
-          {unread > 0 && (
-            <span className="absolute right-1.5 top-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-rose text-[9px] font-bold text-white">
-              {unread}
-            </span>
-          )}
-        </Link>
+        <NotificationTray portal={portal} />
 
         <div className="relative">
           <button
