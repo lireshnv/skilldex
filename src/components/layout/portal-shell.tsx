@@ -40,7 +40,7 @@ export function PortalShell({
       <DesktopSidebar portal={portal} />
       <div className="flex min-w-0 flex-1 flex-col">
         <Header portal={portal} userName={userName} userColor={userColor} userRole={userRole} />
-        <main className="flex-1 overflow-y-auto">
+        <main className="bg-dot-grid relative flex-1 overflow-y-auto">
           <div className="mx-auto max-w-[1400px] px-4 py-5 sm:px-6 lg:px-8">
             {breadcrumbs && (
               <div className="mb-4">
