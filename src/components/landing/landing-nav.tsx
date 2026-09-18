@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -45,12 +46,17 @@ export function LandingNav({ onExplore }: { onExplore: () => void }) {
             ))}
           </nav>
 
-          <button
-            onClick={onExplore}
-            className="hidden items-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-[13px] font-semibold text-black transition-transform hover:scale-[1.03] active:scale-95 md:inline-flex"
-          >
-            Explore SkillDex →
-          </button>
+          <div className="hidden items-center gap-3 md:flex">
+            <Link href="/login" className="text-[13px] font-medium text-[var(--sd-text-muted)] transition-colors hover:text-[var(--sd-text)]">
+              Sign in
+            </Link>
+            <button
+              onClick={onExplore}
+              className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-[13px] font-semibold text-black transition-transform hover:scale-[1.03] active:scale-95"
+            >
+              Explore SkillDex →
+            </button>
+          </div>
 
           <button className="text-[var(--sd-text)] md:hidden" onClick={() => setMobileOpen((v) => !v)} aria-label="Toggle menu">
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -81,6 +87,9 @@ export function LandingNav({ onExplore }: { onExplore: () => void }) {
           >
             Explore SkillDex →
           </button>
+          <Link href="/login" onClick={() => setMobileOpen(false)} className="text-sm font-medium text-[var(--sd-text-muted)]">
+            Sign in
+          </Link>
         </motion.div>
       )}
     </>

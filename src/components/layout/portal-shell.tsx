@@ -35,13 +35,8 @@ export function PortalShell({
     if (portal === "student") recordActivity();
   }, [portal, recordActivity]);
 
-  // Dark portal theme — student portal first (per the redesign's phased
-  // rollout); the CSS token system in globals.css supports extending this
-  // to other portals by adding them here, no per-component changes needed.
-  const dark = portal === "student";
-
   return (
-    <div data-theme={dark ? "dark" : undefined} className="flex h-dvh overflow-hidden bg-background">
+    <div data-theme="dark" className="flex h-dvh overflow-hidden bg-background">
       <DesktopSidebar portal={portal} />
       <div className="flex min-w-0 flex-1 flex-col">
         <Header portal={portal} userName={userName} userColor={userColor} userRole={userRole} />

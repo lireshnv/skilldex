@@ -51,6 +51,9 @@ export function Header({
 
       <div className="hidden items-center gap-2 text-xs text-muted-foreground md:flex">
         <span className="rounded-full bg-surface-muted px-2.5 py-1 font-medium text-foreground">{meta.org}</span>
+        <span className="flex items-center gap-1 rounded-full border border-amber/25 bg-amber-light px-2.5 py-1 font-semibold text-amber">
+          <span className="h-1.5 w-1.5 rounded-full bg-amber animate-pulse-soft" /> Demo data
+        </span>
       </div>
 
       <button

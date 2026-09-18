@@ -38,11 +38,13 @@
   --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
 }
 
-/* Dark portal theme — applied per-portal via data-theme="dark" on the
-   PortalShell root (currently: student portal only, as the first rollout).
-   Every existing component already reads these same custom properties
-   through Tailwind's @theme inline mapping below, so this one block
-   re-themes the whole component library without touching each component. */
+/* Dark portal theme — applied via data-theme="dark" on the PortalShell root,
+   now the default for every portal (Student/Faculty/Placement/Recruiter/
+   Company). Every existing component already reads these same custom
+   properties through Tailwind's @theme inline mapping below, so this one
+   block re-themes the whole component library without touching each
+   component. The light `:root` tokens above remain for the public landing
+   page and portal-selection screens, which use their own dark treatment. */
 [data-theme="dark"] {
   --background: #050607;
   --surface: #0a0c0f;

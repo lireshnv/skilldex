@@ -17,7 +17,7 @@ const activity = [
 
 export default function AdminPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div data-theme="dark" className="min-h-screen bg-background">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
         <Breadcrumbs items={[{ label: "Admin" }]} />
         <Link href="/" className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground">
