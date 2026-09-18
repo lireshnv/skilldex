@@ -44,7 +44,7 @@ export default function AssessmentRunnerPage({ params }: { params: Promise<{ id:
     return (
       <PortalShell portal="student" userName={currentStudent.name} userColor={currentStudent.avatarColor} userRole="Student">
         <p className="text-sm text-muted-foreground">Assessment not found.</p>
-        <Link href="/institution/student/assessment" className="text-blue-2 text-sm hover:underline">Back to assessments</Link>
+        <Link href="/institution/student/skills?tab=assess" className="text-blue-2 text-sm hover:underline">Back to assessments</Link>
       </PortalShell>
     );
   }
@@ -78,7 +78,7 @@ export default function AssessmentRunnerPage({ params }: { params: Promise<{ id:
       userRole={`${currentStudent.department} · Year ${currentStudent.year}`}
       breadcrumbs={[
         { label: "Student", href: "/institution/student" },
-        { label: "Skill Assessment", href: "/institution/student/assessment" },
+        { label: "Skills", href: "/institution/student/skills?tab=assess" },
         { label: def.title },
       ]}
     >
@@ -234,10 +234,10 @@ export default function AssessmentRunnerPage({ params }: { params: Promise<{ id:
             <Button variant="outline" onClick={() => { setStage("intro"); setAnswers({}); setCurrent(0); setFlagged(new Set()); setSecondsLeft(def.duration * 60); }}>
               <RotateCcw className="h-4 w-4" /> Retake
             </Button>
-            <Link href="/institution/student/skill-passport">
+            <Link href="/institution/student/skills?tab=passport">
               <Button variant="primary">View Updated Skill Passport</Button>
             </Link>
-            <Link href="/institution/student/assessment">
+            <Link href="/institution/student/skills?tab=assess">
               <Button variant="ghost"><ArrowLeft className="h-4 w-4" /> All Assessments</Button>
             </Link>
           </div>

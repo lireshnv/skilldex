@@ -15,6 +15,21 @@ const nextConfig: NextConfig = {
       { source: "/industry/company/hackathons", destination: "/industry/company/opportunities", permanent: true },
       { source: "/institution/student/internships", destination: "/institution/student/opportunities", permanent: true },
       { source: "/institution/student/jobs", destination: "/institution/student/opportunities", permanent: true },
+
+      // Student portal deep IA consolidation (Overview/Skills/Career/Opportunities/Growth/Community)
+      { source: "/institution/student/skill-passport", destination: "/institution/student/skills", permanent: true },
+      { source: "/institution/student/assessment", destination: "/institution/student/skills", permanent: true },
+      { source: "/institution/student/skill-graph", destination: "/institution/student/skills?tab=graph", permanent: true },
+      { source: "/institution/student/career-paths", destination: "/institution/student/career", permanent: true },
+      { source: "/institution/student/eligibility", destination: "/institution/student/career", permanent: true },
+      { source: "/institution/student/companies", destination: "/institution/student/career", permanent: true },
+      { source: "/institution/student/applications", destination: "/institution/student/opportunities?tab=applications", permanent: true },
+      { source: "/institution/student/daily-plan", destination: "/institution/student/growth", permanent: true },
+      { source: "/institution/student/learning", destination: "/institution/student/growth", permanent: true },
+      { source: "/institution/student/projects", destination: "/institution/student/growth", permanent: true },
+      { source: "/institution/student/interview-prep", destination: "/institution/student/growth", permanent: true },
+      { source: "/institution/student/alumni", destination: "/institution/student/community", permanent: true },
+      { source: "/institution/student/leaderboard", destination: "/institution/student/community", permanent: true },
     ];
   },
 };

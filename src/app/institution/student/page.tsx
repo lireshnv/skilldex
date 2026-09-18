@@ -74,7 +74,7 @@ export default function StudentDashboard() {
           <p className="text-sm text-muted-foreground">Your career journey, powered by SkillDex.</p>
         </div>
         <Link
-          href="/institution/student/leaderboard"
+          href="/institution/student/community"
           className="flex items-center gap-1.5 rounded-full border border-amber/30 bg-amber-light px-3.5 py-1.5 text-xs font-semibold text-amber hover:border-amber/50 transition-colors"
         >
           <Flame className="h-3.5 w-3.5" /> {streak > 0 ? `${streak}-day streak` : "Start your streak"}
@@ -122,10 +122,10 @@ export default function StudentDashboard() {
               </p>
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
-              <Link href="/institution/student/daily-plan">
+              <Link href="/institution/student/growth">
                 <Button variant="primary" size="sm">Start Practice</Button>
               </Link>
-              <Link href="/institution/student/skill-passport">
+              <Link href="/institution/student/skills">
                 <Button variant="outline" size="sm">View Plan</Button>
               </Link>
             </div>
@@ -203,13 +203,13 @@ export default function StudentDashboard() {
       </div>
 
       <div className="mt-6">
-        <AIInsight actionLabel="Explore Skill Graph" onAction={() => router.push("/institution/student/skill-graph")}>
+        <AIInsight actionLabel="Explore Skill Graph" onAction={() => router.push("/institution/student/skills?tab=graph")}>
           Your <strong>Python</strong> and <strong>Data Structures</strong> skills connect to 3 strong project matches and 6 open roles at companies actively hiring this month.
         </AIInsight>
       </div>
 
       <div className="mt-6 flex justify-end">
-        <Link href="/institution/student/skill-graph" className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-2 hover:underline">
+        <Link href="/institution/student/skills?tab=graph" className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-2 hover:underline">
           Explore your full Skill Graph <ArrowRight className="h-4 w-4" />
         </Link>
       </div>

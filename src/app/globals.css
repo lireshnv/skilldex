@@ -4,8 +4,11 @@
   --background: #f7f8fa;
   --surface: #ffffff;
   --surface-muted: #f1f3f6;
+  --surface-elevated: #ffffff;
+  --surface-interactive: #f1f3f6;
   --foreground: #12182b;
   --muted-foreground: #5b6478;
+  --muted-foreground-2: #8a92a3;
   --border: #e4e7ee;
   --border-strong: #d3d8e4;
 
@@ -35,12 +38,55 @@
   --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.12);
 }
 
+/* Dark portal theme — applied per-portal via data-theme="dark" on the
+   PortalShell root (currently: student portal only, as the first rollout).
+   Every existing component already reads these same custom properties
+   through Tailwind's @theme inline mapping below, so this one block
+   re-themes the whole component library without touching each component. */
+[data-theme="dark"] {
+  --background: #050607;
+  --surface: #0a0c0f;
+  --surface-muted: #0e1115;
+  --surface-elevated: #12161b;
+  --surface-interactive: #171c22;
+  --foreground: #f5f7fa;
+  --muted-foreground: #a4abb5;
+  --muted-foreground-2: #6f7782;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  --brand-navy: #0e1420;
+  --brand-navy-2: #171f30;
+  --brand-blue: #5b8def;
+  --brand-blue-2: #6ea8ff;
+  --brand-blue-light: rgba(91, 141, 239, 0.14);
+  --brand-sky: #38bdf8;
+
+  --accent-emerald: #34d399;
+  --accent-emerald-light: rgba(52, 211, 153, 0.14);
+  --accent-amber: #fbbf24;
+  --accent-amber-light: rgba(251, 191, 36, 0.14);
+  --accent-rose: #f87171;
+  --accent-rose-light: rgba(248, 113, 113, 0.14);
+  --accent-violet: #a78bfa;
+  --accent-violet-light: rgba(167, 139, 250, 0.14);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+
+  color-scheme: dark;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
   --color-surface-muted: var(--surface-muted);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-interactive: var(--surface-interactive);
   --color-foreground: var(--foreground);
   --color-muted-foreground: var(--muted-foreground);
+  --color-muted-foreground-2: var(--muted-foreground-2);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
 
@@ -127,5 +173,17 @@ body {
 .bg-dot-grid {
   background-image: radial-gradient(rgba(18, 24, 43, 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
+}
+
+[data-theme="dark"] .glass-panel {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] .glow-card:hover {
+  box-shadow: 0 12px 30px -10px rgba(91, 141, 239, 0.25), 0 4px 12px -2px rgba(0, 0, 0, 0.3);
+  border-color: rgba(110, 168, 255, 0.35);
+}
+[data-theme="dark"] .bg-dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
 }
 

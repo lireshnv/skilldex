@@ -32,7 +32,7 @@ export default function CompanyDetailPage({ params }: { params: Promise<{ id: st
       userRole={`${currentStudent.department} · Year ${currentStudent.year}`}
       breadcrumbs={[
         { label: "Student", href: "/institution/student" },
-        { label: "Company Explorer", href: "/institution/student/companies" },
+        { label: "Career", href: "/institution/student/career" },
         { label: company.name },
       ]}
     >
@@ -134,7 +134,7 @@ export default function CompanyDetailPage({ params }: { params: Promise<{ id: st
               <CardHeader><CardTitle className="flex items-center gap-1.5"><Users className="h-4 w-4 text-violet" /> Alumni at {company.name}</CardTitle></CardHeader>
               <CardContent className="space-y-3">
                 {relatedAlumni.length > 0 ? relatedAlumni.map((a) => (
-                  <Link key={a.id} href="/institution/student/alumni" className="flex items-center gap-2.5 text-sm hover:text-blue-2">
+                  <Link key={a.id} href="/institution/student/community" className="flex items-center gap-2.5 text-sm hover:text-blue-2">
                     <ShieldCheck className="h-3.5 w-3.5 text-emerald" /> {a.name} — {a.role}
                   </Link>
                 )) : <p className="text-xs text-muted-foreground">No alumni experiences shared yet.</p>}

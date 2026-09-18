@@ -1,10 +1,9 @@
 import {
-  LayoutDashboard, IdCard, ClipboardCheck, Share2, BookOpen, CalendarClock,
-  FolderKanban, Briefcase, FileStack, MessageSquareText,
-  Video, Users, Route, Building2, Bell, Settings, Lightbulb, FlaskConical,
-  HeartHandshake, Users2, TrendingUp, Network,
+  LayoutDashboard, IdCard, Briefcase, FileStack, FolderKanban,
+  Users, Building2, Bell, Lightbulb, FlaskConical,
+  HeartHandshake, Users2, TrendingUp, Network, Route,
   UserSearch, PlusCircle, KanbanSquare, CalendarCheck2, Rocket,
-  BadgeCheck, LineChart, School, GitBranch, Flame,
+  LineChart, School, GitBranch,
 } from "lucide-react";
 
 export interface NavItem {
@@ -24,39 +23,13 @@ export interface NavGroup {
 }
 
 export const studentNav: NavGroup[] = [
-  { label: "Workspace", items: [
-    { label: "Dashboard", href: "/institution/student", icon: LayoutDashboard },
-  ] },
-  { label: "My Skills", items: [
-    { label: "Skill Passport", href: "/institution/student/skill-passport", icon: IdCard },
-    { label: "Skill Assessment", href: "/institution/student/assessment", icon: ClipboardCheck },
-    { label: "Skill Graph", href: "/institution/student/skill-graph", icon: Share2 },
-  ] },
-  { label: "Career", items: [
-    { label: "Career Paths", href: "/institution/student/career-paths", icon: Route },
-    { label: "Company Explorer", href: "/institution/student/companies", icon: Building2 },
-    { label: "Eligibility", href: "/institution/student/eligibility", icon: BadgeCheck },
-  ] },
-  { label: "Opportunities", items: [
-    { label: "Opportunities", href: "/institution/student/opportunities", icon: Briefcase },
-    { label: "Applications", href: "/institution/student/applications", icon: ClipboardCheck },
-  ] },
-  { label: "Learn & Build", items: [
-    { label: "Daily Plan", href: "/institution/student/daily-plan", icon: CalendarClock },
-    { label: "Learning", href: "/institution/student/learning", icon: BookOpen },
-    { label: "Projects", href: "/institution/student/projects", icon: FolderKanban },
-  ] },
-  { label: "Prepare", items: [
-    { label: "Interview Prep", href: "/institution/student/interview-prep", icon: MessageSquareText },
-    { label: "Mock Interview", href: "/institution/student/mock-interview", icon: Video },
-  ] },
-  { label: "Community", items: [
-    { label: "Alumni & Mentors", href: "/institution/student/alumni", icon: Users },
-    { label: "Leaderboard", href: "/institution/student/leaderboard", icon: Flame },
-  ] },
   { label: "", items: [
-    { label: "Notifications", href: "/institution/student/notifications", icon: Bell },
-    { label: "Settings", href: "/institution/student/settings", icon: Settings },
+    { label: "Overview", href: "/institution/student", icon: LayoutDashboard },
+    { label: "Skills", href: "/institution/student/skills", icon: IdCard },
+    { label: "Career", href: "/institution/student/career", icon: Route },
+    { label: "Opportunities", href: "/institution/student/opportunities", icon: Briefcase },
+    { label: "Growth", href: "/institution/student/growth", icon: TrendingUp },
+    { label: "Community", href: "/institution/student/community", icon: Users },
   ] },
 ];
 
