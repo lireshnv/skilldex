@@ -3,8 +3,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import {
-  Target, TrendingUp, IdCard, ClipboardCheck, ArrowRight, CalendarClock,
-  Video, FileStack, Users, Sparkles, MapPin, Clock, Flame,
+  Target, TrendingUp, IdCard, ClipboardCheck, ArrowRight, FileStack,
+  Presentation, Sparkles, MapPin, Clock, Flame,
   GraduationCap,
 } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
@@ -34,12 +34,17 @@ const colorClassMap: Record<string, string> = {
   emerald: "bg-emerald-light text-emerald",
 };
 
+// Events tied to a real company/person (interviews, deadlines, alumni talks)
+// show that company's monogram instead of a generic pictogram — the same
+// "real identity over generic icon" fix applied to job cards. Only
+// abstract, no-single-entity events (an assessment, a workshop) keep an
+// icon, and even those get a warmer, more specific glyph than a clock/file.
 const upcoming = [
-  { type: "Assessment", title: "System Design Fundamentals", date: "2026-09-14", icon: ClipboardCheck, color: "blue" },
-  { type: "Interview", title: "TCS Software Engineer — Technical Round", date: "2026-09-16", icon: Video, color: "violet" },
-  { type: "Deadline", title: "Razorpay SDE Internship applications close", date: "2026-09-18", icon: FileStack, color: "rose" },
-  { type: "Workshop", title: "Cloud Architecture Bootcamp", date: "2026-09-20", icon: CalendarClock, color: "amber" },
-  { type: "Alumni Session", title: "Interview experiences at Google", date: "2026-09-22", icon: Users, color: "emerald" },
+  { type: "Assessment", title: "System Design Fundamentals", date: "2026-09-14", kind: "icon" as const, icon: ClipboardCheck, color: "blue" },
+  { type: "Interview", title: "TCS Software Engineer — Technical Round", date: "2026-09-16", kind: "company" as const, company: "TCS", color: "#5b8def" },
+  { type: "Deadline", title: "Razorpay SDE Internship applications close", date: "2026-09-18", kind: "company" as const, company: "Razorpay", color: "#f87171" },
+  { type: "Workshop", title: "Cloud Architecture Bootcamp", date: "2026-09-20", kind: "icon" as const, icon: Presentation, color: "amber" },
+  { type: "Alumni Session", title: "Interview experiences at Google", date: "2026-09-22", kind: "company" as const, company: "Google", color: "#34d399" },
 ];
 
 export default function StudentDashboard() {
@@ -152,9 +157,13 @@ export default function StudentDashboard() {
             <StaggerGrid className="space-y-3">
               {upcoming.map((u) => (
                 <StaggerItem key={u.title} className="flex items-start gap-3">
-                  <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius-sm)] ${colorClassMap[u.color]}`}>
-                    <u.icon className="h-4 w-4" />
-                  </div>
+                  {u.kind === "company" ? (
+                    <CompanyLogo name={u.company} color={u.color} size={32} className="rounded-full ring-1 ring-white/10" />
+                  ) : (
+                    <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ring-1 ring-white/10 ${colorClassMap[u.color]}`}>
+                      <u.icon className="h-4 w-4" />
+                    </div>
+                  )}
                   <div className="min-w-0 flex-1">
                     <p className="text-xs font-medium text-muted-foreground">{u.type}</p>
                     <p className="truncate text-sm font-medium text-foreground">{u.title}</p>
