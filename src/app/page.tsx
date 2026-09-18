@@ -108,11 +108,21 @@ export default function LandingPage() {
           <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--sd-text-faint)]">
             Skill Intelligence Platform
           </p>
-          <h1 className="max-w-3xl text-[clamp(2.5rem,8vw,5.5rem)] font-semibold leading-[1.02] tracking-tight text-[var(--sd-text)]">
-            Three ecosystems.
-            <br />
-            One connected skill network.
-          </h1>
+          <div className="relative max-w-2xl">
+            <h1
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 text-[clamp(2rem,5.5vw,3.75rem)] font-semibold leading-[1.12] tracking-tight text-[var(--sd-accent)] opacity-25 blur-2xl select-none"
+            >
+              Three ecosystems.
+              <br />
+              One connected skill network.
+            </h1>
+            <h1 className="relative bg-gradient-to-b from-[var(--sd-text)] to-[var(--sd-text)]/80 bg-clip-text text-[clamp(2rem,5.5vw,3.75rem)] font-semibold leading-[1.12] tracking-tight text-transparent">
+              Three ecosystems.
+              <br />
+              One connected skill network.
+            </h1>
+          </div>
           <p className="mt-7 max-w-xl text-base leading-relaxed text-[var(--sd-text-muted)] sm:text-lg">
             Students build skills. Institutions develop talent. Industry needs capability.
             <br className="hidden sm:block" />
