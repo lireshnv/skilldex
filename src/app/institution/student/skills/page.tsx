@@ -1,6 +1,6 @@
 "use client";
 import { Suspense, useState } from "react";
-import { Award, FolderKanban, Briefcase, ClipboardCheck, Sparkles, ShieldCheck, Search, Clock, BarChart3 } from "lucide-react";
+import { Award, FolderKanban, Briefcase, ClipboardCheck, Sparkles, ShieldCheck, Search, Clock, BarChart3, TrendingUp } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +13,7 @@ import { SkillBar } from "@/components/skill-bar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Dialog } from "@/components/ui/dialog";
 import { SkillGraphPanel } from "@/components/skill-graph-panel";
-import { currentStudent, skillName, skillById, projectsByStudent, resultsByStudent, assessmentById, assessmentDefs } from "@/lib/data";
+import { currentStudent, skillName, skillById, projectsByStudent, resultsByStudent, assessmentById, assessmentDefs, discoverSkillsFor } from "@/lib/data";
 import { useMemo } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -43,6 +43,7 @@ function StudentSkillsPageInner() {
   const activeSkill = whyOpen ? currentStudent.skills.find((s) => s.skillId === whyOpen) : null;
   const resultMap = new Map(results.map((r) => [r.assessmentId, r]));
   const topSkills = [...currentStudent.skills].sort((a, b) => b.confidence - a.confidence).slice(0, 6);
+  const discovered = discoverSkillsFor(currentStudent, projects);
 
   const filteredAssessments = useMemo(() => {
     return assessmentDefs.filter((a) => (category === "All" || a.category === category) && a.title.toLowerCase().includes(query.toLowerCase()));
@@ -89,6 +90,27 @@ function StudentSkillsPageInner() {
               </CardContent>
             </Card>
           </div>
+
+          {discovered.length > 0 && (
+            <Card className="mt-6">
+              <CardContent className="p-5">
+                <p className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
+                  <Sparkles className="h-4 w-4 text-blue-2" /> Skills Discovered
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">Not on your skill list yet — but your activity already shows them.</p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {discovered.map((d) => (
+                    <div key={d.label} className="rounded-[var(--radius-md)] border border-border p-3">
+                      <p className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
+                        <TrendingUp className="h-3.5 w-3.5 text-emerald" /> {d.label}
+                      </p>
+                      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{d.evidence}</p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </TabsContent>
 
         {/* ---------- PASSPORT ---------- */}

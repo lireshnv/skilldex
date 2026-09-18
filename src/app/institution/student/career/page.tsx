@@ -16,18 +16,31 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { currentStudent, skillName, companies, jobs, companyById } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
+// "fit" is deliberately not a hardcoded literal — every path's fit is
+// computed below from the viewing student's actual skill confidence
+// against that path's required skills, so it means the same thing (and
+// changes the same way) as every other match score in the product.
 const paths = [
-  { id: "sde", title: "Software Engineering", icon: Code2, fit: 82, required: ["sk-dsa", "sk-system-design", "sk-java"], transferable: ["Problem Solving", "Logical Thinking"], learning: ["Advanced DSA", "System Design Bootcamp"] },
-  { id: "data", title: "Data Analytics", icon: BarChart3, fit: 74, required: ["sk-sql", "sk-data-analytics", "sk-excel"], transferable: ["Attention to Detail", "Storytelling"], learning: ["Power BI Certification", "Statistics for Analytics"] },
-  { id: "pm", title: "Product Management", icon: Boxes, fit: 61, required: ["sk-productmgmt", "sk-communication", "sk-leadership"], transferable: ["Communication", "Prioritization"], learning: ["Product Thinking Workshop", "Case Study Practice"] },
-  { id: "design", title: "UI/UX Design", icon: Palette, fit: 55, required: ["sk-uiux", "sk-figma"], transferable: ["Empathy", "Visual Thinking"], learning: ["Figma Fundamentals", "Design Systems Course"] },
-  { id: "cyber", title: "Cybersecurity", icon: ShieldAlert, fit: 48, required: ["sk-cyber", "sk-cn"], transferable: ["Analytical Thinking"], learning: ["Network Security Basics", "Ethical Hacking 101"] },
-  { id: "consulting", title: "Consulting", icon: Briefcase, fit: 58, required: ["sk-consulting", "sk-communication"], transferable: ["Presentation", "Structured Thinking"], learning: ["Case Interview Prep", "Business Fundamentals"] },
-  { id: "writing", title: "Technical Writing", icon: PenTool, fit: 52, required: ["sk-communication", "sk-critical-thinking"], transferable: ["Clarity", "Research"], learning: ["Technical Writing Certification"] },
-  { id: "entrepreneurship", title: "Entrepreneurship", icon: Rocket, fit: 45, required: ["sk-leadership", "sk-productmgmt"], transferable: ["Risk-taking", "Resourcefulness"], learning: ["Startup Bootcamp", "Fundraising Basics"] },
-  { id: "research", title: "Research", icon: FlaskConical, fit: 50, required: ["sk-ml", "sk-critical-thinking"], transferable: ["Curiosity", "Rigor"], learning: ["Research Methods", "Academic Writing"] },
-  { id: "ops", title: "Operations", icon: Settings2, fit: 47, required: ["sk-supplychain", "sk-excel"], transferable: ["Organization", "Process Thinking"], learning: ["Operations Management Basics"] },
+  { id: "sde", title: "Software Engineering", icon: Code2, required: ["sk-dsa", "sk-system-design", "sk-java"], transferable: ["Problem Solving", "Logical Thinking"], learning: ["Advanced DSA", "System Design Bootcamp"] },
+  { id: "data", title: "Data Analytics", icon: BarChart3, required: ["sk-sql", "sk-data-analytics", "sk-excel"], transferable: ["Attention to Detail", "Storytelling"], learning: ["Power BI Certification", "Statistics for Analytics"] },
+  { id: "pm", title: "Product Management", icon: Boxes, required: ["sk-productmgmt", "sk-communication", "sk-leadership"], transferable: ["Communication", "Prioritization"], learning: ["Product Thinking Workshop", "Case Study Practice"] },
+  { id: "design", title: "UI/UX Design", icon: Palette, required: ["sk-uiux", "sk-figma"], transferable: ["Empathy", "Visual Thinking"], learning: ["Figma Fundamentals", "Design Systems Course"] },
+  { id: "cyber", title: "Cybersecurity", icon: ShieldAlert, required: ["sk-cyber", "sk-cn"], transferable: ["Analytical Thinking"], learning: ["Network Security Basics", "Ethical Hacking 101"] },
+  { id: "consulting", title: "Consulting", icon: Briefcase, required: ["sk-consulting", "sk-communication"], transferable: ["Presentation", "Structured Thinking"], learning: ["Case Interview Prep", "Business Fundamentals"] },
+  { id: "writing", title: "Technical Writing", icon: PenTool, required: ["sk-communication", "sk-critical-thinking"], transferable: ["Clarity", "Research"], learning: ["Technical Writing Certification"] },
+  { id: "entrepreneurship", title: "Entrepreneurship", icon: Rocket, required: ["sk-leadership", "sk-productmgmt"], transferable: ["Risk-taking", "Resourcefulness"], learning: ["Startup Bootcamp", "Fundraising Basics"] },
+  { id: "research", title: "Research", icon: FlaskConical, required: ["sk-ml", "sk-critical-thinking"], transferable: ["Curiosity", "Rigor"], learning: ["Research Methods", "Academic Writing"] },
+  { id: "ml", title: "Machine Learning Engineering", icon: FlaskConical, required: ["sk-ml", "sk-python", "sk-dl"], transferable: ["Analytical Thinking", "Problem Solving"], learning: ["Deep Learning Specialization", "MLOps Fundamentals"] },
+  { id: "ops", title: "Operations", icon: Settings2, required: ["sk-supplychain", "sk-excel"], transferable: ["Organization", "Process Thinking"], learning: ["Operations Management Basics"] },
 ];
+
+// Average confidence across a path's required skills — 0 for any skill the
+// student hasn't demonstrated at all. Same "explainable score" spirit as
+// the company/job match badges elsewhere, applied to career paths.
+function computeFit(required: string[], skillMap: Map<string, number>): number {
+  const total = required.reduce((sum, id) => sum + (skillMap.get(id) ?? 0), 0);
+  return Math.round(total / required.length);
+}
 
 const rules = [
   { label: "Minimum CGPA", value: "6.0", met: currentStudent.cgpa >= 6.0 },
@@ -41,8 +54,13 @@ const industries = ["All Industries", ...Array.from(new Set(companies.map((c) =>
 const skillIds = new Set(currentStudent.skills.map((s) => s.skillId));
 
 export default function StudentCareerPage() {
-  const [activePath, setActivePath] = useState(paths[0]);
-  const skillMap = new Map(currentStudent.skills.map((s) => [s.skillId, s.confidence]));
+  const skillMap = useMemo(() => new Map(currentStudent.skills.map((s) => [s.skillId, s.confidence])), []);
+  const pathsWithFit = useMemo(
+    () => [...paths].map((p) => ({ ...p, fit: computeFit(p.required, skillMap) })).sort((a, b) => b.fit - a.fit),
+    [skillMap]
+  );
+  const [activePathId, setActivePathId] = useState(pathsWithFit[0].id);
+  const activePath = pathsWithFit.find((p) => p.id === activePathId)!;
 
   const [query, setQuery] = useState("");
   const [industry, setIndustry] = useState("All Industries");
@@ -93,8 +111,8 @@ export default function StudentCareerPage() {
         <TabsContent value="roadmap">
           <div className="grid gap-6 lg:grid-cols-3">
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:col-span-2 lg:grid-cols-3">
-              {paths.map((p) => (
-                <button key={p.id} onClick={() => setActivePath(p)} className="text-left cursor-pointer">
+              {pathsWithFit.map((p) => (
+                <button key={p.id} onClick={() => setActivePathId(p.id)} className="text-left cursor-pointer">
                   <Card className={cn("h-full p-4 transition-all", activePath.id === p.id ? "border-blue shadow-[var(--shadow-md)] bg-blue-light/30" : "hover:border-blue/30")}>
                     <div className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-sm)] bg-navy text-white">
                       <p.icon className="h-4.5 w-4.5" />
