@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { Search, MessageCircleQuestion, UserPlus, Handshake, ShieldCheck, Flame, Trophy, Medal, Award } from "lucide-react";
 import { PortalShell } from "@/components/layout/portal-shell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { KpiCard } from "@/components/ui/kpi-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input, Select } from "@/components/ui/input";
@@ -135,39 +136,9 @@ export default function StudentCommunityPage() {
         {/* ---------- LEADERBOARD ---------- */}
         <TabsContent value="leaderboard">
           <div className="mb-6 grid gap-4 sm:grid-cols-3">
-            <Card className="p-5">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] bg-amber-light text-amber">
-                  <Flame className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-xs font-medium text-muted-foreground">Current Streak</p>
-                  <p className="text-2xl font-bold tracking-tight text-foreground">{streak} <span className="text-sm font-medium text-muted-foreground">day{streak === 1 ? "" : "s"}</span></p>
-                </div>
-              </div>
-            </Card>
-            <Card className="p-5">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] bg-blue-light text-blue-2">
-                  <Trophy className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-xs font-medium text-muted-foreground">Longest Streak</p>
-                  <p className="text-2xl font-bold tracking-tight text-foreground">{longestStreak} <span className="text-sm font-medium text-muted-foreground">day{longestStreak === 1 ? "" : "s"}</span></p>
-                </div>
-              </div>
-            </Card>
-            <Card className="p-5">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-md)] bg-emerald-light text-emerald">
-                  <Medal className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-xs font-medium text-muted-foreground">Your Rank</p>
-                  <p className="text-2xl font-bold tracking-tight text-foreground">#{myRank} <span className="text-sm font-medium text-muted-foreground">of {ranked.length}</span></p>
-                </div>
-              </div>
-            </Card>
+            <KpiCard label="Current Streak" value={streak} suffix={streak === 1 ? " day" : " days"} icon={Flame} trendLabel="keep it going" />
+            <KpiCard label="Longest Streak" value={longestStreak} suffix={longestStreak === 1 ? " day" : " days"} icon={Trophy} trendLabel="personal best" />
+            <KpiCard label="Your Rank" value={`#${myRank}`} suffix={` of ${ranked.length}`} icon={Medal} trendLabel="verified progress" />
           </div>
 
           <Card>

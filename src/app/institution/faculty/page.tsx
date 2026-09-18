@@ -31,7 +31,7 @@ export default function FacultyDashboard() {
         eyebrow="Faculty Workspace"
         title="Faculty Intelligence Dashboard"
         subtitle={`Welcome back, ${currentFaculty.name.replace("Dr. ", "")}.`}
-        accent="#a78bfa"
+        accent="#6ea8ff"
       />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

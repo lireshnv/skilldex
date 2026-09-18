@@ -27,7 +27,7 @@ export default function RecruiterDashboard() {
         eyebrow="Recruiter Workspace"
         title="Talent Intelligence"
         subtitle="Discover, assess and hire verified talent across partner institutions."
-        accent="#38bdf8"
+        accent="#6ea8ff"
       />
 
       <StaggerGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

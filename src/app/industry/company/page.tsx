@@ -31,7 +31,7 @@ export default function CompanyDashboard() {
         eyebrow="Industry Workspace"
         title="Industry Collaboration Hub"
         subtitle="Discover talent ecosystems and build lasting academia partnerships."
-        accent="#fbbf24"
+        accent="#6ea8ff"
       />
 
       <StaggerGrid className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

@@ -82,7 +82,7 @@ export default function StudentDashboard() {
         eyebrow="Student Workspace"
         title={`Good morning, ${firstName} 👋`}
         subtitle="Your career journey, powered by SkillDex."
-        accent="#5b8def"
+        accent="#6ea8ff"
       >
         <Link
           href="/institution/student/community"

@@ -49,7 +49,7 @@ export default function PlacementDashboard() {
         eyebrow="Placement Cell"
         title="Placement Intelligence Command Center"
         subtitle="A real-time view of institutional placement readiness and outcomes."
-        accent="#34d399"
+        accent="#6ea8ff"
       />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
